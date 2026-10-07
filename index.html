@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#2c3e50" />
+  <meta name="description" content="Pandora's Box — an interactive book of AI agent behavioral models. Three archetypes, one framework." />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta property="og:title" content="Pandora's Box" />
+  <meta property="og:description" content="An interactive book of AI agent behavioral models. Three archetypes, one framework." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/icons/icon-512.png" />
+  <title>Pandora's Box</title>
+
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" href="/icons/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512.png" />
+  <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="PandoraBook" />
+
+  <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body>
+  <a class="skip-link" href="#app">Skip to content</a>
+  <!-- Loading screen -->
+  <div id="loader" role="status" aria-label="Loading Pandora's Box">
+    <div class="loader-mark" aria-hidden="true">◈</div>
+    <p class="loader-title">Pandora's Box</p>
+    <p class="loader-sub">Opening the archive…</p>
+  </div>
+
+  <!-- App shell -->
+  <div id="shell" hidden>
+    <header class="app-header">
+      <div class="header-inner">
+        <span class="brand-mark" aria-hidden="true">◈</span>
+        <div class="brand-text">
+          <h1 class="brand-title">Pandora's Box</h1>
+          <p class="brand-sub">AI Agent Behavioral Models</p>
+        </div>
+        <button id="installBtn" class="install-btn" hidden type="button">Install</button>
+      </div>
+      <nav class="top-nav" aria-label="Primary">
+        <a href="#/home" data-route="home" class="top-link">Overview</a>
+        <a href="#/framework" data-route="framework" class="top-link">Framework</a>
+        <a href="#/audit" data-route="audit" class="top-link">Audit</a>
+      </nav>
+    </header>
+
+    <main id="app" tabindex="-1" aria-live="polite">
+      <!-- Views are rendered here by /js/app.js -->
+    </main>
+
+    <nav class="bottom-nav" aria-label="Sections">
+      <a href="#/home" data-route="home" class="bottom-link" aria-label="Home">
+        <span class="bottom-icon" aria-hidden="true">⌂</span>
+        <span class="bottom-label">Home</span>
+      </a>
+      <a href="#/agents" data-route="agents" class="bottom-link" aria-label="Agents">
+        <span class="bottom-icon" aria-hidden="true">◈</span>
+        <span class="bottom-label">Agents</span>
+      </a>
+      <a href="#/compare" data-route="compare" class="bottom-link" aria-label="Compare">
+        <span class="bottom-icon" aria-hidden="true">⇄</span>
+        <span class="bottom-label">Compare</span>
+      </a>
+      <a href="#/glossary" data-route="glossary" class="bottom-link" aria-label="Glossary">
+        <span class="bottom-icon" aria-hidden="true">≡</span>
+        <span class="bottom-label">Glossary</span>
+      </a>
+      <a href="#/search" data-route="search" class="bottom-link" aria-label="Search">
+        <span class="bottom-icon" aria-hidden="true">⚲</span>
+        <span class="bottom-label">Search</span>
+      </a>
+    </nav>
+  </div>
+
+  <noscript>
+    <div class="noscript">
+      <h1>Pandora's Box</h1>
+      <p>This interactive book requires JavaScript. Please enable it to read the archive.</p>
+    </div>
+  </noscript>
+
+  <script src="/js/app.js" defer></script>
+  <script>
+    // Register the service worker for offline support
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/sw.js').catch(function (err) {
+          console.warn('Service worker registration failed:', err);
+        });
+      });
+    }
+  </script>
+</body>
+</html>
