@@ -5,7 +5,12 @@
  *
  * Features:
  *  1. Hash-based router: #/home, #/agents, #/agent/:code, #/framework,
- *     #/sitemap, #/compare, #/glossary, #/search, #/audit, #/changelog
+ *     #/sitemap, #/compare, #/glossary, #/search, #/audit, #/changelog,
+ *     #/saved (all routes stable; only the navigation presentation changed).
+ *     Task-oriented IA: Discover (Home dashboard), Explore (Agent profiles),
+ *     Compare (side-by-side tool), Learn (Framework + Glossary combined entry),
+ *     Saved (bookmarks). Search lives in the header; Audit, Site Map and
+ *     Changelog live in a "More" overflow menu.
  *  2. Home view: hero, dimensional axes cards, agent overview, quick stats
  *  3. Agents list view: cards for TDI / TJI / NDI with status badges
  *  4. Agent detail view: tabbed interface
@@ -16,8 +21,8 @@
  *  7. Search view: full-text search with keyword highlighting
  *  8. Audit view: audit summary + findings table
  *  9. Offline support: redesigned fallback page with cached-section list + SW cache probe
- * 10. Reading progress: visited-section tracking via localStorage
- * 11. Share: Web Share API on agent dossiers with clipboard fallback + toast
+ * 10. Exploration progress: visited-section tracking via localStorage
+ * 11. Share: Web Share API on agent profiles with clipboard fallback + toast
  * 12. "What's New" changelog view and full sitemap
  * 13. Engagement-aware install banner (benefits, dismissal memory)
  * 14. Interactive tools: bookmarks ("Saved" view), scroll progress bar,
@@ -57,7 +62,7 @@
  * ------------------------------------------------------------------ */
 
 var CONTENT_URL   = 'data/content.json';
-var LS_PROGRESS   = 'pandorabook.progress.v1';   // reading-progress store
+var LS_PROGRESS   = 'pandorabook.progress.v1';   // progress-tracking store
 var LS_COMPARE    = 'pandorabook.compare.v1';     // compare-view selections
 var LS_SAVED      = 'pandorabook.saved.v1';       // bookmarked sections [{key,title,hash}]
 var LS_FONT       = 'pandorabook.fontsize.v1';    // text size: 's' | 'm' | 'l'
@@ -149,7 +154,7 @@ var App = {
 };
 
 /* ------------------------------------------------------------------ *
- *  Reading progress (localStorage)
+ *  Progress tracking (localStorage)
  * ------------------------------------------------------------------ */
 
 function loadProgress() {
@@ -352,6 +357,53 @@ function go(hash) {
   }
 }
 
+/** Signature of the last painted view. The view-enter transition replays
+ *  only when this changes — keystroke re-renders (search/glossary) keep
+ *  the same signature, so typing never replays the transition. */
+var lastViewSig = null;
+
+/** Restart the fade+slide view-enter animation on #app (W0 motion).
+ *  Removing + re-adding the class with a forced reflow replays keyframes. */
+function playViewEnter(root) {
+  if (!root) return;
+  root.classList.remove('view-enter');
+  void root.offsetWidth; /* reflow so the animation restarts */
+  root.classList.add('view-enter');
+}
+
+/** Count [data-count] integers up to their final value (W6 motion).
+ *  Progressive enhancement: the markup already holds the final value,
+ *  so no-JS and reduced-motion users see it instantly. */
+function animateCounters() {
+  var els = document.querySelectorAll('#app [data-count]');
+  if (!els.length) return;
+  var reduce = window.matchMedia &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  for (var i = 0; i < els.length; i++) {
+    (function (el) {
+      var target = parseInt(el.getAttribute('data-count'), 10);
+      if (!isFinite(target)) return;
+      if (reduce) { el.textContent = String(target); return; }
+      var dur = 850, t0 = -1;
+      function frame(ts) {
+        if (t0 < 0) t0 = ts;
+        var p = Math.min(1, (ts - t0) / dur);
+        var eased = 1 - Math.pow(1 - p, 3); /* easeOutCubic */
+        el.textContent = String(Math.round(target * eased));
+        if (p < 1) requestAnimationFrame(frame);
+        else el.textContent = String(target);
+      }
+      requestAnimationFrame(frame);
+    })(els[i]);
+  }
+}
+
+/** Emit data-count="N" for finite numeric stats (drives animateCounters).
+ *  Non-numeric values ("2 / 3", "—") render plainly with no animation. */
+function countAttr(n) {
+  return (typeof n === 'number' && isFinite(n)) ? ' data-count="' + n + '"' : '';
+}
+
 function route() {
   var r = parseHash();
   markVisited(r.name + (r.param ? '/' + r.param : ''));
@@ -359,13 +411,21 @@ function route() {
   var root = $(APP_ROOT_ID);
   if (!root) return;
 
+  // View-transition gating (W0): replay the entrance only on a real
+  // view change, not on same-view re-renders (keystrokes, toggles).
+  var sig = r.view + '|' + r.param;
+  var viewChanged = (sig !== lastViewSig);
+  lastViewSig = sig;
+
   if (App.loading) {
     root.innerHTML = loadingView();
+    if (viewChanged) playViewEnter(root);
     return;
   }
   if (App.dataError || !App.data) {
     root.innerHTML = offlineView(App.dataError);
     probeCacheStatus();
+    if (viewChanged) playViewEnter(root);
     window.scrollTo(0, 0);
     return;
   }
@@ -387,6 +447,7 @@ function route() {
 
   afterRender(r);
   resetReadProgress();
+  if (viewChanged) { playViewEnter(root); animateCounters(); }
   window.scrollTo(0, 0);
 }
 
@@ -506,6 +567,8 @@ function afterRender(r) {
       });
     })(jumps[j]);
   }
+  // Agent explorer toolbar (live client-side filter/sort).
+  wireAgentsExplorer();
 }
 
 /* ------------------------------------------------------------------ *
@@ -519,29 +582,48 @@ function renderShell() {
   if (root && App.loading) root.innerHTML = loadingView();
 }
 
+/** Legacy nav-link set (kept for a dynamic #nav container if one is ever
+ *  added back). Mirrors the task-oriented primary nav: 5 intent items. */
 var NAV_LINKS = [
-  { hash: '#/home',     label: 'Home',     icon: '⌂' },
-  { hash: '#/agents',   label: 'Agents',    icon: '◈' },
-  { hash: '#/compare',  label: 'Compare',   icon: '⇄' },
-  { hash: '#/glossary', label: 'Glossary',  icon: '≣' },
-  { hash: '#/search',   label: 'Search',    icon: '⌕' },
-  { hash: '#/audit',    label: 'Audit',     icon: '✓' },
+  { hash: '#/home',     label: 'Home',    icon: '⌂' },
+  { hash: '#/agents',   label: 'Agents',  icon: '◈' },
+  { hash: '#/compare',  label: 'Compare', icon: '⇄' },
+  { hash: '#/framework', label: 'Learn',  icon: '⬡' },
+  { hash: '#/saved',    label: 'Saved',   icon: '★' },
 ];
 
+/**
+ * Task-oriented information architecture.
+ * Every view maps to one navigation *intent* (not necessarily its own link):
+ *  - home            -> Discover (Home)
+ *  - agents/agentDetail -> Explore (Agents)
+ *  - compare         -> Compare
+ *  - framework/glossary -> Learn (Framework + Glossary combined entry;
+ *                         the Learn tab links to #/framework)
+ *  - saved           -> Saved (bookmarks)
+ *  - search          -> header search control
+ *  - audit/sitemap/changelog -> "More" overflow menu
+ * No routes were removed or renamed — this only changes how the nav
+ * presents them, so every existing deep link keeps working.
+ */
+var VIEW_INTENT = {
+  home: 'home', agents: 'agents', agentDetail: 'agents',
+  framework: 'learn', glossary: 'learn',
+  compare: 'compare', saved: 'saved', search: 'search',
+  audit: 'more', sitemap: 'more', changelog: 'more'
+};
+/** Which views live inside the "More" overflow menu. */
+var MORE_VIEW_HASHES = { audit: '#/audit', sitemap: '#/sitemap', changelog: '#/changelog' };
+
 function renderNav(activeName) {
-  // Update active states on the static shell navs (top-nav + bottom-nav).
-  // Maps view names to their hash routes.
-  var viewToHash = {
-    home: '#/home', agents: '#/agents', agentDetail: '#/agents',
-    framework: '#/framework', sitemap: '#/sitemap', compare: '#/compare',
-    glossary: '#/glossary', search: '#/search', audit: '#/audit',
-    changelog: '#/changelog', saved: '#/saved'
-  };
-  var activeHash = viewToHash[activeName] || '#/home';
-  var links = document.querySelectorAll('.top-link, .bottom-link');
+  // Update active states on the static shell navs (top-nav + bottom-nav +
+  // header search + More button/menu). Intent-based: e.g. an agent detail
+  // page highlights "Agents"; the glossary highlights "Learn".
+  var intent = VIEW_INTENT[activeName] || 'home';
+  var links = document.querySelectorAll('.top-link, .bottom-link, .header-link');
   for (var i = 0; i < links.length; i++) {
-    var href = links[i].getAttribute('href');
-    if (href === activeHash) {
+    var linkIntent = links[i].getAttribute('data-intent');
+    if (linkIntent === intent) {
       links[i].classList.add('active');
       links[i].setAttribute('aria-current', 'page');
     } else {
@@ -549,11 +631,41 @@ function renderNav(activeName) {
       links[i].removeAttribute('aria-current');
     }
   }
+  // Header search control.
+  var searchCtl = document.querySelector('.header-search');
+  if (searchCtl) {
+    var searchActive = (intent === 'search');
+    searchCtl.classList.toggle('active', searchActive);
+    if (searchActive) searchCtl.setAttribute('aria-current', 'page');
+    else searchCtl.removeAttribute('aria-current');
+  }
+  // "More" overflow: highlight the button when the active view is inside it,
+  // and aria-current the matching menu item.
+  var moreBtn = $('moreBtn');
+  var moreActive = (intent === 'more');
+  if (moreBtn) {
+    moreBtn.classList.toggle('active', moreActive);
+    if (moreActive) moreBtn.setAttribute('aria-current', 'page');
+    else moreBtn.removeAttribute('aria-current');
+  }
+  var activeMoreHash = MORE_VIEW_HASHES[activeName];
+  var moreLinks = document.querySelectorAll('.more-link');
+  for (var j = 0; j < moreLinks.length; j++) {
+    var match = activeMoreHash && moreLinks[j].getAttribute('data-hash') === activeMoreHash;
+    moreLinks[j].classList.toggle('active', !!match);
+    if (match) moreLinks[j].setAttribute('aria-current', 'page');
+    else moreLinks[j].removeAttribute('aria-current');
+  }
   // Legacy: also support a dynamic #nav container if present.
   var nav = $(NAV_ID);
   if (nav && typeof NAV_LINKS !== 'undefined') {
+    var activeHashMap = {
+      home: '#/home', agents: '#/agents', compare: '#/compare',
+      learn: '#/framework', saved: '#/saved', search: '#/search'
+    };
+    var target = activeHashMap[intent] || '#/home';
     var html = NAV_LINKS.map(function (l) {
-      var isActive = (l.hash === activeHash);
+      var isActive = (l.hash === target);
       return '<a href="' + l.hash + '" class="nav-link' + (isActive ? ' active' : '') + '">' +
         '<span class="nav-icon">' + l.icon + '</span><span class="nav-label">' + l.label + '</span></a>';
     }).join('');
@@ -561,18 +673,60 @@ function renderNav(activeName) {
   }
 }
 
+/** Wire the header "More" overflow menu: toggle, outside-click + Escape close. */
+function wireMoreMenu() {
+  var btn = $('moreBtn');
+  var menu = $('moreMenu');
+  if (!btn || !menu) return;
+  function setOpen(open) {
+    menu.hidden = !open;
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  btn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    setOpen(menu.hidden);
+  });
+  // Choosing an item navigates away (hashchange re-renders); just close.
+  menu.addEventListener('click', function () { setOpen(false); });
+  document.addEventListener('click', function (e) {
+    if (!menu.hidden && !menu.contains(e.target) && e.target !== btn && !btn.contains(e.target)) {
+      setOpen(false);
+    }
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !menu.hidden) {
+      setOpen(false);
+      btn.focus();
+    }
+  });
+}
+
 function loadingView() {
-  return '<div class="center-wrap"><div class="spinner"></div>' +
-    '<p class="muted">Loading PandoraBook content…</p></div>';
+  // Skeleton shimmer (W4): the data-loading state feels like the app
+  // launching, not a dead spinner. role=status keeps it announced.
+  var cards = '';
+  for (var i = 0; i < 3; i++) {
+    cards += '<div class="skeleton-card">' +
+      '<div class="skeleton skeleton-line" style="width:34%"></div>' +
+      '<div class="skeleton skeleton-line" style="width:92%"></div>' +
+      '<div class="skeleton skeleton-line" style="width:78%"></div>' +
+      '<div class="skeleton skeleton-line" style="width:64%"></div></div>';
+  }
+  return '<div class="page-skeleton" role="status" aria-label="Loading PandoraBook content">' +
+    '<div class="skeleton skeleton-hero"></div>' +
+    '<div class="skeleton-grid">' + cards + '</div>' +
+    '<p class="muted small">Loading PandoraBook content…</p>' +
+  '</div>';
 }
 
 function offlineView(errMsg) {
   var sections = [
     { hash: '#/home', icon: '⌂', label: 'Home' },
     { hash: '#/agents', icon: '◈', label: 'Agents' },
-    { hash: '#/framework', icon: '⬡', label: 'Framework' },
     { hash: '#/compare', icon: '⇄', label: 'Compare' },
+    { hash: '#/framework', icon: '⬡', label: 'Learn' },
     { hash: '#/glossary', icon: '≡', label: 'Glossary' },
+    { hash: '#/saved', icon: '★', label: 'Saved' },
     { hash: '#/search', icon: '⚲', label: 'Search' },
     { hash: '#/audit', icon: '✓', label: 'Audit' },
     { hash: '#/changelog', icon: '✦', label: "What's New" },
@@ -589,9 +743,9 @@ function offlineView(errMsg) {
     (errMsg ? ' <span class="small">(' + esc(errMsg) + ')</span>' : '') + '.</p>' +
     '<button class="btn btn-primary" type="button" onclick="location.reload()">↻ Retry connection</button></div>' +
     '<h2 class="section-title">Available offline</h2>' +
-    '<p class="muted small">Once the archive has loaded at least once, every section below works without a connection.</p>' +
+    '<p class="muted small">Once the library has loaded at least once, every section below works without a connection.</p>' +
     '<div class="offline-grid">' + grid + '</div>' +
-    '<p class="muted small">Your reading progress is saved on this device and will resume when the content loads.</p>' +
+    '<p class="muted small">Your progress is saved on this device and will resume when the content loads.</p>' +
     '<p class="muted small" id="cache-status" aria-live="polite">Checking cached content…</p>' +
     '</div>';
 }
@@ -601,7 +755,7 @@ function probeCacheStatus() {
   var el = document.getElementById('cache-status');
   function done(text) { if (el) el.textContent = text; }
   if (!('serviceWorker' in navigator) || !navigator.serviceWorker.controller) {
-    done('Tip: install the app once while online and the whole archive works offline.');
+    done('Tip: install the app once while online and the whole library works offline.');
     return;
   }
   try {
@@ -609,11 +763,11 @@ function probeCacheStatus() {
     mc.port1.onmessage = function (e) {
       var s = (e.data && e.data.status) || {};
       if (s.data) {
-        done('Good news: the full archive is cached — reconnect once to unlock every section offline.');
+        done('Good news: the full library is cached — reconnect once to unlock every section offline.');
       } else if (s.shell) {
-        done('App shell is cached. Reconnect once to download the archive for offline reading.');
+        done('App shell is cached. Reconnect once to download the library for offline use.');
       } else {
-        done('Nothing cached yet. Reconnect to download the archive.');
+        done('Nothing cached yet. Reconnect to download the library.');
       }
     };
     navigator.serviceWorker.controller.postMessage({ type: 'CACHE_STATUS' }, [mc.port2]);
@@ -642,6 +796,17 @@ function statusBadge(status) {
  *  Long tables render the first N rows with a "Show all" toggle. */
 var tableSeq = 0;
 var TABLE_COLLAPSE_AT = 5;
+var TABLE_COLLAPSE_AT_MOBILE = 4; // tighter default on phones: less wall-of-text
+
+/** Default rows-before-collapse: fewer on mobile so long tables stay scannable. */
+function defaultCollapseAt() {
+  try {
+    if (window.matchMedia && window.matchMedia('(max-width: 767.98px)').matches) {
+      return TABLE_COLLAPSE_AT_MOBILE;
+    }
+  } catch (e) {}
+  return TABLE_COLLAPSE_AT;
+}
 
 function tableRowHtml(cols, row, i) {
   return '<tr class="' + (i % 2 ? 'row-alt' : '') + '">' + cols.map(function (c) {
@@ -662,7 +827,7 @@ function table(cols, rows, opts) {
   var caption = '<caption class="table-caption">' + rows.length +
     (rows.length === 1 ? ' row' : ' rows') + ' documented</caption>';
 
-  var collapseAt = (opts.collapse === false) ? rows.length : (opts.collapseAt || TABLE_COLLAPSE_AT);
+  var collapseAt = (opts.collapse === false) ? rows.length : (opts.collapseAt || defaultCollapseAt());
   var headRows = rows.slice(0, collapseAt);
   var tailRows = rows.slice(collapseAt);
 
@@ -752,7 +917,7 @@ function utilBar(r) {
       'aria-pressed="' + (active ? 'true' : 'false') + '" aria-label="' + label + ' text size">' +
       glyph + '</button>';
   }
-  return '<div class="util-bar" role="toolbar" aria-label="Reading tools">' +
+  return '<div class="util-bar" role="toolbar" aria-label="Page tools">' +
     '<a class="util-link" href="#/saved">&#9733; Saved <span class="util-count">' +
       savedCount() + '</span></a>' +
     '<div class="fs-group" role="group" aria-label="Text size">' +
@@ -808,7 +973,7 @@ function copyTextToClipboard(text, onOk, onFail) {
   }
 }
 
-/* ---------------- Reading progress bar ---------------- */
+/* ---------------- Scroll progress bar ---------------- */
 
 var progressTicking = false;
 
@@ -916,37 +1081,65 @@ function homeSearchGo(e) {
   return false;
 }
 
+/** Global handler for the app-bar search field (inline onsubmit).
+ *  Routes to the existing search view, preserving its query param contract. */
+function headerSearchGo(e) {
+  if (e && e.preventDefault) e.preventDefault();
+  var input = document.getElementById('headerSearchInput');
+  var q = input ? input.value : '';
+  go('#/search?q=' + encodeURIComponent(q || ''));
+  return false;
+}
+
 /** Prominent search bar rendered at the top of the home page. */
 function homeSearchBar() {
   return '<form class="home-search" role="search" onsubmit="return homeSearchGo(event)">' +
     '<span class="search-icon" aria-hidden="true">&#8981;</span>' +
     '<input class="home-search-input" id="homeSearchInput" type="search" ' +
       'placeholder="Search traits, states, terms&hellip; e.g. &ldquo;core desire&rdquo;, &ldquo;savior mode&rdquo;" ' +
-      'aria-label="Search the archive" autocomplete="off">' +
+      'aria-label="Search the library" autocomplete="off">' +
     '<button class="btn btn-primary" type="submit">Search</button></form>';
 }
 
-/** "Start Here" guided 3-step path for new users. */
+/** "Getting Started" checklist card for new users. Done states are driven by
+ *  the user's own progress (App.progress) so it doubles as a guide. */
 function homeStartHere() {
-  return section('start', 'Start Here — New to the Archive?',
-    '<p class="muted">A three-step path that takes you from the framework to a full agent dossier.</p>' +
-    '<ol class="start-steps">' +
-      '<li class="start-step"><span class="start-num" aria-hidden="true">1</span>' +
-        '<div><a href="#/framework"><strong>Learn the framework</strong></a>' +
-        '<p class="muted small">Three binary axes &mdash; temporal focus, coping architecture, relational worldview &mdash; generate all eight type codes.</p></div></li>' +
-      '<li class="start-step"><span class="start-num" aria-hidden="true">2</span>' +
-        '<div><a href="#/agents"><strong>Meet the three profiles</strong></a>' +
-        '<p class="muted small">TDI &middot; TJI &middot; NDI &mdash; complete dossiers with states, triggers, and communication playbooks.</p></div></li>' +
-      '<li class="start-step"><span class="start-num" aria-hidden="true">3</span>' +
-        '<div><a href="#/compare"><strong>Compare side by side</strong></a>' +
-        '<p class="muted small">Confusion risks and key distinctions &mdash; learn to tell the types apart fast.</p></div></li>' +
-    '</ol>');
+  return section('start', 'Getting Started', homeStartHereInner());
 }
 
-/** Visual diagram of the three dimensional axes (poles on a track). */
+/** Inner markup of the Getting Started card (no section wrapper), so the
+ *  dashboard can compose it inside a widget. */
+function homeStartHereInner() {
+  var steps = [
+    { route: 'framework', href: '#/framework', title: 'Learn the framework',
+      blurb: 'Three binary axes \u2014 temporal focus, coping architecture, relational worldview \u2014 generate all eight type codes.' },
+    { route: 'agents', href: '#/agents', title: 'Meet the three profiles',
+      blurb: 'TDI \u00b7 TJI \u00b7 NDI \u2014 complete profiles with states, triggers, and communication playbooks.' },
+    { route: 'compare', href: '#/compare', title: 'Compare side by side',
+      blurb: 'Confusion risks and key distinctions \u2014 learn to tell the types apart fast.' },
+  ];
+  var items = steps.map(function (s, i) {
+    var done = !!(App.progress && App.progress[s.route]);
+    return '<li class="start-step' + (done ? ' done' : '') + '">' +
+      '<span class="start-num" aria-hidden="true">' + (done ? '&#10003;' : (i + 1)) + '</span>' +
+      '<div><a href="' + s.href + '"><strong>' + esc(s.title) + '</strong></a>' +
+      '<p class="muted small">' + esc(s.blurb) + '</p></div></li>';
+  }).join('');
+  return '<p class="muted">A three-step path that takes you from the framework to a full agent profile.</p>' +
+    '<ol class="start-steps checklist snap-x">' + items + '</ol>';
+}
+
+/** Visual diagram of the three dimensional axes (poles on a track).
+ *  Keeps its original signature for compatibility. */
 function homeFrameworkDiagram(dims) {
+  return section('dimensions', 'Dimensional Framework', homeFrameworkInner(dims));
+}
+
+/** Inner markup of the framework card (no section wrapper), presented as an
+ *  interactive widget: the whole diagram links to the full taxonomy. */
+function homeFrameworkInner(dims) {
   if (!dims.length) return '';
-  var diagram = '<div class="framework-diagram">' + dims.map(function (dim) {
+  var diagram = '<div class="framework-diagram snap-x">' + dims.map(function (dim) {
     var poles = dim.poles || [];
     return '<div class="axis">' +
       '<span class="axis-code">' + esc(dim.code || '') + '</span>' +
@@ -958,13 +1151,16 @@ function homeFrameworkDiagram(dims) {
       '<p class="axis-name">' + esc(dim.dimension || dim.name || '') + '</p>' +
       '<p class="muted small axis-fn">' + esc(dim.function || dim.description || '') + '</p></div>';
   }).join('') + '</div>';
-  return section('dimensions', 'Dimensional Framework',
+  return '<a class="framework-widget" href="#/framework" aria-label="Open the full dimensional framework">' +
     diagram +
     '<p class="muted small">Each axis is a binary pole &mdash; combining all three gives the eight type codes. ' +
-    'This edition profiles the three Idealist-branch types. <a href="#/framework">Open the full taxonomy &rarr;</a></p>');
+    'This edition profiles the three Idealist-branch types.</p>' +
+    '<span class="framework-cta">Open the interactive taxonomy &rarr;</span></a>';
 }
 
-/** Richer agent card for the home page: key traits + state count + theming. */
+/** Richer agent card for the home page: key traits + state count + theming.
+ *  Dashboard presentation: header row, trait list, and a footer with the
+ *  user's own exploration count for this profile. */
 function homeAgentCard(agent) {
   var code = esc(agent.code || '?');
   var ident = {};
@@ -981,19 +1177,29 @@ function homeAgentCard(agent) {
       : '';
   }).join('');
   var stateCount = (agent.states || []).length;
-  return '<a class="card agent-card home-agent-card" data-agent="' + String(agent.code || '').toLowerCase() +
+  var visits = (App.progress && App.progress['agentDetail/' + String(agent.code || '')])
+    ? App.progress['agentDetail/' + String(agent.code || '')].visits : 0;
+  return '<a class="card agent-card home-agent-card dash-agent-card" data-agent="' + String(agent.code || '').toLowerCase() +
     '" href="#/agent/' + code + '">' +
     '<div class="agent-card-top"><span class="agent-code">' + code + '</span>' +
     statusBadge(agent.status) + '</div>' +
     '<h3>' + esc(agent.name || code) + '</h3>' +
     '<p class="muted small">' + esc(agent.archetype || '') + '</p>' +
     '<div class="agent-traits">' + traitHtml + '</div>' +
-    '<p class="muted small">' + stateCount + ' behavioral states documented</p>' +
-    '<span class="card-link">Open full dossier &rarr;</span></a>';
+    '<div class="dash-agent-foot">' +
+      '<span class="muted small">' + stateCount + ' behavioral states' +
+        (visits > 0 ? ' &middot; explored ' + visits + '&times;' : '') + '</span>' +
+      '<span class="card-link">Open profile &rarr;</span>' +
+    '</div></a>';
 }
 
-/** "Popular Topics" quick-link chips that jump straight into search. */
+/** "Trending Topics" quick-link chips that jump straight into search. */
 function homePopularTopics(glossaryCount) {
+  return section('topics', 'Trending Topics', homeTopicsInner(glossaryCount));
+}
+
+/** Inner markup of the topics card (no section wrapper) for dashboard composition. */
+function homeTopicsInner(glossaryCount) {
   var topics = [
     'Core desire', 'Primary defense', 'Savior mode',
     'Social dispersion', 'Emotional invisibility', 'Confusion risks'
@@ -1001,10 +1207,137 @@ function homePopularTopics(glossaryCount) {
   var chips = topics.map(function (t) {
     return '<a class="topic-chip" href="#/search?q=' + encodeURIComponent(t) + '">' + esc(t) + '</a>';
   }).join('');
-  return section('topics', 'Popular Topics',
-    '<div class="popular-topics">' + chips + '</div>' +
+  return '<div class="popular-topics snap-x">' + chips + '</div>' +
     '<p class="muted small">Or browse the <a href="#/glossary">full glossary</a> (' + glossaryCount +
-    ' terms) and the <a href="#/compare">confusion-risk table</a>.</p>');
+    ' terms) and the <a href="#/compare">confusion-risk table</a>.</p>';
+}
+
+/* ------------------------------------------------------------------ *
+ *  Home dashboard helpers
+ * ------------------------------------------------------------------ */
+
+/** Friendly title + hash for a visited route key like "agentDetail/TDI". */
+function recentRouteMeta(key) {
+  var slash = key.indexOf('/');
+  var name = slash === -1 ? key : key.slice(0, slash);
+  var param = slash === -1 ? '' : key.slice(slash + 1);
+  var titles = {
+    home: 'Home', agents: 'Agent Profiles', framework: 'Dimensional Framework',
+    sitemap: 'Sitemap', compare: 'Compare Types', glossary: 'Glossary',
+    search: 'Search', audit: 'Audit Report', changelog: 'Changelog', saved: 'Saved'
+  };
+  var hashes = {
+    home: '#/home', agents: '#/agents', framework: '#/framework',
+    sitemap: '#/sitemap', compare: '#/compare', glossary: '#/glossary',
+    search: '#/search', audit: '#/audit', changelog: '#/changelog', saved: '#/saved'
+  };
+  if (name === 'agentDetail') {
+    var agents = (App.data && App.data.agents) || [];
+    var found = null;
+    for (var i = 0; i < agents.length; i++) {
+      if (String(agents[i].code) === param) { found = agents[i]; break; }
+    }
+    return {
+      title: found ? String(found.name || param) : 'Agent ' + param,
+      sub: found ? 'Agent profile \u00b7 ' + String(param) : 'Agent profile',
+      hash: '#/agent/' + param
+    };
+  }
+  return {
+    title: titles[name] || String(name),
+    sub: 'Library section',
+    hash: hashes[name] || '#/home'
+  };
+}
+
+/** Visited route keys, newest first (excludes the home page itself).
+ *  markVisited() always runs before viewHome, so 'home' is always present. */
+function recentKeys() {
+  var p = App.progress || {};
+  var keys = Object.keys(p).filter(function (k) { return k !== 'home'; });
+  keys.sort(function (a, b) {
+    return ((p[b] && p[b].last) || 0) - ((p[a] && p[a].last) || 0);
+  });
+  return keys;
+}
+
+/** Quick stats as dashboard metric cards (same data as the old "At a Glance"). */
+function homeMetrics(agents, glossaryCount) {
+  var stateTotal = agents.reduce(function (n, a) { return n + ((a.states || []).length); }, 0);
+  var completeCount = agents.filter(function (a) {
+    return String(a.status || '').toLowerCase() === 'complete';
+  }).length;
+  var items = [
+    { n: agents.length, count: agents.length, label: 'Agent profiles', icon: '\u25C8', href: '#/agents' },
+    { n: stateTotal, count: stateTotal, label: 'Behavioral states', icon: '\u2B21', href: '#/agents' },
+    { n: glossaryCount, count: glossaryCount, label: 'Glossary terms', icon: '\u270E', href: '#/glossary' },
+    { n: completeCount + ' / ' + agents.length, count: null, label: 'Complete profiles', icon: '\u2714', href: '#/agents' },
+  ];
+  var cards = items.map(function (s) {
+    return '<a class="metric-card" href="' + s.href + '">' +
+      '<span class="metric-icon" aria-hidden="true">' + s.icon + '</span>' +
+      '<span class="metric-value"' + countAttr(s.count) + '>' + esc(s.n) + '</span>' +
+      '<span class="metric-label">' + esc(s.label) + '</span></a>';
+  }).join('');
+  return '<div class="metrics-grid">' + cards + '</div>';
+}
+
+/** "Continue exploring" — the reader's most recent sections as cards. */
+function homeContinueExploring() {
+  var keys = recentKeys();
+  if (!keys.length) return '';
+  var cards = keys.slice(0, 4).map(function (k) {
+    var m = recentRouteMeta(k);
+    var v = App.progress[k] || {};
+    var visits = v.visits || 1;
+    return '<a class="card continue-card" href="' + esc(m.hash) + '">' +
+      '<p class="continue-sub">' + esc(m.sub) + '</p>' +
+      '<h3>' + esc(m.title) + '</h3>' +
+      '<p class="muted small">' +
+        (visits === 1 ? 'Visited once' : 'Visited ' + visits + ' times') +
+        ' \u00b7 pick up where you left off</p>' +
+      '<span class="card-link">Continue &rarr;</span></a>';
+  }).join('');
+  return section('continue', 'Continue Exploring', '<div class="grid continue-grid">' + cards + '</div>');
+}
+
+/** "Recently viewed" — compact horizontal strip of the full visit history. */
+function homeRecentlyViewed() {
+  var keys = recentKeys();
+  if (!keys.length) return '';
+  var chips = keys.map(function (k) {
+    var m = recentRouteMeta(k);
+    return '<a class="recent-chip" href="' + esc(m.hash) + '">' + esc(m.title) + '</a>';
+  }).join('');
+  return section('recent', 'Recently Viewed', '<div class="recent-strip">' + chips + '</div>');
+}
+
+/** Library meta widget: version / audit pills + primary actions + progress. */
+function homeArchiveWidget(meta) {
+  var pills = '<div class="archive-pills">' +
+    '<span class="pill">v' + esc(meta.version || '1.0') + '</span>' +
+    '<span class="pill">' + esc(meta.auditDepth || '50,000x') + ' audited</span>' +
+    (meta.auditDate ? '<span class="pill">' + esc(meta.auditDate) + '</span>' : '') +
+    '</div>';
+  return '<div class="dash-widget archive-widget">' +
+    '<h2 class="dash-widget-title">Library</h2>' +
+    '<p class="muted small">' + esc(meta.kicker || 'AI Agent Modeling Dataset') + '</p>' +
+    pills +
+    '<div class="archive-actions">' +
+      '<a class="btn btn-primary" href="#/agents">Explore agents</a>' +
+      '<a class="btn" href="#/compare">Compare types</a>' +
+    '</div>' +
+    '<p class="muted small archive-progress">' + visitedCount() +
+    ' sections visited &middot; ' + savedCount() + ' saved</p>' +
+    '<p class="muted small"><a href="#/sitemap">Sitemap</a> &middot; ' +
+    '<a href="#/changelog">Changelog</a> &middot; <a href="#/audit">Audit report</a></p>' +
+    '</div>';
+}
+
+/** Dashboard widget wrapper: title + body. */
+function dashWidget(title, body, extraClass) {
+  return '<div class="dash-widget' + (extraClass ? ' ' + extraClass : '') + '">' +
+    '<h2 class="dash-widget-title">' + esc(title) + '</h2>' + body + '</div>';
 }
 
 function viewHome() {
@@ -1014,64 +1347,253 @@ function viewHome() {
   var agents = d.agents || [];
   var glossaryCount = (d.glossary || []).length;
 
-  var hero =
-    '<header class="hero">' +
-      '<p class="hero-kicker">' + esc(meta.kicker || 'AI Agent Modeling Dataset') + '</p>' +
-      '<h1>' + esc(meta.title || "Pandora's Box") + '</h1>' +
-      '<p class="hero-sub">' + esc(meta.subtitle || 'Advanced distinguishable data set for AI agent modeling.') + '</p>' +
+  // Compact welcome header: no giant book-title hero, search stays prominent.
+  var header =
+    '<header class="dash-header">' +
+      '<p class="dash-kicker">' + esc(meta.kicker || 'AI Agent Modeling Dataset') + '</p>' +
+      '<h1 class="dash-title">Explore behavioral models</h1>' +
+      '<p class="dash-sub">' + esc(meta.subtitle || 'Advanced distinguishable data set for AI agent modeling.') + '</p>' +
       homeSearchBar() +
-      '<div class="hero-meta">' +
-        '<span class="pill">v' + esc(meta.version || '1.0') + '</span>' +
-        '<span class="pill">' + esc(meta.auditDepth || '50,000x') + ' audited</span>' +
-        '<span class="pill">' + esc(meta.auditDate || '') + '</span>' +
-      '</div>' +
-      '<div class="hero-actions">' +
-        '<a class="btn btn-primary" href="#/agents">Explore agents</a>' +
-        '<a class="btn" href="#/compare">Compare types</a>' +
-      '</div>' +
     '</header>';
 
   var agentCards = agents.length
-    ? '<div class="grid grid-3">' + agents.map(homeAgentCard).join('') + '</div>'
+    ? '<div class="grid grid-3 snap-x">' + agents.map(homeAgentCard).join('') + '</div>'
     : '<p class="muted">No agent profiles in this build.</p>';
 
-  // More meaningful metrics: coverage, depth, and the reader's own progress.
-  var stateTotal = agents.reduce(function (n, a) { return n + ((a.states || []).length); }, 0);
-  var completeCount = agents.filter(function (a) {
-    return String(a.status || '').toLowerCase() === 'complete';
-  }).length;
-  var statItems = [
-    { n: agents.length, label: 'Agent profiles' },
-    { n: stateTotal, label: 'Behavioral states documented' },
-    { n: glossaryCount, label: 'Glossary terms' },
-    { n: completeCount + ' of ' + agents.length, label: 'Complete dossiers' },
-    { n: visitedCount(), label: 'Sections you visited' },
-  ];
-  var stats = '<div class="stats-row">' + statItems.map(function (s) {
-    return '<div class="stat"><div class="stat-num">' + esc(s.n) + '</div>' +
-      '<div class="stat-label">' + esc(s.label) + '</div></div>';
-  }).join('') + '</div>';
+  var hasHistory = recentKeys().length > 0;
 
-  return hero +
-    homeStartHere() +
-    homeFrameworkDiagram(dims) +
-    section('agents', 'Agent Profiles', agentCards) +
-    homePopularTopics(glossaryCount) +
-    section('stats', 'At a Glance', stats);
+  return '<div class="dash">' +
+    header +
+    homeMetrics(agents, glossaryCount) +
+    (hasHistory ? homeContinueExploring() : '') +
+    '<div class="dash-cols-2">' +
+      dashWidget('Getting Started', homeStartHereInner()) +
+      dashWidget('Dimensional Framework', homeFrameworkInner(dims), 'dash-widget-accent') +
+    '</div>' +
+    section('agents', 'Featured Agents', agentCards) +
+    '<div class="dash-cols-2">' +
+      dashWidget('Trending Topics', homeTopicsInner(glossaryCount)) +
+      homeArchiveWidget(meta) +
+    '</div>' +
+    (hasHistory ? homeRecentlyViewed() : '') +
+  '</div>';
 }
 
 /* ------------------------------------------------------------------ *
  *  VIEW: Agents list
  * ------------------------------------------------------------------ */
 
+/* ------------------------------------------------------------------ *
+ *  VIEW: Agents list ("Agent Explorer")
+ * ------------------------------------------------------------------ */
+
+/** Normalize an agent status to one of: complete | partial | other. */
+function agentStatusClass(agent) {
+  var s = String(agent.status || '').toLowerCase();
+  if (s.indexOf('complete') !== -1) return 'complete';
+  if (s.indexOf('partial') !== -1) return 'partial';
+  return 'other';
+}
+
+/** The 8 section datasets every agent profile tracks, in tab order.
+ *  Returns [{ id, rows }]. */
+function agentSectionRows(agent) {
+  return [
+    { id: 'identity',      rows: agent.identity },
+    { id: 'states',        rows: agent.states },
+    { id: 'communication', rows: agent.communication },
+    { id: 'escalation',    rows: agent.escalationLadder },
+    { id: 'triggers',      rows: agent.triggers },
+    { id: 'emotions',      rows: agent.emotionalSequence },
+    { id: 'resistance',    rows: agent.resistance },
+    { id: 'maintenance',   rows: agent.maintenance },
+  ];
+}
+
+/** Number of documented (non-empty) sections out of the 8 tabs. */
+function agentSectionsDone(agent) {
+  return agentSectionRows(agent).filter(function (s) {
+    return (s.rows || []).length > 0;
+  }).length;
+}
+
+/** Total data rows across all 8 sections. */
+function agentTotalRows(agent) {
+  return agentSectionRows(agent).reduce(function (n, s) {
+    return n + ((s.rows || []).length);
+  }, 0);
+}
+
+/** How many glossary terms reference this agent's code. Cached per code. */
+var glossaryRefCache = {};
+function glossaryRefCount(code) {
+  var c = String(code || '').toUpperCase();
+  if (glossaryRefCache[c] != null) return glossaryRefCache[c];
+  var terms = (App.data && App.data.glossary) || [];
+  var n = 0;
+  for (var i = 0; i < terms.length; i++) {
+    var t = terms[i];
+    var hay = [t.term, t.definition, t.simpleDefinition,
+      (t.relatedTerms || []).join(' ')].join(' ').toUpperCase();
+    if (hay.indexOf(c) !== -1) n++;
+  }
+  glossaryRefCache[c] = n;
+  return n;
+}
+
+/** Rich explorer card for the agents list: type color, quick stats,
+ *  and a data-completion bar. data-* attrs power the client-side
+ *  filter/sort wiring. */
+function explorerAgentCard(agent) {
+  var code = String(agent.code || '?');
+  var states = (agent.states || []).length;
+  var done = agentSectionsDone(agent);
+  var total = 8;
+  var rows = agentTotalRows(agent);
+  var glossaryRefs = glossaryRefCount(code);
+  var pct = Math.round((done / total) * 100);
+  var searchHay = (code + ' ' + (agent.name || '') + ' ' + (agent.archetype || '')).toLowerCase();
+  return '<a class="card explorer-card" data-agent="' + esc(code.toLowerCase()) + '"' +
+    ' data-status="' + agentStatusClass(agent) + '"' +
+    ' data-states="' + states + '"' +
+    ' data-rows="' + rows + '"' +
+    ' data-search="' + esc(searchHay) + '"' +
+    ' href="#/agent/' + esc(code) + '">' +
+    '<div class="explorer-card-top">' +
+      '<span class="agent-avatar" aria-hidden="true">' + esc(code.slice(0, 1)) + '</span>' +
+      '<span class="agent-code">' + esc(code) + '</span>' +
+      statusBadge(agent.status) +
+    '</div>' +
+    '<h3 class="explorer-name">' + esc(agent.name || code) + '</h3>' +
+    '<p class="muted small explorer-archetype">' + esc(agent.archetype || '') + '</p>' +
+    '<div class="explorer-stats">' +
+      '<div class="explorer-stat"><span class="explorer-stat-num">' + states + '</span>' +
+        '<span class="explorer-stat-label">states</span></div>' +
+      '<div class="explorer-stat"><span class="explorer-stat-num">' + done + '/' + total + '</span>' +
+        '<span class="explorer-stat-label">sections</span></div>' +
+      '<div class="explorer-stat"><span class="explorer-stat-num">' + rows + '</span>' +
+        '<span class="explorer-stat-label">data rows</span></div>' +
+      '<div class="explorer-stat"><span class="explorer-stat-num">' + glossaryRefs + '</span>' +
+        '<span class="explorer-stat-label">glossary</span></div>' +
+    '</div>' +
+    '<div class="completion-bar" role="img" aria-label="Profile ' + pct + ' percent documented">' +
+      '<span class="completion-fill" style="width:' + pct + '%"></span></div>' +
+    '<span class="card-link">Open profile &rarr;</span></a>';
+}
+
+/** Explorer toolbar: live search + status filter chips + sort control. */
+function agentsToolbar(agents) {
+  var counts = { complete: 0, partial: 0, other: 0 };
+  agents.forEach(function (a) {
+    var c = agentStatusClass(a);
+    if (counts[c] != null) counts[c]++;
+  });
+  function chip(value, label, n, active) {
+    return '<button type="button" class="chip' + (active ? ' active' : '') +
+      '" data-status-filter="' + value + '" aria-pressed="' +
+      (active ? 'true' : 'false') + '">' + esc(label) +
+      ' <span class="chip-count">' + n + '</span></button>';
+  }
+  return '<div class="explorer-toolbar">' +
+    '<div class="explorer-search-wrap"><span class="search-icon" aria-hidden="true">&#8981;</span>' +
+      '<input class="explorer-search" id="agents-q" type="search" autocomplete="off" ' +
+        'placeholder="Search agents — name, code, archetype&hellip;" aria-label="Search agent profiles"></div>' +
+    '<div class="explorer-chips" role="group" aria-label="Filter by status">' +
+      chip('all', 'All', agents.length, true) +
+      chip('complete', 'Complete', counts.complete, false) +
+      chip('partial', 'Partial', counts.partial, false) +
+    '</div>' +
+    '<label class="explorer-sort">Sort <select id="agents-sort" aria-label="Sort agent profiles">' +
+      '<option value="name-asc">Name A&ndash;Z</option>' +
+      '<option value="name-desc">Name Z&ndash;A</option>' +
+      '<option value="states-desc">Most states</option>' +
+      '<option value="rows-desc">Most data</option>' +
+    '</select></label>' +
+    '<p class="explorer-count muted small" id="agents-count" aria-live="polite"></p>' +
+  '</div>';
+}
+
 function viewAgents() {
   var agents = App.data.agents || [];
   var cards = agents.length
-    ? '<div class="grid grid-3">' + agents.map(agentCard).join('') + '</div>'
+    ? '<div class="agents-grid snap-x" id="agents-grid">' + agents.map(explorerAgentCard).join('') + '</div>'
     : '<p class="muted">No agent profiles in this build.</p>';
-  return '<header class="page-head"><h1>Agent Profiles</h1>' +
-    '<p class="muted">Three modeled archetypes from the Idealist branch. Select one for the full dossier.</p></header>' +
-    cards;
+  return '<header class="page-head"><h1>Agent Explorer</h1>' +
+    '<p class="muted">Every modeled archetype, searchable and sortable. Select one for the full profile.</p></header>' +
+    (agents.length ? agentsToolbar(agents) + cards : cards);
+}
+
+/** Wire the explorer toolbar: live client-side search/filter/sort.
+ *  No re-render — cards are filtered and reordered in place. */
+function wireAgentsExplorer() {
+  var grid = $('agents-grid');
+  var input = $('agents-q');
+  var sortSel = $('agents-sort');
+  if (!grid || !input) return;
+  var status = 'all';
+  var sort = 'name-asc';
+  var chips = document.querySelectorAll('[data-status-filter]');
+
+  function cardName(card) {
+    var h = card.querySelector('.explorer-name');
+    return h ? h.textContent : '';
+  }
+
+  function apply() {
+    var q = (input.value || '').toLowerCase().trim();
+    var cards = [];
+    var all = grid.querySelectorAll('.explorer-card');
+    for (var i = 0; i < all.length; i++) cards.push(all[i]);
+    var visible = 0;
+    for (var k = 0; k < cards.length; k++) {
+      var card = cards[k];
+      var okStatus = status === 'all' || card.getAttribute('data-status') === status;
+      var hay = card.getAttribute('data-search') || '';
+      var okSearch = !q || hay.indexOf(q) !== -1;
+      var show = okStatus && okSearch;
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    }
+    var vis = cards.filter(function (c) { return c.style.display !== 'none'; });
+    vis.sort(function (a, b) {
+      if (sort === 'name-desc') return cardName(b).localeCompare(cardName(a));
+      if (sort === 'states-desc') {
+        return parseInt(b.getAttribute('data-states'), 10) - parseInt(a.getAttribute('data-states'), 10);
+      }
+      if (sort === 'rows-desc') {
+        return parseInt(b.getAttribute('data-rows'), 10) - parseInt(a.getAttribute('data-rows'), 10);
+      }
+      return cardName(a).localeCompare(cardName(b));
+    });
+    for (var j = 0; j < vis.length; j++) grid.appendChild(vis[j]);
+    var count = $('agents-count');
+    if (count) {
+      count.textContent = visible === cards.length
+        ? 'Showing all ' + cards.length + ' profiles'
+        : 'Showing ' + visible + ' of ' + cards.length + ' profiles';
+    }
+  }
+
+  input.addEventListener('input', apply);
+  if (sortSel) {
+    sortSel.addEventListener('change', function () {
+      sort = sortSel.value || 'name-asc';
+      apply();
+    });
+  }
+  for (var i = 0; i < chips.length; i++) {
+    chips[i].addEventListener('click', function () {
+      var btn = this;
+      status = btn.getAttribute('data-status-filter');
+      for (var j = 0; j < chips.length; j++) {
+        var on = chips[j] === btn;
+        chips[j].classList.toggle('active', on);
+        chips[j].setAttribute('aria-pressed', on ? 'true' : 'false');
+      }
+      apply();
+    });
+  }
+  apply();
 }
 
 /* ------------------------------------------------------------------ *
@@ -1099,6 +1621,10 @@ function viewFramework() {
 
   return '<header class="page-head"><h1>Dimensional Framework</h1>' +
     '<p class="muted">Three binary axes define eight possible agent types. This edition profiles the Idealist branch.</p></header>' +
+    '<aside class="card learn-hub" aria-label="Learning hub">' +
+    '<p><strong>&#11042; Learning hub:</strong> this is the conceptual core of the library. ' +
+    'Pair it with the <a href="#/glossary">glossary</a> for definitions of every term used below, ' +
+    'or jump to <a href="#/agents">agent profiles</a> to see the model applied.</p></aside>' +
     '<h2>Core Axes</h2><div class="grid grid-3">' + dimCards + '</div>' +
     '<h2>Type Code Taxonomy</h2><div class="table-wrap"><table class="data-table">' +
     '<thead><tr><th>Code</th><th>Name</th><th>Status</th></tr></thead><tbody>' + codeRows + '</tbody></table></div>';
@@ -1156,9 +1682,13 @@ function tabIndexOf(tabId) {
   return 0;
 }
 
-/** "At a Glance" summary card: archetype, status, key traits, data coverage. */
+/** "At a Glance" highlight card: archetype, status, summary, key traits,
+ *  data coverage. Rendered at the top of the agent profile. */
 function glanceCard(agent) {
   var code = (agent.code || '').toLowerCase();
+  var exp = agent.expandedContent || {};
+  var summary = exp.simpleSummary
+    ? '<p class="glance-summary">' + esc(exp.simpleSummary) + '</p>' : '';
   var traits = (agent.identity || []).slice(0, 3).map(function (row) {
     return '<div class="glance-trait">' +
       '<span class="glance-trait-param">' + esc(row.parameter || '') + '</span>' +
@@ -1178,6 +1708,7 @@ function glanceCard(agent) {
 
   return '<section class="glance-card" data-agent="' + esc(code) + '" aria-label="At a glance">' +
     '<h2 class="glance-title">At a Glance</h2>' +
+    summary +
     '<div class="glance-row">' +
       '<div class="glance-fact"><span class="glance-label">Archetype</span>' +
         '<span class="glance-value">' + esc(agent.archetype || '—') + '</span></div>' +
@@ -1257,6 +1788,154 @@ function renderTabTakeaways(agent, tab) {
     '<div class="takeaways-body">' + seq + '</div></aside>';
 }
 
+/* ------------------------------------------------------------------ *
+ *  Agent detail: app-style profile components
+ * ------------------------------------------------------------------ */
+
+/** App-style breadcrumb: home + agents as pills, current agent as accent chip. */
+function breadcrumbsApp(items) {
+  var crumbs = items.map(function (item, i) {
+    var isLast = i === items.length - 1;
+    var cls = 'crumb-pill' + (isLast ? ' current' : '');
+    return '<li class="crumb-item">' + (isLast || !item.hash
+      ? '<span class="' + cls + '" aria-current="page">' + esc(item.label) + '</span>'
+      : '<a class="' + cls + '" href="' + esc(item.hash) + '">' + esc(item.label) + '</a>') +
+      '</li>';
+  }).join('<li class="crumb-sep" aria-hidden="true">›</li>');
+  return '<nav class="crumbs-app" aria-label="Breadcrumb"><ol>' + crumbs + '</ol></nav>';
+}
+
+/** Profile header card: avatar, name, codename, status badge, quick actions. */
+function profileHero(agent, bmKey, bmTitle, bmHash) {
+  var code = String(agent.code || '?');
+  var pending = agent.pendingSections || [];
+  return '<header class="profile-hero" data-agent="' + esc(code.toLowerCase()) + '">' +
+    '<div class="profile-hero-main">' +
+      '<span class="agent-avatar big" aria-hidden="true">' + esc(code.slice(0, 1)) + '</span>' +
+      '<div class="profile-hero-id">' +
+        '<div class="profile-code-row"><span class="agent-code big">' + esc(code) + '</span>' +
+          statusBadge(agent.status) + '</div>' +
+        '<h1 class="profile-name">' + esc(agent.name || code) + '</h1>' +
+        '<p class="muted profile-archetype">' + esc(agent.archetype || '') + '</p>' +
+        (pending.length
+          ? '<p class="pending-note" title="Sections not yet documented">' +
+            '&#9203; ' + pending.length + ' of 8 sections pending in this build</p>'
+          : '') +
+      '</div>' +
+    '</div>' +
+    '<div class="profile-actions">' +
+      '<button class="btn btn-primary btn-sm" type="button" ' +
+        'onclick="PandoraBook.shareAgent(\'' + esc(code) + '\')" aria-label="Share this agent profile">' +
+        '&#10548; Share</button>' +
+      bookmarkBtn(bmKey, bmTitle, bmHash) +
+      copyLinkBtn(bmHash, bmTitle) +
+      '<a class="btn btn-sm" href="#/compare">&#8646; Compare</a>' +
+      '<button type="button" class="btn btn-sm" data-print>&#128438; Print</button>' +
+    '</div>' +
+  '</header>';
+}
+
+/** Key metrics row: tappable tiles with live counts from the data. */
+function metricRow(agent) {
+  var code = String(agent.code || '?');
+  var done = agentSectionsDone(agent);
+  var states = (agent.states || []).length;
+  var identRows = (agent.identity || []).length;
+  var glossaryRefs = glossaryRefCount(code);
+  function m(num, label, hash) {
+    var inner = '<span class="metric-num">' + num + '</span>' +
+      '<span class="metric-label">' + esc(label) + '</span>';
+    return hash
+      ? '<a class="metric" href="' + esc(hash) + '">' + inner + '</a>'
+      : '<div class="metric">' + inner + '</div>';
+  }
+  return '<div class="metric-row" role="list" aria-label="Profile metrics">' +
+    m(states, 'behavioral states', '#/agent/' + encodeURIComponent(code) + '?tab=states') +
+    m(done + ' / 8', 'sections documented', null) +
+    m(identRows, 'identity parameters', '#/agent/' + encodeURIComponent(code) + '?tab=identity') +
+    m(glossaryRefs, 'glossary terms', '#/glossary?q=' + encodeURIComponent(code)) +
+  '</div>';
+}
+
+var TAB_ICONS = {
+  identity: '&#9673;', communication: '&#9993;', escalation: '&#9650;',
+  triggers: '&#9889;', emotions: '&#10084;', resistance: '&#128737;',
+  maintenance: '&#128736;', states: '&#9881;',
+};
+
+var TAB_DESCRIPTIONS = {
+  identity: 'Core parameters — what defines this type and how it shows up in behavior.',
+  states: 'The behavioral state machine, from baseline through escalation.',
+  communication: 'Channel-by-channel playbook: what works, what to say, what to avoid.',
+  escalation: 'How intensity ramps level by level, and the resistance signs to watch for.',
+  triggers: 'Documented trigger → response → recovery sequences.',
+  emotions: 'The emotional trigger sequence, in order.',
+  resistance: 'How this type pushes back — and the strategy that resolves it.',
+  maintenance: 'Ongoing requirements for keeping the dynamic healthy.',
+};
+
+/** Rows documented in one tab's dataset (drives the panel count chip). */
+function tabRowCount(agent, tab) {
+  var map = {
+    identity: agent.identity, states: agent.states,
+    communication: agent.communication, escalation: agent.escalationLadder,
+    triggers: agent.triggers, emotions: agent.emotionalSequence,
+    resistance: agent.resistance, maintenance: agent.maintenance,
+  };
+  return (map[tab] || []).length;
+}
+
+/** One tab as a modern panel: numbered header, description, count chip,
+ *  takeaways first (progressive disclosure), then the full content.
+ *  Long tables already collapse behind a "Show all" toggle. */
+function tabPanel(agent, tab, tabLabel, body, takeaways) {
+  var idx = tabIndexOf(tab) + 1;
+  var rows = tabRowCount(agent, tab);
+  var icon = TAB_ICONS[tab] || '&#9642;';
+  var desc = TAB_DESCRIPTIONS[tab] || '';
+  return '<section class="tab-panel" aria-labelledby="tab-panel-title">' +
+    '<div class="tab-panel-head">' +
+      '<span class="tab-panel-num" aria-hidden="true">' + idx + '</span>' +
+      '<div class="tab-panel-head-text">' +
+        '<h2 id="tab-panel-title" class="tab-panel-title">' +
+          '<span class="tab-icon" aria-hidden="true">' + icon + '</span> ' + esc(tabLabel) + '</h2>' +
+        (desc ? '<p class="muted small tab-panel-desc">' + desc + '</p>' : '') +
+      '</div>' +
+      (rows
+        ? '<span class="pill tab-panel-count">' + rows + ' documented</span>'
+        : '<span class="pill tab-panel-count pending">pending</span>') +
+    '</div>' +
+    takeaways +
+    '<div class="tab-panel-body">' + body + '</div>' +
+  '</section>';
+}
+
+/** Related agents: open the other profiles or jump to a preselected
+ *  side-by-side comparison (data-compare-pair is handled by wireInteractive). */
+function relatedAgents(agent) {
+  var agents = App.data.agents || [];
+  var others = agents.filter(function (a) { return a.code !== agent.code; });
+  if (!others.length) return '';
+  var code = String(agent.code || '?');
+  var cards = others.map(function (o) {
+    var ocode = String(o.code || '?');
+    return '<div class="rel-card" data-agent="' + esc(ocode.toLowerCase()) + '">' +
+      '<div class="rel-card-top"><span class="agent-avatar sm" aria-hidden="true">' +
+        esc(ocode.slice(0, 1)) + '</span>' +
+        '<span class="agent-code">' + esc(ocode) + '</span>' + statusBadge(o.status) + '</div>' +
+      '<p class="rel-name">' + esc(o.name || ocode) + '</p>' +
+      '<div class="rel-actions">' +
+        '<a class="btn btn-sm" href="#/agent/' + esc(ocode) + '">Open</a>' +
+        '<button type="button" class="btn btn-sm" data-compare-pair="' +
+          esc(code + '|' + ocode) + '">&#8646; Compare ' + esc(code) + ' vs ' + esc(ocode) + '</button>' +
+      '</div></div>';
+  }).join('');
+  return '<section class="related-agents" aria-label="Related agent profiles">' +
+    '<h2 class="section-title">Compare with</h2>' +
+    '<p class="muted small">Open another profile — or jump straight into a side-by-side comparison.</p>' +
+    '<div class="rel-grid">' + cards + '</div></section>';
+}
+
 function viewAgentDetail(code, tabFromQuery) {
   var agent = findAgent(code);
   if (!agent) {
@@ -1290,32 +1969,18 @@ function viewAgentDetail(code, tabFromQuery) {
   var bmTitle = agent.code + ' \u2014 ' + tabLabel;
   var bmHash = '#/agent/' + agent.code + '?tab=' + tab;
 
-  return breadcrumbs([
-      { label: 'Home', hash: '#/home' },
+  return breadcrumbsApp([
+      { label: '\u2302 Home', hash: '#/home' },
       { label: 'Agents', hash: '#/agents' },
       { label: agent.code + ' — ' + (agent.name || '') },
     ]) +
     '<div class="agent-detail" data-agent="' + esc(agentCode) + '">' +
-    '<header class="page-head agent-head">' +
-      '<a class="back-link" href="#/agents">← All agents</a>' +
-      '<div class="agent-head-row"><span class="agent-code big">' + esc(agent.code) + '</span>' +
-      statusBadge(agent.status) + '</div>' +
-      '<h1>' + esc(agent.name || agent.code) + '</h1>' +
-      '<p class="muted">' + esc(agent.archetype || '') + '</p>' +
-      '<div class="hero-actions"><button class="btn btn-small" type="button" ' +
-        'onclick="PandoraBook.shareAgent(\'' + esc(agent.code) + '\')" aria-label="Share this agent profile">' +
-        '⤴ Share profile</button>' +
-        bookmarkBtn(bmKey, bmTitle, bmHash) +
-        '<button type="button" class="btn btn-sm" data-copy-link ' +
-          'data-url="' + esc(absoluteHashUrl(bmHash)) + '" ' +
-          'aria-label="Copy link to this section: ' + esc(bmTitle) + '">' +
-          '&#10697; Copy section link</button>' +
-        '<button type="button" class="btn btn-sm" data-print>&#128438; Print</button>' +
-      '</div>' +
-    '</header>' +
+    profileHero(agent, bmKey, bmTitle, bmHash) +
     glanceCard(agent) +
+    metricRow(agent) +
     '<div class="tabs-wrap">' + tabProgressHtml(agent, tab) + tabsHtml + '</div>' +
-    '<div class="tab-body">' + body + takeaways + '</div>' +
+    '<div class="tab-body">' + tabPanel(agent, tab, tabLabel, body, takeaways) + '</div>' +
+    relatedAgents(agent) +
     prevNextAgent(agent) +
   '</div>';
 }
@@ -1467,7 +2132,7 @@ function viewCompare() {
   }
 
   /* ---------- at-a-glance cards ---------- */
-  var glanceHtml = '<div class="cmp-glance">' +
+  var glanceHtml = '<div class="cmp-glance snap-x">' +
     cmpGlanceCard(left) + cmpGlanceCard(right) + '</div>';
 
   /* ---------- comparison rows + diff stats ---------- */
@@ -2279,7 +2944,7 @@ function viewAudit() {
     { n: totals.moderate != null ? totals.moderate : '—', label: 'Moderate', cls: 'sev-moderate' },
     { n: totals.minor != null ? totals.minor : '—', label: 'Minor', cls: 'sev-minor' },
   ].map(function (s) {
-    return '<div class="stat"><div class="stat-num ' + (s.cls || '') + '">' + esc(s.n) + '</div>' +
+    return '<div class="stat"><div class="stat-num ' + (s.cls || '') + '"' + countAttr(s.n) + '>' + esc(s.n) + '</div>' +
       '<div class="stat-label">' + esc(s.label) + '</div></div>';
   }).join('') + '</div>';
 
@@ -2319,15 +2984,32 @@ function viewAudit() {
  * ------------------------------------------------------------------ */
 
 function viewSitemap() {
-  var pages = [
-    { hash: '#/home', label: 'Home', desc: 'Overview, framework diagram, stats' },
-    { hash: '#/agents', label: 'Agent Profiles', desc: 'All three agent archetypes' },
-    { hash: '#/framework', label: 'Dimensional Framework', desc: 'Core axes and type-code taxonomy' },
-    { hash: '#/compare', label: 'Compare', desc: 'Side-by-side dossier comparison' },
-    { hash: '#/glossary', label: 'Glossary', desc: 'Searchable term definitions' },
-    { hash: '#/search', label: 'Search', desc: 'Full-text search across the archive' },
-    { hash: '#/audit', label: 'Audit Report', desc: 'Findings, fixes, and known issues' },
-    { hash: '#/changelog', label: "What's New", desc: 'Version history and changelog' },
+  // Task-oriented IA groups: every route keeps working; this page just
+  // presents them by user intent instead of fixed content order.
+  var groups = [
+    { intent: 'Discover', rows: [
+      { hash: '#/home', label: 'Home', desc: 'Dashboard: hero, axes, agent overview, stats' },
+    ] },
+    { intent: 'Explore', rows: [
+      { hash: '#/agents', label: 'Agent Profiles', desc: 'All three agent archetypes' },
+    ] },
+    { intent: 'Compare', rows: [
+      { hash: '#/compare', label: 'Compare', desc: 'Side-by-side profile comparison' },
+    ] },
+    { intent: 'Learn', rows: [
+      { hash: '#/framework', label: 'Dimensional Framework', desc: 'Core axes and type-code taxonomy' },
+      { hash: '#/glossary', label: 'Glossary', desc: 'Searchable term definitions' },
+    ] },
+    { intent: 'Saved', rows: [
+      { hash: '#/saved', label: 'Saved', desc: 'Your bookmarked sections' },
+    ] },
+    { intent: 'Tools', rows: [
+      { hash: '#/search', label: 'Search', desc: 'Full-text search across the library' },
+    ] },
+    { intent: 'More', rows: [
+      { hash: '#/audit', label: 'Audit Report', desc: 'Findings, fixes, and known issues' },
+      { hash: '#/changelog', label: "What's New", desc: 'Version history and changelog' },
+    ] },
   ];
   function linkRow(l) {
     return '<a class="sitemap-row" href="' + esc(l.hash) + '">' +
@@ -2335,7 +3017,11 @@ function viewSitemap() {
       '<span class="sitemap-desc muted">' + esc(l.desc) + '</span>' +
       '<span class="sitemap-go" aria-hidden="true">→</span></a>';
   }
-  // Agent dossiers with deep links into every tab of the dossier.
+  function groupBlock(g) {
+    return '<h3 class="sitemap-intent">' + esc(g.intent) + '</h3>' +
+      '<div class="sitemap-list">' + g.rows.map(linkRow).join('') + '</div>';
+  }
+  // Agent profiles with deep links into every tab of the profile.
   var agents = (App.data.agents || []).map(function (a) {
     var code = encodeURIComponent(a.code || '');
     var tabs = AGENT_TABS.map(function (t) {
@@ -2353,7 +3039,7 @@ function viewSitemap() {
   });
   var shortcuts = [
     { hash: '#/search', keys: ['/'],      label: 'jump to search', desc: 'Focuses the search box from anywhere' },
-    { hash: '#/agents', keys: ['←', '→'], label: 'switch tabs', desc: 'On an agent dossier, arrow keys flip through the 8 tabs' },
+    { hash: '#/agents', keys: ['←', '→'], label: 'switch tabs', desc: 'On an agent profile, arrow keys flip through the 8 tabs' },
     { hash: '#/search', keys: ['Esc'],    label: 'leave the search box', desc: 'Blurs the active input' },
   ];
   function shortcutRow(s) {
@@ -2368,11 +3054,11 @@ function viewSitemap() {
       { label: 'Sitemap' },
     ]) +
     '<header class="page-head"><h1>Sitemap</h1>' +
-    '<p class="muted">Every section of the archive, one tap away. All pages work offline once installed.</p></header>' +
-    section('pages', 'Sections', '<div class="sitemap-list">' + pages.map(linkRow).join('') + '</div>') +
-    (agents.length ? section('agents', 'Agent dossiers', '<div class="sitemap-list">' + agents.map(agentRow).join('') + '</div>') : '') +
-    section('shortcuts', 'Keyboard shortcuts', '<div class="sitemap-list">' + shortcuts.map(shortcutRow).join('') + '</div>') +
-    (glossaryRows.length ? section('glossary', 'Glossary terms', '<div class="sitemap-list">' + glossaryRows.map(linkRow).join('') + '</div>') : '');
+    '<p class="muted">Every section of the library, one tap away — organized by what you want to do. All pages work offline once installed.</p></header>' +
+    section('pages', 'Sections', groups.map(groupBlock).join('')) +
+    (agents.length ? section('agents', 'Explore — agent profiles', '<div class="sitemap-list">' + agents.map(agentRow).join('') + '</div>') : '') +
+    (glossaryRows.length ? section('glossary', 'Learn — glossary terms', '<div class="sitemap-list">' + glossaryRows.map(linkRow).join('') + '</div>') : '') +
+    section('shortcuts', 'Keyboard shortcuts', '<div class="sitemap-list">' + shortcuts.map(shortcutRow).join('') + '</div>');
 }
 
 /* ------------------------------------------------------------------ *
@@ -2383,7 +3069,7 @@ var CHANGELOG = [
   {
     version: '1.1.0', date: '2026-10-08', tag: 'Latest',
     items: [
-      'Share button on every agent dossier (Web Share API with copy-link fallback).',
+      'Share button on every agent profile (Web Share API with copy-link fallback).',
       'Redesigned offline page: shows every section available offline plus one-tap retry.',
       'App shortcuts: long-press the icon for Agents, Search, and Compare.',
       '"What\'s New" changelog view and full sitemap.',
@@ -2405,8 +3091,8 @@ var CHANGELOG = [
   {
     version: '1.0.0', date: '2026-10-07', tag: 'Launch',
     items: [
-      'Initial release: interactive PWA book of the Pandora\'s Box dataset.',
-      'Three agent archetypes (TDI, TJI, NDI) with eight-section dossiers.',
+      'Initial release: interactive PWA web app of the Pandora\'s Box dataset.',
+      'Three agent archetypes (TDI, TJI, NDI) with eight-section profiles.',
       'Search, compare, glossary, framework, and audit views.',
       'Offline-first via service worker; installable on home screen.',
       '1,000x multi-agent audit before release.',
@@ -2448,14 +3134,14 @@ function showToast(msg) {
   }, 2600);
 }
 
-/** Share an agent dossier: native sheet on mobile, copy-link fallback elsewhere. */
+/** Share an agent profile: native sheet on mobile, copy-link fallback elsewhere. */
 function shareAgent(code) {
   var agent = findAgent(code);
   if (!agent) return;
   var url = location.origin + location.pathname + '#/agent/' + encodeURIComponent(agent.code);
   var data = {
     title: "Pandora's Box — " + (agent.name || agent.code),
-    text: (agent.code || '') + ': ' + (agent.archetype || 'AI agent behavioral profile') + ' — from the Pandora\'s Box archive.',
+    text: (agent.code || '') + ': ' + (agent.archetype || 'AI agent behavioral profile') + ' — from the Pandora\'s Box library.',
     url: url,
   };
   function fallbackCopy() {
@@ -2495,9 +3181,12 @@ function init() {
   loadData();
   wireInstallButton();
   wireBackTop();
+  wireHeaderChrome();
+  wirePullTension();
   wireKeyboard();
   wireJumpChips();
   wireInteractive();
+  wireMoreMenu();
   injectDynamicStyles();
   applyFontSize(loadFontSize());
   ensureProgressBar();
@@ -2539,6 +3228,13 @@ function wireJumpChips() {
  *  One listener survives every innerHTML re-render. */
 function wireInteractive() {
   document.addEventListener('click', function (e) {
+    // Haptic-like tap feedback on the tab bars (Android vibration, guarded).
+    try {
+      var haptic = e.target && e.target.closest
+        ? e.target.closest('.bottom-link, .tab')
+        : null;
+      if (haptic && navigator.vibrate) navigator.vibrate(10);
+    } catch (err) { /* vibration unsupported — visual press state still applies */ }
     var el = e.target;
     while (el && el !== document) {
       if (el.getAttribute) {
@@ -2567,6 +3263,18 @@ function wireInteractive() {
           e.preventDefault();
           return;
         }
+        // 2b. "Compare with" shortcut: preselect the pair, jump to compare.
+        var pair = el.getAttribute('data-compare-pair');
+        if (pair) {
+          var parts = String(pair).split('|');
+          if (parts.length === 2 && parts[0] && parts[1]) {
+            App.compareSel = { left: parts[0], right: parts[1] };
+            try { localStorage.setItem(LS_COMPARE, JSON.stringify(App.compareSel)); } catch (e2) {}
+            go('#/compare');
+          }
+          e.preventDefault();
+          return;
+        }
         // 3. Copy-link buttons
         if (el.hasAttribute('data-copy-link')) {
           var url = el.getAttribute('data-url') || absoluteHashUrl();
@@ -2575,7 +3283,8 @@ function wireInteractive() {
             function () {
               var orig = btn.innerHTML;
               btn.innerHTML = '&#10003; Copied!';
-              setTimeout(function () { btn.innerHTML = orig; }, 1600);
+              btn.classList.add('copy-ok'); /* W3: success glow, see CSS */
+              setTimeout(function () { btn.innerHTML = orig; btn.classList.remove('copy-ok'); }, 1600);
             },
             function () {
               var orig2 = btn.innerHTML;
@@ -2721,9 +3430,92 @@ function wireInstallButton() {
   });
 }
 
+/** Pull-down tension: resistive rubber-band on #app when the user drags
+ *  down past the top of the page, snapping back on release.
+ *  Native-app feel for the root scroll; no-ops on desktop (no touch),
+ *  in reduced-motion mode, and while typing. */
+function wirePullTension() {
+  var app = document.getElementById('app');
+  if (!app || !('ontouchstart' in window)) return;
+  var reduceMotion = false;
+  try {
+    reduceMotion = window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  } catch (e) {}
+  if (reduceMotion) return;
+
+  var startY = 0, dy = 0, active = false;
+  var MAX_PULL = 88, RESISTANCE = 0.4;
+
+  function atTop() {
+    return (window.scrollY || window.pageYOffset || 0) <= 0;
+  }
+  function isFormTarget(t) {
+    return t && t.closest &&
+      t.closest('input, textarea, select, [contenteditable="true"]');
+  }
+
+  window.addEventListener('touchstart', function (e) {
+    if (e.touches.length !== 1 || !atTop() || isFormTarget(e.target)) return;
+    startY = e.touches[0].clientY;
+    dy = 0;
+    active = true;
+  }, { passive: true });
+
+  window.addEventListener('touchmove', function (e) {
+    if (!active || e.touches.length !== 1) return;
+    var d = e.touches[0].clientY - startY;
+    if (d > 0 && atTop()) {
+      dy = Math.min(d * RESISTANCE, MAX_PULL);
+      app.classList.add('pull-active');
+      app.style.transform = 'translateY(' + dy + 'px)';
+    } else if (d <= 0 && dy > 0) {
+      dy = 0;
+      app.classList.remove('pull-active');
+      app.style.transform = '';
+    }
+  }, { passive: true });
+
+  function endPull() {
+    if (!active) return;
+    active = false;
+    if (dy > 0) {
+      // Release: CSS transition on #app (see §V6) snaps it back.
+      app.classList.remove('pull-active');
+      app.style.transform = '';
+    }
+    dy = 0;
+  }
+  window.addEventListener('touchend', endPull, { passive: true });
+  window.addEventListener('touchcancel', endPull, { passive: true });
+  // A route change mid-pull must never leave the view offset.
+  window.addEventListener('hashchange', function () {
+    active = false; dy = 0;
+    app.classList.remove('pull-active');
+    app.style.transform = '';
+  });
+}
+
+/** App-bar chrome: intensify the header glass once the user scrolls. */
+function wireHeaderChrome() {
+  var header = document.getElementById('appHeader');
+  if (!header) return;
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      ticking = false;
+      var y = window.scrollY || window.pageYOffset || 0;
+      header.classList.toggle('scrolled', y > 8);
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+}
+
 /** Floating "Back to top" button: appears after scrolling down. */
-function wireBackTop() {
-  var btn = document.getElementById('backTop');
+function wireBackTop() {  var btn = document.getElementById('backTop');
   if (!btn) return;
   var ticking = false;
   function onScroll() {
