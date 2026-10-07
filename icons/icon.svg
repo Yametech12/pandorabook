@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <radialGradient id="bgGlow" cx="50%" cy="42%" r="75%">
+      <stop offset="0%" stop-color="#1e2f52"/>
+      <stop offset="55%" stop-color="#12203a"/>
+      <stop offset="100%" stop-color="#0a1322"/>
+    </radialGradient>
+    <linearGradient id="goldLight" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#ffe9a3" stop-opacity="0.95"/>
+      <stop offset="45%" stop-color="#f5c542" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#f5c542" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="boxFront" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4a3320"/>
+      <stop offset="100%" stop-color="#241407"/>
+    </linearGradient>
+    <linearGradient id="boxLid" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5d4226"/>
+      <stop offset="100%" stop-color="#2e1d0c"/>
+    </linearGradient>
+    <linearGradient id="goldTrim" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#8a6a2a"/>
+      <stop offset="50%" stop-color="#f7d774"/>
+      <stop offset="100%" stop-color="#8a6a2a"/>
+    </linearGradient>
+    <filter id="softGlow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="14" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="512" height="512" rx="112" fill="url(#bgGlow)"/>
+
+  <!-- Light beam rising from the box -->
+  <path d="M196 300 L236 96 L276 96 L316 300 Z" fill="url(#goldLight)" filter="url(#softGlow)"/>
+  <path d="M226 300 L248 140 L264 140 L286 300 Z" fill="#fff3c4" opacity="0.55" filter="url(#softGlow)"/>
+
+  <!-- Sparkles in the light -->
+  <g fill="#ffe9a3" filter="url(#softGlow)">
+    <circle cx="256" cy="150" r="5" opacity="0.9"/>
+    <circle cx="228" cy="205" r="3.5" opacity="0.8"/>
+    <circle cx="284" cy="185" r="4" opacity="0.85"/>
+    <circle cx="256" cy="245" r="3" opacity="0.7"/>
+    <circle cx="210" cy="255" r="2.5" opacity="0.6"/>
+    <circle cx="302" cy="250" r="2.5" opacity="0.6"/>
+  </g>
+
+  <!-- Box body -->
+  <g>
+    <rect x="156" y="300" width="200" height="120" rx="10" fill="url(#boxFront)" stroke="#0d0803" stroke-width="3"/>
+    <!-- Wood grain lines -->
+    <line x1="156" y1="335" x2="356" y2="335" stroke="#160c04" stroke-width="2" opacity="0.6"/>
+    <line x1="156" y1="368" x2="356" y2="368" stroke="#160c04" stroke-width="2" opacity="0.6"/>
+    <!-- Gold trim on body -->
+    <rect x="156" y="300" width="200" height="10" rx="5" fill="url(#goldTrim)" opacity="0.95"/>
+    <rect x="156" y="410" width="200" height="10" rx="5" fill="url(#goldTrim)" opacity="0.9"/>
+    <!-- Corner studs -->
+    <circle cx="172" cy="330" r="7" fill="url(#goldTrim)" stroke="#5d4218" stroke-width="1.5"/>
+    <circle cx="340" cy="330" r="7" fill="url(#goldTrim)" stroke="#5d4218" stroke-width="1.5"/>
+    <circle cx="172" cy="390" r="7" fill="url(#goldTrim)" stroke="#5d4218" stroke-width="1.5"/>
+    <circle cx="340" cy="390" r="7" fill="url(#goldTrim)" stroke="#5d4218" stroke-width="1.5"/>
+    <!-- Lock plate -->
+    <rect x="238" y="340" width="36" height="44" rx="6" fill="url(#goldTrim)" stroke="#5d4218" stroke-width="2"/>
+    <circle cx="256" cy="358" r="6" fill="#241407"/>
+    <rect x="253" y="358" width="6" height="16" rx="3" fill="#241407"/>
+  </g>
+
+  <!-- Open lid (tilted) -->
+  <g transform="rotate(-18 256 300)">
+    <rect x="156" y="236" width="200" height="64" rx="10" fill="url(#boxLid)" stroke="#0d0803" stroke-width="3"/>
+    <rect x="156" y="236" width="200" height="10" rx="5" fill="url(#goldTrim)" opacity="0.95"/>
+    <rect x="156" y="290" width="200" height="10" rx="5" fill="url(#goldTrim)" opacity="0.9"/>
+    <circle cx="256" cy="268" r="12" fill="url(#goldTrim)" stroke="#5d4218" stroke-width="2"/>
+    <circle cx="256" cy="268" r="5" fill="#241407"/>
+  </g>
+
+  <!-- Glow at the opening -->
+  <ellipse cx="256" cy="302" rx="95" ry="14" fill="#ffe9a3" opacity="0.75" filter="url(#softGlow)"/>
+</svg>
