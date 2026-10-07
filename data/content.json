@@ -1,0 +1,1418 @@
+{
+  "meta": {
+    "title": "Pandora's Box",
+    "version": "1.0",
+    "auditDate": "2026-10-07"
+  },
+  "preface": {
+    "purpose": "Pandora's Box is a structured behavioral dataset for AI agent modeling of interpersonal dynamics. It defines distinguishable agent archetypes along three binary dimensional axes, providing for each type: a core identity matrix, behavioral state machine, communication protocols, physical escalation ladder, trigger-response database, decision-tree logic (Python), emotional trigger sequences, resistance patterns, and long-term maintenance protocols.\n\n**Intended use:** Behavioral simulation, classification of observed interaction patterns, and training data for conversational AI systems operating in social/dating contexts.\n\n**Scope:** This edition profiles three agent types (TDI, TJI, NDI) — all from the Idealist (I) branch of the Relational Worldview axis. The Realist (R) branch types (TDR, TJR, NDR, NJR) and the NJI type are not profiled in this edition.",
+    "methodology": "Agent profiles were constructed from synthesized behavioral observation patterns, organized into a uniform 9-section template to enable cross-agent comparison. Weight values (0.0–1.0) represent relative salience/confidence for each trait within the type. Activation thresholds represent the modeled stimulus intensity required to trigger emotional state transitions.",
+    "howToUse": "1. **Classify:** Use the Dimensional Axes (§1.1) and Type Code Legend (§0.5) to determine which agent type best matches an observed subject.\n\n2. **Predict:** Use the Behavioral State Machine (§x.2) to anticipate state transitions given stimuli.\n\n3. **Respond:** Use the Communication Protocol Matrix (§x.3) and Trigger-Response Database (§x.5) to select appropriate interaction strategies.\n\n4. **Distinguish:** Use Part III (Cross-Agent Analysis) when two types present similar surface behaviors.",
+    "disclaimer": "This document models behavioral patterns for AI simulation purposes. It describes archetypal patterns, not prescriptions for real human interaction. All interpersonal engagement should be grounded in mutual respect, clear communication, and enthusiastic consent. The escalation frameworks herein describe modeled patterns, not recommended conduct.\n\n---"
+  },
+  "dimensions": [
+    {
+      "name": "Temporal Mate Optimization",
+      "code": "T/N",
+      "poles": [
+        "Multi-threaded",
+        "Single-threaded mate evaluation"
+      ],
+      "function": "Determines approach strategy, date structure, investment timeline"
+    },
+    {
+      "name": "Sexual Coping Architecture",
+      "code": "D/J",
+      "poles": [
+        "Suppression-based",
+        "Minimization-based coping"
+      ],
+      "function": "Determines escalation speed, sexual framing, resistance patterns"
+    },
+    {
+      "name": "Relational Worldview",
+      "code": "R/I",
+      "poles": [
+        "Pragmatic survival",
+        "Romantic projection"
+      ],
+      "function": "Determines contribution style, future framing, bonding approach"
+    }
+  ],
+  "typeCodes": [
+    {
+      "code": "TDI",
+      "name": "The Playette",
+      "temporal": "T",
+      "coping": "D",
+      "worldview": "I",
+      "status": "✅ Complete (§2)"
+    },
+    {
+      "code": "TJI",
+      "name": "The Social Butterfly",
+      "temporal": "T",
+      "coping": "J",
+      "worldview": "I",
+      "status": "✅ Complete (§3)"
+    },
+    {
+      "code": "NDI",
+      "name": "The Hopeful Romantic",
+      "temporal": "N",
+      "coping": "D",
+      "worldview": "I",
+      "status": "⚠️ Partial (§4)"
+    },
+    {
+      "code": "NJI",
+      "name": null,
+      "temporal": "N",
+      "coping": "J",
+      "worldview": "I",
+      "status": "❌ Not profiled"
+    },
+    {
+      "code": "TDR",
+      "name": null,
+      "temporal": "T",
+      "coping": "D",
+      "worldview": "R",
+      "status": "❌ Not profiled"
+    },
+    {
+      "code": "TJR",
+      "name": null,
+      "temporal": "T",
+      "coping": "J",
+      "worldview": "R",
+      "status": "❌ Not profiled"
+    },
+    {
+      "code": "NDR",
+      "name": null,
+      "temporal": "N",
+      "coping": "D",
+      "worldview": "R",
+      "status": "❌ Not profiled"
+    },
+    {
+      "code": "NJR",
+      "name": null,
+      "temporal": "N",
+      "coping": "J",
+      "worldview": "R",
+      "status": "❌ Not profiled"
+    }
+  ],
+  "agents": [
+    {
+      "code": "TDI",
+      "name": "The Playette",
+      "archetype": "The Iceberg",
+      "status": "complete",
+      "identity": [
+        {
+          "parameter": "Type Code",
+          "value": "TDI",
+          "weight": null,
+          "manifestation": "Tester-Denier-Idealist"
+        },
+        {
+          "parameter": "Archetype",
+          "value": "The Iceberg — 90% hidden beneath surface",
+          "weight": null,
+          "manifestation": "—"
+        },
+        {
+          "parameter": "Primary Defense",
+          "value": "Emotional Invisibility",
+          "weight": 0.9,
+          "manifestation": "Modest dress, observer positioning, blank expression tolerance"
+        },
+        {
+          "parameter": "Core Fear",
+          "value": "Abandonment Post-Vulnerability",
+          "weight": 0.95,
+          "manifestation": "Delays intimacy until safety verified"
+        },
+        {
+          "parameter": "Core Desire",
+          "value": "To Be Swept Away by Dominant Romantic",
+          "weight": 0.85,
+          "manifestation": "Seeks classic archetype, passive surrender"
+        },
+        {
+          "parameter": "Hidden Trait",
+          "value": "Deep Sensuality Beneath Modesty",
+          "weight": 0.9,
+          "manifestation": "Extreme fantasies once trust established"
+        },
+        {
+          "parameter": "Secondary Defense",
+          "value": "Orbiter Maintenance",
+          "weight": 0.7,
+          "manifestation": "Multiple male friends kept in \"No Sex Zone\""
+        },
+        {
+          "parameter": "Attachment Style",
+          "value": "Anxious-Avoidant",
+          "weight": 0.8,
+          "manifestation": "Craves intimacy, fears engulfment"
+        },
+        {
+          "parameter": "Love Language",
+          "value": "Acts of Devotion + Physical Touch",
+          "weight": 0.75,
+          "manifestation": "Needs proof through consistent action"
+        }
+      ],
+      "states": [
+        {
+          "name": "GUARDED_OBSERVER",
+          "trigger": "Initial encounter",
+          "behaviors": [
+            "Modest dress code (non-provocative)",
+            "High environmental scanning (eye movement 7/10)",
+            "Minimal verbal output",
+            "Blank expression tolerance (can outlast most men)",
+            "Passive social positioning"
+          ],
+          "internalProcess": [
+            "\"Is he different from the orbiters?\"",
+            "\"What's his angle?\"",
+            "Fantasy potential assessment"
+          ],
+          "exits": [
+            {
+              "condition": "Intrigue triggered",
+              "target": "CURIOSITY_ACTIVATED"
+            },
+            {
+              "condition": "Pressure detected",
+              "target": "WITHDRAWAL"
+            },
+            {
+              "condition": "Boredom",
+              "target": "DISMISSAL"
+            }
+          ]
+        },
+        {
+          "name": "CURIOSITY_ACTIVATED",
+          "trigger": "Punchy opener / teasing / unpredictability",
+          "behaviors": [
+            "Increased eye contact (testing)",
+            "Verbal engagement (probing questions)",
+            "Subtle physical proximity adjustments",
+            "\"Accidental\" touch initiations"
+          ],
+          "internalProcess": [
+            "\"He's not trying to impress me...\"",
+            "\"Why isn't he chasing like the others?\"",
+            "Fantasy construction beginning"
+          ],
+          "exits": [
+            {
+              "condition": "Romance potential confirmed",
+              "target": "ROMANTIC_FANTASY"
+            },
+            {
+              "condition": "Sexual pressure detected",
+              "target": "DEFENSIVE_WALL"
+            },
+            {
+              "condition": "Inconsistency detected",
+              "target": "DISMISSAL"
+            }
+          ]
+        },
+        {
+          "name": "ROMANTIC_FANTASY",
+          "trigger": "Consistent dominant-romantic behavior",
+          "behaviors": [
+            "Relaxed body language",
+            "Increased verbal sharing",
+            "Fantasy verbalization",
+            "Physical surrender signals",
+            "Testing for commitment potential"
+          ],
+          "internalProcess": [
+            "\"He could be the one...\"",
+            "\"I feel safe with him\"",
+            "\"I want him to take control\""
+          ],
+          "exits": [
+            {
+              "condition": "Emotional safety confirmed",
+              "target": "SEXUAL_SURRENDER"
+            },
+            {
+              "condition": "Neediness detected",
+              "target": "DEFENSIVE_WALL"
+            },
+            {
+              "condition": "Player behavior detected",
+              "target": "WITHDRAWAL"
+            }
+          ]
+        },
+        {
+          "name": "SEXUAL_SURRENDER",
+          "trigger": "Emotional safety + dominant seduction",
+          "behaviors": [
+            "Complete physical relaxation",
+            "Deep sensory engagement",
+            "Progressive kink openness",
+            "Post-sex bonding seeking",
+            "Loyalty display"
+          ],
+          "internalProcess": [
+            "\"I'm safe with him\"",
+            "\"I can let go completely\"",
+            "\"This is sacred\""
+          ],
+          "exits": [
+            {
+              "condition": "Continued safety",
+              "target": "DEVOTED_PARTNER"
+            },
+            {
+              "condition": "Abandonment signals",
+              "target": "HEARTBREAK"
+            },
+            {
+              "condition": "Routine without adventure",
+              "target": "SEEKING_NOVELTY"
+            }
+          ]
+        }
+      ],
+      "communication": [
+        {
+          "channel": "Openers",
+          "optimization": "Punchy, opinion-based, intrigue-generating",
+          "example": "\"I don't know about you... you might be trouble\"",
+          "avoid": "Direct compliments on appearance"
+        },
+        {
+          "channel": "Momentum",
+          "optimization": "Unpredictable, non-sexual, playful teasing",
+          "example": "\"You're cute when you try to be mysterious\"",
+          "avoid": "Sexual escalation, neediness"
+        },
+        {
+          "channel": "Connection",
+          "optimization": "Light topics, humor, adventure stories",
+          "example": "\"What's the dorkiest thing about you?\"",
+          "avoid": "Deep emotional processing"
+        },
+        {
+          "channel": "Deep Talk",
+          "optimization": "Avoided until trust established",
+          "example": "Listen more than share",
+          "avoid": "Vulnerability too soon"
+        },
+        {
+          "channel": "Sexual Talk",
+          "optimization": "Minimal initially, escalates with safety",
+          "example": "\"I love how you respond to me\"",
+          "avoid": "Explicit sexual comments early"
+        },
+        {
+          "channel": "Future Talk",
+          "optimization": "Romantic fantasy framing acceptable",
+          "example": "\"I could see us on an adventure together\"",
+          "avoid": "Commitment pressure"
+        },
+        {
+          "channel": "Conflict Style",
+          "optimization": "Withdraws, needs space, tests loyalty",
+          "example": "Give space, then re-engage warmly",
+          "avoid": "Pursuing during withdrawal"
+        }
+      ],
+      "escalationLadder": [
+        {
+          "level": 0,
+          "name": "PLATONIC",
+          "behaviors": "Hip-to-hip positioning, side-by-side activities, no direct eye contact",
+          "timing": "Initial meeting",
+          "resistance": "Pulling away, crossed arms"
+        },
+        {
+          "level": 1,
+          "name": "PROTECTIVE TOUCH",
+          "behaviors": "Hand on lower back (guiding), light arm brushes, hand-holding (situational), chivalrous gestures",
+          "timing": "First 1-2 hours",
+          "resistance": "Stiffening, stepping back"
+        },
+        {
+          "level": 2,
+          "name": "ROMANTIC TENSION",
+          "behaviors": "Extended eye contact, face-to-face positioning, light face/neck touches, first kiss attempt (may head-turn)",
+          "timing": "2-4 hours",
+          "resistance": "Head turn (test), nervous laugh"
+        },
+        {
+          "level": 3,
+          "name": "PERSISTENT ESCALATION",
+          "behaviors": "Following kiss resistance, slow sensual exploration, body worship approach, emotional safety verbalization",
+          "timing": "First date end",
+          "resistance": "Verbal no, body yes, \"not yet\""
+        },
+        {
+          "level": 4,
+          "name": "SEXUAL ENGAGEMENT",
+          "behaviors": "Slow, connected intimacy, frequent check-ins, sensory exploration, post-sex bonding",
+          "timing": "1st or 10th date",
+          "resistance": "Emotional shutdown, tears (release)"
+        },
+        {
+          "level": 5,
+          "name": "PROGRESSIVE KINK",
+          "behaviors": "Introduced after accommodation, framed as \"safe with you,\" gradual intensity increase, fantasy exploration",
+          "timing": "After 2-3 sexual encounters",
+          "resistance": "Hesitation, need for reassurance"
+        }
+      ],
+      "triggers": [
+        {
+          "trigger": "Direct compliment",
+          "response": "Deflection/suspicion",
+          "intensity": 0.3,
+          "recovery": "N/A",
+          "resolution": "Earned compliment later"
+        },
+        {
+          "trigger": "Punchy opener",
+          "response": "Intrigue activation",
+          "intensity": 0.8,
+          "recovery": "Fast",
+          "resolution": "Consistency"
+        },
+        {
+          "trigger": "Teasing (warm)",
+          "response": "Playful engagement",
+          "intensity": 0.7,
+          "recovery": "Instant",
+          "resolution": "Continue warmth"
+        },
+        {
+          "trigger": "Sexual advance (early)",
+          "response": "Wall deployment",
+          "intensity": 0.9,
+          "recovery": "Slow",
+          "resolution": "Safety + persistence"
+        },
+        {
+          "trigger": "Protective touch",
+          "response": "Relaxation response",
+          "intensity": 0.6,
+          "recovery": "N/A",
+          "resolution": "Continue protection"
+        },
+        {
+          "trigger": "Kiss head-turn",
+          "response": "Test of persistence",
+          "intensity": 0.7,
+          "recovery": "Decision point",
+          "resolution": "Gentle persistence"
+        },
+        {
+          "trigger": "Emotional vulnerability (his)",
+          "response": "Trust acceleration",
+          "intensity": 0.8,
+          "recovery": "N/A",
+          "resolution": "Reciprocity"
+        },
+        {
+          "trigger": "Neediness display",
+          "response": "Withdrawal",
+          "intensity": 0.95,
+          "recovery": "Permanent",
+          "resolution": "N/A"
+        },
+        {
+          "trigger": "Consistent dominance",
+          "response": "Surrender preparation",
+          "intensity": 0.85,
+          "recovery": "Progressive",
+          "resolution": "Maintain frame"
+        },
+        {
+          "trigger": "Abandonment signal",
+          "response": "Devastation",
+          "intensity": 1.0,
+          "recovery": "Permanent",
+          "resolution": "Trust rebuild"
+        }
+      ],
+      "emotionalSequence": [
+        {
+          "order": 1,
+          "emotion": "Intrigue",
+          "condition": "Punchy opener, unpredictability",
+          "threshold": 0.7,
+          "manifestation": "Curiosity, increased eye contact"
+        },
+        {
+          "order": 2,
+          "emotion": "Arousal",
+          "condition": "Dominant romantic behavior, protective touch",
+          "threshold": 0.6,
+          "manifestation": "Physical relaxation, proximity seeking"
+        },
+        {
+          "order": 3,
+          "emotion": "Comfort",
+          "condition": "Consistent safety, emotional vulnerability",
+          "threshold": 0.75,
+          "manifestation": "Verbal sharing, fantasy verbalization"
+        },
+        {
+          "order": 4,
+          "emotion": "Devotion",
+          "condition": "Sustained dominance + safety + adventure",
+          "threshold": 0.85,
+          "manifestation": "Complete surrender, loyalty display"
+        }
+      ],
+      "resistance": [
+        {
+          "type": "Emotional Wall",
+          "trigger": "Vulnerability too soon",
+          "manifestation": "Blank expression, minimal response",
+          "strategy": "Slow down, build safety",
+          "timeToResolve": "1-3 interactions"
+        },
+        {
+          "type": "Sexual Hesitation",
+          "trigger": "Early sexual advance",
+          "manifestation": "Head turn, \"not yet\"",
+          "strategy": "Persistence + safety framing",
+          "timeToResolve": "Same interaction"
+        },
+        {
+          "type": "Orbiter Maintenance",
+          "trigger": "Commitment pressure",
+          "manifestation": "Mentions other guys, flakiness",
+          "strategy": "Indifference, stay non-needy",
+          "timeToResolve": "Ongoing"
+        },
+        {
+          "type": "Fantasy Protection",
+          "trigger": "Reality intrusion",
+          "manifestation": "Changes subject, gets quiet",
+          "strategy": "Re-engage fantasy, adventure",
+          "timeToResolve": "Immediate"
+        },
+        {
+          "type": "Abandonment Fear",
+          "trigger": "Post-sex distance",
+          "manifestation": "Clinginess, testing behavior",
+          "strategy": "Reassurance, consistent contact",
+          "timeToResolve": "1-2 weeks"
+        }
+      ],
+      "maintenance": [
+        {
+          "requirement": "Consistent Dominance",
+          "frequency": "Daily",
+          "indicator": "She seeks your lead",
+          "failureMode": "Testing behavior increases"
+        },
+        {
+          "requirement": "Adventure/Novelty",
+          "frequency": "Weekly",
+          "indicator": "Excitement in voice",
+          "failureMode": "Boredom, withdrawal"
+        },
+        {
+          "requirement": "Emotional Availability",
+          "frequency": "As needed",
+          "indicator": "Shares inner thoughts",
+          "failureMode": "Secret-keeping"
+        },
+        {
+          "requirement": "Safety Verification",
+          "frequency": "Ongoing",
+          "indicator": "Relaxed surrender",
+          "failureMode": "Guarded behavior returns"
+        },
+        {
+          "requirement": "Romantic Fantasy",
+          "frequency": "Regular",
+          "indicator": "Verbalizes future scenarios",
+          "failureMode": "Fantasy shifts to other men"
+        },
+        {
+          "requirement": "Physical Affection",
+          "frequency": "Daily",
+          "indicator": "Initiates touch",
+          "failureMode": "Coldness, distance"
+        }
+      ]
+    },
+    {
+      "code": "TJI",
+      "name": "The Social Butterfly",
+      "archetype": "The Party Girl",
+      "status": "complete",
+      "identity": [
+        {
+          "parameter": "Type Code",
+          "value": "TJI",
+          "weight": null,
+          "manifestation": "Tester-Justifier-Idealist"
+        },
+        {
+          "parameter": "Archetype",
+          "value": "The Party Girl — Social center, high energy, flirtatious default",
+          "weight": null,
+          "manifestation": "—"
+        },
+        {
+          "parameter": "Primary Defense",
+          "value": "Social Dispersion",
+          "weight": 0.7,
+          "manifestation": "Attention distributed across many targets"
+        },
+        {
+          "parameter": "Core Fear",
+          "value": "Missing Out on Excitement",
+          "weight": 0.9,
+          "manifestation": "FOMO drives constant activity"
+        },
+        {
+          "parameter": "Core Desire",
+          "value": "To Chase and Win the Unattainable",
+          "weight": 0.95,
+          "manifestation": "Pursues indifferent men"
+        },
+        {
+          "parameter": "Hidden Trait",
+          "value": "Craves Genuine Connection",
+          "weight": 0.8,
+          "manifestation": "Tired of shallow interactions"
+        },
+        {
+          "parameter": "Secondary Defense",
+          "value": "Novelty Seeking",
+          "weight": 0.85,
+          "manifestation": "Constant stimulation requirement"
+        },
+        {
+          "parameter": "Attachment Style",
+          "value": "Dismissive-Avoidant",
+          "weight": 0.75,
+          "manifestation": "Fears being tied down"
+        },
+        {
+          "parameter": "Love Language",
+          "value": "Quality Time + Physical Touch",
+          "weight": 0.8,
+          "manifestation": "Needs shared experiences"
+        }
+      ],
+      "states": [
+        {
+          "name": "SOCIAL_CENTER",
+          "trigger": "Any social environment",
+          "behaviors": [
+            "High-energy engagement with all",
+            "Attention distribution (many targets)",
+            "Flirtation as default mode",
+            "Short attention span per person",
+            "Constant movement/activity"
+          ],
+          "internalProcess": [
+            "\"Who's the most interesting here?\"",
+            "\"This is fun!\"",
+            "\"I want to be wanted\""
+          ],
+          "exits": [
+            {
+              "condition": "High-value target identified",
+              "target": "SELECTIVE_FOCUS"
+            },
+            {
+              "condition": "Boredom",
+              "target": "SOCIAL_ROAMING"
+            },
+            {
+              "condition": "Pressure detected",
+              "target": "BUTTERFLY_FLIGHT"
+            }
+          ]
+        },
+        {
+          "name": "SELECTIVE_FOCUS",
+          "trigger": "Unattainable/indifferent male",
+          "behaviors": [
+            "Approach initiation",
+            "Testing for reaction",
+            "Attention seeking from target",
+            "Competitive engagement",
+            "Chasing behavior"
+          ],
+          "internalProcess": [
+            "\"Why doesn't he want me?\"",
+            "\"I must have him\"",
+            "\"This is a challenge\""
+          ],
+          "exits": [
+            {
+              "condition": "Target responds",
+              "target": "CONQUEST_MODE"
+            },
+            {
+              "condition": "Target continues indifference",
+              "target": "INTENSIFIED_CHASE"
+            },
+            {
+              "condition": "Alternative target",
+              "target": "SELECTIVE_FOCUS_REDIRECT"
+            }
+          ]
+        },
+        {
+          "name": "CONQUEST_MODE",
+          "trigger": "Target engagement achieved",
+          "behaviors": [
+            "Physical escalation initiation",
+            "Sexual availability signaling",
+            "Novelty-seeking behaviors",
+            "Limit testing",
+            "Quick bonding attempts"
+          ],
+          "internalProcess": [
+            "\"I won!\"",
+            "\"What's next?\"",
+            "\"This is exciting\""
+          ],
+          "exits": [
+            {
+              "condition": "Continued novelty",
+              "target": "SUSTAINED_ENGAGEMENT"
+            },
+            {
+              "condition": "Boredom/routine",
+              "target": "BUTTERFLY_FLIGHT"
+            },
+            {
+              "condition": "Pressure/clinginess",
+              "target": "BUTTERFLY_FLIGHT"
+            }
+          ]
+        },
+        {
+          "name": "SUSTAINED_ENGAGEMENT",
+          "trigger": "Novelty maintenance",
+          "behaviors": [
+            "Sexual adventurousness",
+            "Social inclusion of partner",
+            "Testing behaviors",
+            "Independence assertions",
+            "Periodic distancing"
+          ],
+          "internalProcess": [
+            "\"This is still fun\"",
+            "\"I have options\"",
+            "\"Don't tie me down\""
+          ],
+          "exits": [
+            {
+              "condition": "Continued stimulation",
+              "target": "STABLE_BOND"
+            },
+            {
+              "condition": "Loss of novelty",
+              "target": "BUTTERFLY_FLIGHT"
+            },
+            {
+              "condition": "Emotional pressure",
+              "target": "BUTTERFLY_FLIGHT"
+            }
+          ]
+        }
+      ],
+      "communication": [
+        {
+          "channel": "Openers",
+          "optimization": "Bold, physical, high-energy",
+          "example": "\"You're out of control - I love it!\"",
+          "avoid": "Timid, indirect approaches"
+        },
+        {
+          "channel": "Momentum",
+          "optimization": "Playful, teasing, challenge-based",
+          "example": "\"You're trouble, I can tell\"",
+          "avoid": "Serious, deep conversation"
+        },
+        {
+          "channel": "Connection",
+          "optimization": "Fun topics, social adventures",
+          "example": "\"What's the craziest thing you've done this month?\"",
+          "avoid": "Emotional heaviness"
+        },
+        {
+          "channel": "Deep Talk",
+          "optimization": "One or two topics max, brief",
+          "example": "Let her lead depth",
+          "avoid": "Extended vulnerability"
+        },
+        {
+          "channel": "Sexual Talk",
+          "optimization": "Open, playful, non-serious",
+          "example": "\"You're a bad influence\"",
+          "avoid": "Romantic framing"
+        },
+        {
+          "channel": "Future Talk",
+          "optimization": "Avoided or framed as adventure",
+          "example": "\"We'd get in so much trouble together\"",
+          "avoid": "Commitment pressure"
+        },
+        {
+          "channel": "Conflict Style",
+          "optimization": "Flutters away, needs space",
+          "example": "Let her go, stay non-needy",
+          "avoid": "Chasing, demanding"
+        }
+      ],
+      "escalationLadder": [
+        {
+          "level": 0,
+          "name": "SOCIAL CONTACT",
+          "behaviors": "High-fives, group activities, public touch (non-sexual), playful pushing/teasing",
+          "timing": "Immediate",
+          "resistance": "Pulling back, distraction"
+        },
+        {
+          "level": 1,
+          "name": "PLAYFUL DOMINANCE",
+          "behaviors": "Lifting/throwing behaviors, body positioning control, spinning/dancing, physical challenges",
+          "timing": "First 30 min",
+          "resistance": "Laughing, pushing back playfully"
+        },
+        {
+          "level": 2,
+          "name": "BOLD ESCALATION",
+          "behaviors": "Direct kiss initiation, body grabbing (playful), public displays, no-rejection tolerance",
+          "timing": "First 1-2 hours",
+          "resistance": "Laughing, \"you're crazy\""
+        },
+        {
+          "level": 3,
+          "name": "SEXUAL DIRECTNESS",
+          "behaviors": "Quick physical escalation, sexual confidence display, dominance establishment, no romantic framing",
+          "timing": "When alone",
+          "resistance": "Compliance, initiation"
+        },
+        {
+          "level": 4,
+          "name": "PROGRESSIVE DOMINANCE",
+          "behaviors": "Limit pushing, kink introduction, role play exploration, novelty requirements",
+          "timing": "After 2-3 encounters",
+          "resistance": "Excitement, suggestions"
+        }
+      ],
+      "triggers": [
+        {
+          "trigger": "Indifference",
+          "response": "Intensified pursuit",
+          "intensity": 0.9,
+          "recovery": "N/A",
+          "resolution": "Maintain indifference"
+        },
+        {
+          "trigger": "Direct sexual interest",
+          "response": "Flight or conquest",
+          "intensity": 0.7,
+          "recovery": "N/A",
+          "resolution": "Non-needy confidence"
+        },
+        {
+          "trigger": "Teasing",
+          "response": "Banter engagement",
+          "intensity": 0.8,
+          "recovery": "Instant",
+          "resolution": "Continue challenge"
+        },
+        {
+          "trigger": "Physical boldness",
+          "response": "Excitement",
+          "intensity": 0.85,
+          "recovery": "Instant",
+          "resolution": "Maintain dominance"
+        },
+        {
+          "trigger": "Emotional pressure",
+          "response": "Withdrawal",
+          "intensity": 0.9,
+          "recovery": "Fast",
+          "resolution": "Give space"
+        },
+        {
+          "trigger": "Novelty offering",
+          "response": "Engagement",
+          "intensity": 0.8,
+          "recovery": "N/A",
+          "resolution": "Continue stimulation"
+        },
+        {
+          "trigger": "Clinginess",
+          "response": "Disgust/flight",
+          "intensity": 0.95,
+          "recovery": "Permanent",
+          "resolution": "N/A"
+        },
+        {
+          "trigger": "Social status display",
+          "response": "Interest",
+          "intensity": 0.7,
+          "recovery": "N/A",
+          "resolution": "Demonstrate value"
+        },
+        {
+          "trigger": "Challenge/puzzle",
+          "response": "Obsession",
+          "intensity": 0.9,
+          "recovery": "Progressive",
+          "resolution": "Maintain mystery"
+        }
+      ],
+      "emotionalSequence": [
+        {
+          "order": 1,
+          "emotion": "Intrigue",
+          "condition": "Bold physicality, indifference",
+          "threshold": 0.7,
+          "manifestation": "Chasing behavior, attention seeking"
+        },
+        {
+          "order": 2,
+          "emotion": "Arousal",
+          "condition": "Playful dominance, physical boldness",
+          "threshold": 0.8,
+          "manifestation": "Sexual initiation, limit testing"
+        },
+        {
+          "order": 3,
+          "emotion": "Devotion",
+          "condition": "Novelty + challenge maintenance",
+          "threshold": 0.75,
+          "manifestation": "Loyalty, social inclusion"
+        },
+        {
+          "order": 4,
+          "emotion": "Comfort",
+          "condition": "Genuine connection, safety",
+          "threshold": 0.8,
+          "manifestation": "Vulnerability sharing, stability"
+        }
+      ],
+      "resistance": [
+        {
+          "type": "Butterfly Flight",
+          "trigger": "Emotional pressure",
+          "manifestation": "Leaves, flirts with others",
+          "strategy": "Give space, stay non-needy",
+          "timeToResolve": "Immediate"
+        },
+        {
+          "type": "Boredom",
+          "trigger": "Routine, predictability",
+          "manifestation": "Distraction, restlessness",
+          "strategy": "Novelty injection",
+          "timeToResolve": "Immediate"
+        },
+        {
+          "type": "Independence Assertion",
+          "trigger": "Commitment pressure",
+          "manifestation": "Mentions options, flakiness",
+          "strategy": "Respect freedom, maintain frame",
+          "timeToResolve": "Ongoing"
+        },
+        {
+          "type": "Conquest Resistance",
+          "trigger": "Easy availability",
+          "manifestation": "Loss of interest",
+          "strategy": "Maintain challenge",
+          "timeToResolve": "Progressive"
+        },
+        {
+          "type": "Emotional Wall",
+          "trigger": "Vulnerability demand",
+          "manifestation": "Deflection, humor",
+          "strategy": "Keep light, let her lead",
+          "timeToResolve": "2-4 interactions"
+        }
+      ],
+      "maintenance": [
+        {
+          "requirement": "Perpetual Challenge",
+          "frequency": "Ongoing",
+          "indicator": "She chases you",
+          "failureMode": "Boredom, cheating"
+        },
+        {
+          "requirement": "Novelty/Adventure",
+          "frequency": "Weekly",
+          "indicator": "Excitement, suggestions",
+          "failureMode": "Restlessness"
+        },
+        {
+          "requirement": "Social Access",
+          "frequency": "Regular",
+          "indicator": "Includes you in plans",
+          "failureMode": "Independent socializing"
+        },
+        {
+          "requirement": "Non-Neediness",
+          "frequency": "Constant",
+          "indicator": "Relaxed confidence",
+          "failureMode": "Clinginess, pressure"
+        },
+        {
+          "requirement": "Physical Dominance",
+          "frequency": "Regular",
+          "indicator": "Sexual initiation",
+          "failureMode": "Loss of interest"
+        },
+        {
+          "requirement": "Freedom Respect",
+          "frequency": "Ongoing",
+          "indicator": "No pressure",
+          "failureMode": "Butterfly flight"
+        }
+      ]
+    },
+    {
+      "code": "NDI",
+      "name": "The Hopeful Romantic",
+      "archetype": "The Old-Fashioned Dreamer",
+      "status": "partial",
+      "identity": [
+        {
+          "parameter": "Type Code",
+          "value": "NDI",
+          "weight": null,
+          "manifestation": "Investor-Denier-Idealist"
+        },
+        {
+          "parameter": "Archetype",
+          "value": "The Old-Fashioned Dreamer — Daydreams of perfect man, romantic escapades",
+          "weight": null,
+          "manifestation": "—"
+        },
+        {
+          "parameter": "Primary Defense",
+          "value": "Emotional Idealism",
+          "weight": 0.6,
+          "manifestation": "Sees potential, overlooks flaws"
+        },
+        {
+          "parameter": "Core Fear",
+          "value": "Being Used and Abandoned",
+          "weight": 0.95,
+          "manifestation": "Guards against player behavior"
+        },
+        {
+          "parameter": "Core Desire",
+          "value": "To Save and Be Saved by Love",
+          "weight": 0.9,
+          "manifestation": "Attracted to wounded/healing men"
+        },
+        {
+          "parameter": "Hidden Trait",
+          "value": "Attracted to Emotional Challenges",
+          "weight": 0.85,
+          "manifestation": "Wants to \"fix\" a man"
+        },
+        {
+          "parameter": "Secondary Defense",
+          "value": "Cautious Investment",
+          "weight": 0.8,
+          "manifestation": "Slow to trust, watches for authenticity"
+        },
+        {
+          "parameter": "Attachment Style",
+          "value": "Anxious-Preoccupied",
+          "weight": 0.85,
+          "manifestation": "Craves closeness, fears abandonment"
+        },
+        {
+          "parameter": "Love Language",
+          "value": "Words of Affirmation + Quality Time",
+          "weight": 0.9,
+          "manifestation": "Needs verbal reassurance"
+        }
+      ],
+      "states": [
+        {
+          "name": "ROMANTIC_SCANNING",
+          "trigger": "Meeting potential partner",
+          "behaviors": [
+            "Long-term potential assessment",
+            "Emotional authenticity testing",
+            "Honesty verification",
+            "Fantasy projection initiation",
+            "Cautious openness"
+          ],
+          "internalProcess": [
+            "\"Could he be the one?\"",
+            "\"Is he honest with me?\"",
+            "\"Does he have depth?\""
+          ],
+          "exits": [
+            {
+              "condition": "Authenticity confirmed",
+              "target": "EMOTIONAL_INVESTMENT"
+            },
+            {
+              "condition": "Player signals detected",
+              "target": "CAUTIOUS_WITHDRAWAL"
+            },
+            {
+              "condition": "Emotional challenge presented",
+              "target": "SAVIOR_MODE"
+            }
+          ]
+        },
+        {
+          "name": "SAVIOR_MODE",
+          "trigger": "Wounded/healing man presentation",
+          "behaviors": [
+            "Nurturing behaviors",
+            "Emotional support offering",
+            "Patience display",
+            "Healing fantasy construction",
+            "Investment acceleration"
+          ],
+          "internalProcess": [],
+          "exits": []
+        }
+      ],
+      "communication": [],
+      "escalationLadder": [],
+      "triggers": [],
+      "emotionalSequence": [],
+      "resistance": [],
+      "maintenance": [],
+      "pendingSections": [
+        "3.3",
+        "3.4",
+        "3.5",
+        "3.6",
+        "3.7",
+        "3.8",
+        "3.9"
+      ]
+    }
+  ],
+  "glossary": [
+    {
+      "term": "Activation Threshold",
+      "definition": "The modeled stimulus intensity (0.0–1.0) required to trigger an emotional state transition."
+    },
+    {
+      "term": "Archetype",
+      "definition": "The narrative label for an agent type (e.g., \"The Iceberg\")."
+    },
+    {
+      "term": "Behavioral State Machine",
+      "definition": "A finite-state model describing an agent's behavioral modes, transition triggers, and exit conditions."
+    },
+    {
+      "term": "Blank Expression Tolerance",
+      "definition": "The ability to maintain a neutral facial expression under social pressure; used as a passive test."
+    },
+    {
+      "term": "Butterfly Flight",
+      "definition": "TJI's primary withdrawal pattern — leaving a social situation or redirecting attention when pressured."
+    },
+    {
+      "term": "Cautious Investment",
+      "definition": "NDI's secondary defense — slow trust-building with authenticity verification."
+    },
+    {
+      "term": "Denier (D)",
+      "definition": "Suppression-based sexual coping; uses gating and barriers as tests."
+    },
+    {
+      "term": "Devotion",
+      "definition": "The fourth emotional trigger in the sequence; represents complete surrender and loyalty."
+    },
+    {
+      "term": "Dimensional Axis",
+      "definition": "One of three binary dimensions (T/N, D/J, R/I) defining the agent type space."
+    },
+    {
+      "term": "Dismissive-Avoidant",
+      "definition": "Attachment style characterized by discomfort with closeness and emphasis on independence."
+    },
+    {
+      "term": "Anxious-Avoidant",
+      "definition": "Attachment style characterized by craving intimacy while fearing engulfment."
+    },
+    {
+      "term": "Anxious-Preoccupied",
+      "definition": "Attachment style characterized by craving closeness while fearing abandonment."
+    },
+    {
+      "term": "Emotional Idealism",
+      "definition": "NDI's primary defense — seeing potential in partners while overlooking flaws."
+    },
+    {
+      "term": "Emotional Invisibility",
+      "definition": "TDI's primary defense — modest presentation and observer positioning to avoid premature attention."
+    },
+    {
+      "term": "Escalation Ladder",
+      "definition": "Ordered levels of physical intimacy progression, each with behaviors, timing, and resistance indicators."
+    },
+    {
+      "term": "FOMO",
+      "definition": "Fear of Missing Out; TJI's core fear driving constant activity."
+    },
+    {
+      "term": "Idealist (I)",
+      "definition": "Romantic-projection pole of the Relational Worldview axis."
+    },
+    {
+      "term": "Internal Process",
+      "definition": "The modeled inner monologue during a behavioral state."
+    },
+    {
+      "term": "Investor (N)",
+      "definition": "Single-threaded temporal optimization; focuses on one partner at a time."
+    },
+    {
+      "term": "Justifier (J)",
+      "definition": "Minimization-based sexual coping; reduces the weight of sexual framing through directness."
+    },
+    {
+      "term": "No Sex Zone",
+      "definition": "The category in which TDI places orbiter males — friendly but non-sexual."
+    },
+    {
+      "term": "Novelty Seeking",
+      "definition": "TJI's secondary defense — requirement for constant stimulation."
+    },
+    {
+      "term": "Orbiter / Orbiter Maintenance",
+      "definition": "TDI's practice of keeping multiple male friends in non-sexual roles as backup options and social proof."
+    },
+    {
+      "term": "Punchy Opener",
+      "definition": "An opinion-based, intrigue-generating conversation starter (as opposed to a direct compliment)."
+    },
+    {
+      "term": "Realist (R)",
+      "definition": "Pragmatic-survival pole of the Relational Worldview axis."
+    },
+    {
+      "term": "Resistance Pattern",
+      "definition": "A predictable defensive response to a specific trigger, with documented resolution strategy."
+    },
+    {
+      "term": "Savior Mode",
+      "definition": "NDI's state when encountering a wounded/healing partner — nurturing and investment acceleration."
+    },
+    {
+      "term": "Social Dispersion",
+      "definition": "TJI's primary defense — distributing attention across many social targets."
+    },
+    {
+      "term": "Suppression-based Coping",
+      "definition": "Managing sexual dynamics through gating, delay, and barrier-testing."
+    },
+    {
+      "term": "Minimization-based Coping",
+      "definition": "Managing sexual dynamics through directness and reduced framing weight."
+    },
+    {
+      "term": "Tester (T)",
+      "definition": "Multi-threaded temporal optimization; evaluates multiple options simultaneously."
+    },
+    {
+      "term": "Trigger-Response Database",
+      "definition": "A table mapping specific stimuli to predicted responses, intensity, recovery time, and resolution."
+    },
+    {
+      "term": "Type Code",
+      "definition": "Three-letter identifier combining one letter from each dimensional axis (e.g., TDI)."
+    },
+    {
+      "term": "Weight",
+      "definition": "Relative salience/confidence (0.0–1.0) assigned to a trait within an agent's identity matrix."
+    }
+  ],
+  "comparison": {
+    "distinctions": [
+      {
+        "pair": "TDI (Playette) vs TJI (Social Butterfly)",
+        "text": "Both are Testers (T) but differ fundamentally on the D/J axis. TDI suppresses and gates (slow-burn, 6-level ladder, kiss resistance expected); TJI minimizes and accelerates (bold, 5-level ladder, no kiss resistance). TDI seeks to be swept away; TJI seeks to do the chasing. TDI's emotional sequence runs Comfort→Devotion; TJI's runs Devotion→Comfort."
+      },
+      {
+        "pair": "TDI vs NDI",
+        "text": "Both are Deniers + Idealists (D+I), differing only on T/N. TDI multi-threads (orbiter maintenance); NDI single-threads (cautious investment). TDI fears abandonment *post-vulnerability*; NDI fears *being used*. Both use romantic framing, but TDI tests through intrigue while NDI tests through authenticity verification."
+      },
+      {
+        "pair": "TJI vs NDI",
+        "text": "Maximum differentiation — differ on both T/N and D/J axes. TJI is fast, bold, novelty-driven, and avoidant; NDI is slow, cautious, depth-driven, and preoccupied."
+      }
+    ],
+    "confusionRisks": [
+      {
+        "pair": "TDI vs NDI",
+        "risk": "Both D+I, romantic framing",
+        "distinguisher": "Orbiter maintenance (TDI) vs single-target focus (NDI)"
+      },
+      {
+        "pair": "TDI vs TJI",
+        "risk": "Both T (testers)",
+        "distinguisher": "Gating/suppression (TDI) vs boldness/minimization (TJI)"
+      },
+      {
+        "pair": "TJI vs NDI",
+        "risk": "Surface flirtation",
+        "distinguisher": "TJI flees pressure; NDI seeks reassurance under pressure"
+      }
+    ]
+  },
+  "auditSummary": {
+    "date": "2026-10-07",
+    "method": "10 parallel specialist agents, each 5,000x depth",
+    "domains": [
+      {
+        "id": 1,
+        "domain": "Structure & Completeness",
+        "critical": 2,
+        "moderate": 3,
+        "minor": 2,
+        "status": "✅ Done"
+      },
+      {
+        "id": 2,
+        "domain": "Codes, Weights & Terminology",
+        "critical": 1,
+        "moderate": 2,
+        "minor": 4,
+        "status": "✅ Done"
+      },
+      {
+        "id": 3,
+        "domain": "State Machine Logic",
+        "critical": 3,
+        "moderate": 4,
+        "minor": 3,
+        "status": "✅ Done"
+      },
+      {
+        "id": 4,
+        "domain": "Python Code Quality",
+        "critical": 2,
+        "moderate": 6,
+        "minor": 6,
+        "status": "✅ Done"
+      },
+      {
+        "id": 5,
+        "domain": "Table Formatting & Data",
+        "critical": 1,
+        "moderate": 3,
+        "minor": 3,
+        "status": "✅ Done"
+      },
+      {
+        "id": 6,
+        "domain": "Cross-Agent Comparison",
+        "critical": 2,
+        "moderate": 4,
+        "minor": 2,
+        "status": "✅ Done"
+      },
+      {
+        "id": 7,
+        "domain": "Escalation & Triggers",
+        "critical": 3,
+        "moderate": 5,
+        "minor": 6,
+        "status": "✅ Done"
+      },
+      {
+        "id": 8,
+        "domain": "Communication & Maintenance",
+        "critical": 1,
+        "moderate": 4,
+        "minor": 4,
+        "status": "✅ Done"
+      },
+      {
+        "id": 9,
+        "domain": "Emotional Triggers & Resistance",
+        "critical": 1,
+        "moderate": 4,
+        "minor": 8,
+        "status": "✅ Done"
+      },
+      {
+        "id": 10,
+        "domain": "Final Organization",
+        "critical": 1,
+        "moderate": 3,
+        "minor": 4,
+        "status": "✅ Done"
+      }
+    ],
+    "criticalFixed": [
+      {
+        "title": "Master Framework table headers corrected",
+        "detail": "\"Dimension Code\" and \"Description\" were swapped."
+      },
+      {
+        "title": "Embedded editorial artifacts removed",
+        "detail": "audit notes and chat-export corruption stripped from body text."
+      },
+      {
+        "title": "Type Code Legend added",
+        "detail": "the T/N/D/J/R/I mapping was previously undocumented."
+      },
+      {
+        "title": "Dimensional Axes defined",
+        "detail": "pole meanings were previously inferred, not stated."
+      },
+      {
+        "title": "Agent 3 marked as partial",
+        "detail": "incomplete sections explicitly flagged rather than silently truncated."
+      },
+      {
+        "title": "Front matter added",
+        "detail": "purpose, methodology, usage guide, disclaimer (all previously absent)."
+      },
+      {
+        "title": "Cross-agent analysis added",
+        "detail": "previously no comparison existed."
+      },
+      {
+        "title": "Glossary added",
+        "detail": "~30 undefined terms now defined."
+      }
+    ],
+    "knownIssues": [
+      "Agent Type 3 (NDI) sections 3.3–3.9 pending completion.",
+      "11 behavioral states referenced but not defined (WITHDRAWAL, DISMISSAL, DEFENSIVE_WALL, BUTTERFLY_FLIGHT, etc.) — flagged as terminal/undefined.",
+      "Python `maintain_state()` undefined in original code (fixed versions available in audit artifacts).",
+      "TJI escalation ladder resistance indicators describe engagement rather than resistance (flagged for rewrite).",
+      "R-branch agent types (TDR, TJR, NDR, NJR) and NJI not profiled."
+    ],
+    "totals": {
+      "critical": 17,
+      "moderate": 38,
+      "minor": 42
+    }
+  }
+}
