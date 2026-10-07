@@ -4,8 +4,8 @@
  * Vanilla JS single-page application for the Pandora's Box dataset.
  *
  * Features:
- *  1. Hash-based router: #/home, #/agents, #/agent/:code, #/compare,
- *     #/glossary, #/search, #/audit
+ *  1. Hash-based router: #/home, #/agents, #/agent/:code, #/framework,
+ *     #/sitemap, #/compare, #/glossary, #/search, #/audit, #/changelog
  *  2. Home view: hero, dimensional axes cards, agent overview, quick stats
  *  3. Agents list view: cards for TDI / TJI / NDI with status badges
  *  4. Agent detail view: tabbed interface
@@ -15,8 +15,14 @@
  *  6. Glossary view: searchable, alphabetical
  *  7. Search view: full-text search with keyword highlighting
  *  8. Audit view: audit summary + findings table
- *  9. Offline support: graceful fallback when content.json is unavailable
+ *  9. Offline support: redesigned fallback page with cached-section list + SW cache probe
  * 10. Reading progress: visited-section tracking via localStorage
+ * 11. Share: Web Share API on agent dossiers with clipboard fallback + toast
+ * 12. "What's New" changelog view and full sitemap
+ * 13. Engagement-aware install banner (benefits, dismissal memory)
+ * 14. Interactive tools: bookmarks ("Saved" view), scroll progress bar,
+ *     per-section copy-link, collapsible long tables, print view,
+ *     and text-size settings (S/M/L) — all persisted in localStorage
  *
  * Data contract (data/content.json):
  *  {
@@ -53,6 +59,8 @@
 var CONTENT_URL   = 'data/content.json';
 var LS_PROGRESS   = 'pandorabook.progress.v1';   // reading-progress store
 var LS_COMPARE    = 'pandorabook.compare.v1';     // compare-view selections
+var LS_SAVED      = 'pandorabook.saved.v1';       // bookmarked sections [{key,title,hash}]
+var LS_FONT       = 'pandorabook.fontsize.v1';    // text size: 's' | 'm' | 'l'
 var APP_ROOT_ID   = 'app';
 var NAV_ID        = 'nav';
 
@@ -62,10 +70,13 @@ var ROUTES = [
   { prefix: '#/home',    view: 'home'       },
   { prefix: '#/agents',  view: 'agents'     },
   { prefix: '#/framework', view: 'framework' },
+  { prefix: '#/sitemap',  view: 'sitemap'  },
   { prefix: '#/compare', view: 'compare'    },
   { prefix: '#/glossary',view: 'glossary'   },
   { prefix: '#/search',  view: 'search'     },
   { prefix: '#/audit',   view: 'audit'      },
+  { prefix: '#/changelog', view: 'changelog' },
+  { prefix: '#/saved',    view: 'saved'      },
 ];
 
 /** Tab definitions for the agent-detail view. */
@@ -98,15 +109,27 @@ function esc(value) {
 function $(id) { return document.getElementById(id); }
 
 /**
- * Highlight occurrences of `query` inside `text` with <mark>.
- * Both inputs are escaped first; matching is case-insensitive.
+ * Highlight occurrences of each query term inside `text` with <mark>.
+ * The text is HTML-escaped first; each term is escaped the same way so
+ * queries containing & < > " ' still match their escaped forms.
+ * Longest terms match first to avoid nested/partial overlaps.
  */
 function highlight(text, query) {
   var safe = esc(text);
   if (!query || !query.trim()) return safe;
-  var q = query.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  var terms = query.trim().split(/\s+/)
+    .map(function (t) { return regexEsc(esc(t)); })
+    .filter(function (t) { return t.length > 0; });
+  if (!terms.length) return safe;
+  // Dedupe + longest first.
+  var seen = {};
+  terms = terms.filter(function (t) {
+    if (seen[t]) return false;
+    seen[t] = 1;
+    return true;
+  }).sort(function (a, b) { return b.length - a.length; });
   try {
-    return safe.replace(new RegExp('(' + q + ')', 'gi'), '<mark>$1</mark>');
+    return safe.replace(new RegExp('(' + terms.join('|') + ')', 'gi'), '<mark>$1</mark>');
   } catch (e) {
     return safe;
   }
@@ -157,6 +180,89 @@ function markVisited(routeKey) {
 /** How many distinct routes have been visited? */
 function visitedCount() {
   return Object.keys(App.progress).length;
+}
+
+/* ------------------------------------------------------------------ *
+ *  Bookmarks ("Saved") — localStorage
+ * ------------------------------------------------------------------ */
+
+function loadSaved() {
+  try {
+    var raw = localStorage.getItem(LS_SAVED);
+    var list = raw ? JSON.parse(raw) : [];
+    return Array.isArray(list) ? list : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function persistSaved(list) {
+  try {
+    localStorage.setItem(LS_SAVED, JSON.stringify(list));
+  } catch (e) { /* non-fatal */ }
+}
+
+function isBookmarked(key) {
+  var list = loadSaved();
+  for (var i = 0; i < list.length; i++) {
+    if (list[i].key === key) return true;
+  }
+  return false;
+}
+
+/** Toggle a bookmark. Returns true if now saved, false if removed. */
+function toggleBookmark(key, title, hash) {
+  var list = loadSaved();
+  for (var i = 0; i < list.length; i++) {
+    if (list[i].key === key) {
+      list.splice(i, 1);
+      persistSaved(list);
+      return false;
+    }
+  }
+  list.unshift({ key: key, title: title, hash: hash, savedAt: Date.now() });
+  persistSaved(list);
+  return true;
+}
+
+function removeBookmark(key) {
+  var list = loadSaved();
+  var next = list.filter(function (b) { return b.key !== key; });
+  persistSaved(next);
+}
+
+function savedCount() {
+  return loadSaved().length;
+}
+
+/* ------------------------------------------------------------------ *
+ *  Font-size preference — localStorage
+ * ------------------------------------------------------------------ */
+
+var FONT_SIZES = ['s', 'm', 'l']; // small / medium / large
+
+function loadFontSize() {
+  try {
+    var v = localStorage.getItem(LS_FONT);
+    return FONT_SIZES.indexOf(v) !== -1 ? v : 'm';
+  } catch (e) {
+    return 'm';
+  }
+}
+
+function applyFontSize(size) {
+  if (FONT_SIZES.indexOf(size) === -1) size = 'm';
+  var html = document.documentElement;
+  html.classList.remove('fs-s', 'fs-m', 'fs-l');
+  html.classList.add('fs-' + size);
+  try { localStorage.setItem(LS_FONT, size); } catch (e) { /* non-fatal */ }
+  // Sync the toolbar buttons' pressed state.
+  var btns = document.querySelectorAll('.fs-btn');
+  for (var i = 0; i < btns.length; i++) {
+    var active = btns[i].getAttribute('data-fs') === size;
+    btns[i].setAttribute('aria-pressed', active ? 'true' : 'false');
+  }
+  return size;
 }
 
 /* ------------------------------------------------------------------ *
@@ -259,23 +365,92 @@ function route() {
   }
   if (App.dataError || !App.data) {
     root.innerHTML = offlineView(App.dataError);
+    probeCacheStatus();
+    window.scrollTo(0, 0);
     return;
   }
 
   switch (r.name) {
-    case 'home':       root.innerHTML = viewHome(); break;
-    case 'agents':     root.innerHTML = viewAgents(); break;
-    case 'framework':  root.innerHTML = viewFramework(); break;
-    case 'agentDetail':root.innerHTML = viewAgentDetail(r.param, r.query.tab); break;
-    case 'compare':    root.innerHTML = viewCompare(); break;
-    case 'glossary':   root.innerHTML = viewGlossary(r.query.q); break;
-    case 'search':     root.innerHTML = viewSearch(r.query.q); break;
-    case 'audit':      root.innerHTML = viewAudit(); break;
-    default:           root.innerHTML = viewHome();
+    case 'home':       root.innerHTML = utilBar(r) + viewHome(); break;
+    case 'agents':     root.innerHTML = utilBar(r) + viewAgents(); break;
+    case 'framework':  root.innerHTML = utilBar(r) + viewFramework(); break;
+    case 'agentDetail':root.innerHTML = utilBar(r) + viewAgentDetail(r.param, r.query.tab); break;
+    case 'sitemap':    root.innerHTML = utilBar(r) + viewSitemap(); break;
+    case 'compare':    root.innerHTML = utilBar(r) + viewCompare(); break;
+    case 'glossary':   root.innerHTML = utilBar(r) + viewGlossary(r.query.q); break;
+    case 'search':     root.innerHTML = utilBar(r) + viewSearch(r.query.q, r.query.filter); break;
+    case 'audit':      root.innerHTML = utilBar(r) + viewAudit(); break;
+    case 'changelog':  root.innerHTML = utilBar(r) + viewChangelog(); break;
+    case 'saved':      root.innerHTML = utilBar(r) + viewSaved(); break;
+    default:           root.innerHTML = utilBar(r) + viewHome();
   }
 
   afterRender(r);
+  resetReadProgress();
   window.scrollTo(0, 0);
+}
+
+/**
+ * Autocomplete dropdown behavior for the search input:
+ * ArrowUp/ArrowDown to move, Enter to pick, Escape to dismiss,
+ * hide on blur (delayed so suggestion clicks still register).
+ */
+function wireSearchSuggest(input) {
+  var box = $('search-suggest');
+  if (!box) return;
+
+  function items() {
+    return box.querySelectorAll('.search-suggest-item');
+  }
+  function activeIdx() {
+    var list = items();
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].classList.contains('active')) return i;
+    }
+    return -1;
+  }
+  function setActive(i) {
+    var list = items();
+    for (var j = 0; j < list.length; j++) {
+      list[j].classList.toggle('active', j === i);
+    }
+    input.setAttribute('aria-expanded', i >= 0 ? 'true' : 'false');
+  }
+
+  input.addEventListener('keydown', function (e) {
+    var list = items();
+    if (!list.length) return;
+    var idx = activeIdx();
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setActive(idx >= list.length - 1 ? 0 : idx + 1);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setActive(idx <= 0 ? list.length - 1 : idx - 1);
+    } else if (e.key === 'Enter' && idx >= 0) {
+      e.preventDefault();
+      var href = list[idx].getAttribute('href');
+      if (href) go(href);
+    } else if (e.key === 'Escape') {
+      box.style.display = 'none';
+      input.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  input.addEventListener('blur', function () {
+    // Delay so a mousedown on a suggestion still fires its click.
+    setTimeout(function () {
+      box.style.display = 'none';
+      input.setAttribute('aria-expanded', 'false');
+    }, 180);
+  });
+
+  input.addEventListener('focus', function () {
+    if (items().length) {
+      box.style.display = '';
+      input.setAttribute('aria-expanded', 'true');
+    }
+  });
 }
 
 /** Wire up events that need JS after innerHTML render. */
@@ -297,10 +472,39 @@ function afterRender(r) {
     sq.addEventListener('input', function () {
       clearTimeout(deb2);
       deb2 = setTimeout(function () {
-        go('#/search?q=' + encodeURIComponent(sq.value));
+        // Preserve the active filter chip while typing.
+        var chip = document.querySelector('.chip[data-filter].active');
+        var flt = chip ? chip.getAttribute('data-filter') : 'all';
+        go('#/search?q=' + encodeURIComponent(sq.value) +
+           (flt && flt !== 'all' ? '&filter=' + encodeURIComponent(flt) : ''));
       }, 300);
     });
     // Enter key on the button-less input still triggers via hash change.
+
+    // Re-rendering replaces the input on every keystroke: restore focus so
+    // typing is never interrupted (caret to end, no scroll jump).
+    try {
+      sq.focus({ preventScroll: true });
+      var v = sq.value;
+      sq.value = '';
+      sq.value = v;
+    } catch (e) { /* older browsers: focus() without options */ try { sq.focus(); } catch (e2) {} }
+
+    wireSearchSuggest(sq);
+  }
+  // In-page jumps (glossary A–Z bar, related-term links): smooth scroll without
+  // touching location.hash (hash changes would hit the router).
+  var jumps = document.querySelectorAll('[data-jump]');
+  for (var j = 0; j < jumps.length; j++) {
+    (function (el) {
+      el.addEventListener('click', function (e) {
+        e.preventDefault();
+        var target = document.getElementById(el.getAttribute('data-jump'));
+        if (target && target.scrollIntoView) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    })(jumps[j]);
   }
 }
 
@@ -329,8 +533,9 @@ function renderNav(activeName) {
   // Maps view names to their hash routes.
   var viewToHash = {
     home: '#/home', agents: '#/agents', agentDetail: '#/agents',
-    framework: '#/framework', compare: '#/compare',
-    glossary: '#/glossary', search: '#/search', audit: '#/audit'
+    framework: '#/framework', sitemap: '#/sitemap', compare: '#/compare',
+    glossary: '#/glossary', search: '#/search', audit: '#/audit',
+    changelog: '#/changelog', saved: '#/saved'
   };
   var activeHash = viewToHash[activeName] || '#/home';
   var links = document.querySelectorAll('.top-link, .bottom-link');
@@ -362,14 +567,60 @@ function loadingView() {
 }
 
 function offlineView(errMsg) {
-  return '<div class="center-wrap">' +
-    '<div class="offline-icon">⚠</div>' +
-    '<h2>Content unavailable offline</h2>' +
-    '<p class="muted">PandoraBook could not load <code>data/content.json</code>.</p>' +
-    '<p class="muted small">Reason: ' + esc(errMsg || 'unknown') + '</p>' +
-    '<p>Check your connection, then <button class="btn" onclick="location.reload()">retry</button>.</p>' +
-    '<p class="muted small">Your reading progress is saved on this device and will resume when content loads.</p>' +
+  var sections = [
+    { hash: '#/home', icon: '⌂', label: 'Home' },
+    { hash: '#/agents', icon: '◈', label: 'Agents' },
+    { hash: '#/framework', icon: '⬡', label: 'Framework' },
+    { hash: '#/compare', icon: '⇄', label: 'Compare' },
+    { hash: '#/glossary', icon: '≡', label: 'Glossary' },
+    { hash: '#/search', icon: '⚲', label: 'Search' },
+    { hash: '#/audit', icon: '✓', label: 'Audit' },
+    { hash: '#/changelog', icon: '✦', label: "What's New" },
+  ];
+  var grid = sections.map(function (s) {
+    return '<a class="offline-card" href="' + s.hash + '">' +
+      '<span class="offline-card-icon" aria-hidden="true">' + s.icon + '</span>' +
+      '<span>' + s.label + '</span></a>';
+  }).join('');
+  return '<div class="offline-wrap">' +
+    '<div class="offline-hero"><div class="offline-icon" aria-hidden="true">◈</div>' +
+    '<h1>You\'re offline</h1>' +
+    '<p class="muted">PandoraBook couldn\'t load <code>data/content.json</code>' +
+    (errMsg ? ' <span class="small">(' + esc(errMsg) + ')</span>' : '') + '.</p>' +
+    '<button class="btn btn-primary" type="button" onclick="location.reload()">↻ Retry connection</button></div>' +
+    '<h2 class="section-title">Available offline</h2>' +
+    '<p class="muted small">Once the archive has loaded at least once, every section below works without a connection.</p>' +
+    '<div class="offline-grid">' + grid + '</div>' +
+    '<p class="muted small">Your reading progress is saved on this device and will resume when the content loads.</p>' +
+    '<p class="muted small" id="cache-status" aria-live="polite">Checking cached content…</p>' +
     '</div>';
+}
+
+/** Ask the service worker what app assets are cached; show it on the offline page. */
+function probeCacheStatus() {
+  var el = document.getElementById('cache-status');
+  function done(text) { if (el) el.textContent = text; }
+  if (!('serviceWorker' in navigator) || !navigator.serviceWorker.controller) {
+    done('Tip: install the app once while online and the whole archive works offline.');
+    return;
+  }
+  try {
+    var mc = new MessageChannel();
+    mc.port1.onmessage = function (e) {
+      var s = (e.data && e.data.status) || {};
+      if (s.data) {
+        done('Good news: the full archive is cached — reconnect once to unlock every section offline.');
+      } else if (s.shell) {
+        done('App shell is cached. Reconnect once to download the archive for offline reading.');
+      } else {
+        done('Nothing cached yet. Reconnect to download the archive.');
+      }
+    };
+    navigator.serviceWorker.controller.postMessage({ type: 'CACHE_STATUS' }, [mc.port2]);
+    setTimeout(function () { if (el && /Checking/.test(el.textContent)) done('Cache check timed out — try the retry button.'); }, 4000);
+  } catch (err) {
+    done('');
+  }
 }
 
 /* ------------------------------------------------------------------ *
@@ -386,29 +637,255 @@ function statusBadge(status) {
   return '<span class="badge ' + cls + '">' + label + '</span>';
 }
 
-/** Generic table renderer. cols: [{key, label}]. rows: array of objects. */
+/** Generic table renderer. cols: [{key, label}]. rows: array of objects.
+ *  opts: { empty, collapse (default true when rows > 5), collapseAt }
+ *  Long tables render the first N rows with a "Show all" toggle. */
+var tableSeq = 0;
+var TABLE_COLLAPSE_AT = 5;
+
+function tableRowHtml(cols, row, i) {
+  return '<tr class="' + (i % 2 ? 'row-alt' : '') + '">' + cols.map(function (c) {
+    var v = row[c.key];
+    if (Array.isArray(v)) v = v.join('; ');
+    return '<td>' + esc(v) + '</td>';
+  }).join('') + '</tr>';
+}
+
 function table(cols, rows, opts) {
   opts = opts || {};
   if (!rows || !rows.length) {
     return '<p class="muted empty-note">' + esc(opts.empty || 'No data available for this section.') + '</p>';
   }
   var thead = '<thead><tr>' + cols.map(function (c) {
-    return '<th>' + esc(c.label) + '</th>';
+    return '<th scope="col">' + esc(c.label) + '</th>';
   }).join('') + '</tr></thead>';
-  var tbody = '<tbody>' + rows.map(function (row, i) {
-    return '<tr class="' + (i % 2 ? 'row-alt' : '') + '">' + cols.map(function (c) {
-      var v = row[c.key];
-      if (Array.isArray(v)) v = v.join('; ');
-      return '<td>' + esc(v) + '</td>';
-    }).join('') + '</tr>';
+  var caption = '<caption class="table-caption">' + rows.length +
+    (rows.length === 1 ? ' row' : ' rows') + ' documented</caption>';
+
+  var collapseAt = (opts.collapse === false) ? rows.length : (opts.collapseAt || TABLE_COLLAPSE_AT);
+  var headRows = rows.slice(0, collapseAt);
+  var tailRows = rows.slice(collapseAt);
+
+  var tbody = '<tbody>' + headRows.map(function (row, i) {
+    return tableRowHtml(cols, row, i);
   }).join('') + '</tbody>';
-  return '<div class="table-wrap"><table class="data-table">' + thead + tbody + '</table></div>';
+
+  var toggle = '';
+  if (tailRows.length) {
+    tableSeq++;
+    var tid = 'more-rows-' + tableSeq;
+    tbody += '<tbody class="more-rows" id="' + tid + '" hidden>' +
+      tailRows.map(function (row, j) {
+        return tableRowHtml(cols, row, collapseAt + j);
+      }).join('') + '</tbody>';
+    toggle = '<button type="button" class="btn btn-sm collapse-toggle" ' +
+      'data-collapse-target="' + tid + '" data-total="' + rows.length + '" ' +
+      'aria-expanded="false" aria-controls="' + tid + '">' +
+      'Show all ' + rows.length + ' rows &#x25BE;</button>';
+  }
+
+  return '<div class="table-wrap"><table class="data-table">' + caption + thead + tbody +
+    '</table></div>' + toggle;
 }
 
 /** Section wrapper with anchor id + heading. */
 function section(id, title, inner) {
   return '<section class="doc-section" id="sec-' + esc(id) + '">' +
     '<h2 class="section-title">' + esc(title) + '</h2>' + inner + '</section>';
+}
+
+/* ------------------------------------------------------------------ *
+ *  Interactive features: bookmarks, font size, progress, share, print
+ * ------------------------------------------------------------------ */
+
+/** Inject the small stylesheet these interactive features need (kept in JS
+ *  so js/app.js stays self-contained). Runs once at boot. */
+function injectDynamicStyles() {
+  if (document.getElementById('pb-dynamic-styles')) return;
+  var css =
+    'html.fs-s{font-size:14px}html.fs-m{font-size:16px}html.fs-l{font-size:19px}' +
+    '#read-progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:9998;' +
+      'opacity:0;transition:opacity .3s;pointer-events:none;background:transparent}' +
+    '.read-progress-fill{height:100%;width:0%;' +
+      'background:linear-gradient(90deg,var(--color-gold-400,#f5c542),var(--color-gold-300,#ffd97a))}' +
+    '.util-bar{display:flex;align-items:center;justify-content:space-between;gap:.6rem;' +
+      'flex-wrap:wrap;padding:.45rem .8rem;margin-bottom:1rem;font-size:.85rem;' +
+      'background:rgba(255,255,255,.03);border:1px solid var(--color-border-soft,rgba(255,255,255,.09));' +
+      'border-radius:10px}' +
+    '.util-link{color:var(--color-text-2,#e8e4d8);text-decoration:none;font-weight:600;white-space:nowrap}' +
+    '.util-link:hover{color:var(--color-gold-400,#f5c542)}' +
+    '.util-count{display:inline-block;min-width:1.4em;text-align:center;padding:0 .3em;' +
+      'border-radius:999px;background:var(--color-gold-400,#f5c542);color:#1a1405;font-size:.78em;font-weight:700}' +
+    '.fs-group{display:flex;gap:.25rem;align-items:center}' +
+    '.fs-btn{min-width:2rem;padding:.25rem .45rem;border:1px solid var(--color-border-soft,rgba(255,255,255,.14));' +
+      'background:transparent;color:var(--color-text-2,#e8e4d8);border-radius:8px;cursor:pointer;font-weight:700}' +
+    '.fs-btn[aria-pressed="true"]{background:var(--color-gold-400,#f5c542);color:#1a1405;border-color:var(--color-gold-400,#f5c542)}' +
+    '.bookmark-btn{background:transparent;border:1px solid var(--color-border-soft,rgba(255,255,255,.14));' +
+      'color:var(--color-text-2,#e8e4d8);border-radius:8px;padding:.3rem .55rem;cursor:pointer;font-size:.9rem;line-height:1}' +
+    '.bookmark-btn.saved{color:var(--color-gold-400,#f5c542);border-color:var(--color-gold-400,#f5c542)}' +
+    '.detail-actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.8rem;align-items:center}' +
+    '.btn-sm{padding:.35rem .7rem;font-size:.82rem}' +
+    '.saved-item{display:flex;align-items:center;justify-content:space-between;gap:.8rem;' +
+      'padding:.65rem .9rem;margin-bottom:.5rem;border:1px solid var(--color-border-soft,rgba(255,255,255,.09));' +
+      'border-radius:10px;background:rgba(255,255,255,.02)}' +
+    '.saved-item a{color:var(--color-text-1,#f5f2e9);font-weight:600;text-decoration:none}' +
+    '.saved-item a:hover{color:var(--color-gold-400,#f5c542)}' +
+    '.saved-when{display:block;font-size:.78rem;color:var(--color-text-3,#a89f8d);font-weight:400}' +
+    '.collapse-toggle{margin:.55rem 0 1.1rem}' +
+    'tbody.more-rows[hidden]{display:none}' +
+    '@media print{' +
+      '.read-progress,.util-bar,.detail-actions,.bookmark-btn,.collapse-toggle,.fs-group{display:none!important}' +
+      'tbody.more-rows[hidden]{display:table-row-group}' +
+    '}';
+  var el = document.createElement('style');
+  el.id = 'pb-dynamic-styles';
+  el.textContent = css;
+  document.head.appendChild(el);
+}
+
+/** Small utility toolbar rendered above every view: Saved link + text size. */
+function utilBar(r) {
+  var fs = loadFontSize();
+  function fsBtn(size, glyph, label) {
+    var active = fs === size;
+    return '<button type="button" class="fs-btn" data-fs="' + size + '" ' +
+      'aria-pressed="' + (active ? 'true' : 'false') + '" aria-label="' + label + ' text size">' +
+      glyph + '</button>';
+  }
+  return '<div class="util-bar" role="toolbar" aria-label="Reading tools">' +
+    '<a class="util-link" href="#/saved">&#9733; Saved <span class="util-count">' +
+      savedCount() + '</span></a>' +
+    '<div class="fs-group" role="group" aria-label="Text size">' +
+      fsBtn('s', 'A&minus;', 'Small') + fsBtn('m', 'A', 'Medium') + fsBtn('l', 'A+', 'Large') +
+    '</div>' +
+  '</div>';
+}
+
+/** Star toggle for bookmarking a section/page. */
+function bookmarkBtn(key, title, hash) {
+  var saved = isBookmarked(key);
+  return '<button type="button" class="bookmark-btn' + (saved ? ' saved' : '') + '" ' +
+    'data-bookmark-key="' + esc(key) + '" ' +
+    'data-bookmark-title="' + esc(title) + '" ' +
+    'data-bookmark-hash="' + esc(hash) + '" ' +
+    'aria-pressed="' + (saved ? 'true' : 'false') + '" ' +
+    'aria-label="' + (saved ? 'Remove bookmark: ' : 'Bookmark this section: ') + esc(title) + '">' +
+    (saved ? '&#9733;' : '&#9734;') + '</button>';
+}
+
+/** Copy-link button. Copies the absolute URL of the given hash. */
+function copyLinkBtn(hash, label) {
+  return '<button type="button" class="btn btn-sm" data-copy-link ' +
+    'data-url="' + esc(absoluteHashUrl(hash)) + '" aria-label="Copy link: ' + esc(label || hash) + '">' +
+    '&#10697; Copy link</button>';
+}
+
+/** Turn a "#/..." hash into an absolute shareable URL. */
+function absoluteHashUrl(hash) {
+  var base = String(location.href).split('#')[0];
+  return base + (hash || location.hash || '#/home');
+}
+
+function copyTextToClipboard(text, onOk, onFail) {
+  function fallback() {
+    try {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      var ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      if (ok) onOk(); else onFail();
+    } catch (e) { onFail(); }
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(onOk, fallback);
+  } else {
+    fallback();
+  }
+}
+
+/* ---------------- Reading progress bar ---------------- */
+
+var progressTicking = false;
+
+function ensureProgressBar() {
+  if (document.getElementById('read-progress')) return;
+  var bar = document.createElement('div');
+  bar.id = 'read-progress';
+  bar.setAttribute('aria-hidden', 'true');
+  bar.innerHTML = '<div class="read-progress-fill" id="read-progress-fill"></div>';
+  document.body.appendChild(bar);
+}
+
+function updateReadProgress() {
+  var doc = document.documentElement;
+  var max = doc.scrollHeight - doc.clientHeight;
+  var scrolled = doc.scrollTop || document.body.scrollTop || 0;
+  var pct = max > 0 ? Math.min(100, Math.max(0, (scrolled / max) * 100)) : 0;
+  var fill = document.getElementById('read-progress-fill');
+  var bar = document.getElementById('read-progress');
+  if (fill) fill.style.width = pct + '%';
+  // Only show the bar on long pages (worth tracking).
+  if (bar) bar.style.opacity = (max > doc.clientHeight * 0.6) ? '1' : '0';
+}
+
+function resetReadProgress() {
+  var fill = document.getElementById('read-progress-fill');
+  if (fill) fill.style.width = '0%';
+  updateReadProgress();
+}
+
+function wireProgressScroll() {
+  window.addEventListener('scroll', function () {
+    if (progressTicking) return;
+    progressTicking = true;
+    (window.requestAnimationFrame || function (fn) { setTimeout(fn, 16); })(function () {
+      updateReadProgress();
+      progressTicking = false;
+    });
+  }, { passive: true });
+}
+
+/* ---------------- Saved view ---------------- */
+
+function viewSaved() {
+  var list = loadSaved();
+  var items;
+  if (!list.length) {
+    items = '<p class="muted empty-note">No bookmarks yet. Tap the &#9734; star on any agent ' +
+      'profile section to save it here for quick access.</p>';
+  } else {
+    items = '<div class="saved-list">' + list.map(function (b) {
+      var when = '';
+      try {
+        when = '<span class="saved-when">Saved ' +
+          esc(new Date(b.savedAt).toLocaleDateString()) + '</span>';
+      } catch (e) {}
+      return '<div class="saved-item"><div><a href="' + esc(b.hash) + '">' +
+        esc(b.title) + '</a>' + when + '</div>' +
+        '<button type="button" class="btn btn-sm" data-unsave="' + esc(b.key) + '">' +
+        'Remove</button></div>';
+    }).join('') + '</div>';
+  }
+  return '<header class="page-head"><h1>&#9733; Saved</h1>' +
+    '<p class="muted">' + list.length + ' bookmarked section' +
+    (list.length === 1 ? '' : 's') + ' &mdash; stored on this device.</p></header>' + items;
+}
+
+/** Action row for the agent-detail header: bookmark, copy link, print. */
+function detailActions(agent, tab, tabLabel) {
+  var key = 'agent:' + agent.code + ':' + tab;
+  var title = agent.code + ' \u2014 ' + tabLabel;
+  var hash = '#/agent/' + agent.code + '?tab=' + tab;
+  return '<div class="detail-actions">' +
+    bookmarkBtn(key, title, hash) +
+    copyLinkBtn(hash, title) +
+    '<button type="button" class="btn btn-sm" data-print>&#128438; Print</button>' +
+  '</div>';
 }
 
 /** Agent card used on home + agents list. */
@@ -426,19 +903,123 @@ function agentCard(agent) {
  *  VIEW: Home
  * ------------------------------------------------------------------ */
 
+/* ------------------------------------------------------------------ *
+ *  VIEW: Home (redesigned for fast discovery)
+ * ------------------------------------------------------------------ */
+
+/** Global handler for the home-page search bar (inline onsubmit). */
+function homeSearchGo(e) {
+  if (e && e.preventDefault) e.preventDefault();
+  var input = document.getElementById('homeSearchInput');
+  var q = input ? input.value : '';
+  location.hash = '#/search?q=' + encodeURIComponent(q || '');
+  return false;
+}
+
+/** Prominent search bar rendered at the top of the home page. */
+function homeSearchBar() {
+  return '<form class="home-search" role="search" onsubmit="return homeSearchGo(event)">' +
+    '<span class="search-icon" aria-hidden="true">&#8981;</span>' +
+    '<input class="home-search-input" id="homeSearchInput" type="search" ' +
+      'placeholder="Search traits, states, terms&hellip; e.g. &ldquo;core desire&rdquo;, &ldquo;savior mode&rdquo;" ' +
+      'aria-label="Search the archive" autocomplete="off">' +
+    '<button class="btn btn-primary" type="submit">Search</button></form>';
+}
+
+/** "Start Here" guided 3-step path for new users. */
+function homeStartHere() {
+  return section('start', 'Start Here — New to the Archive?',
+    '<p class="muted">A three-step path that takes you from the framework to a full agent dossier.</p>' +
+    '<ol class="start-steps">' +
+      '<li class="start-step"><span class="start-num" aria-hidden="true">1</span>' +
+        '<div><a href="#/framework"><strong>Learn the framework</strong></a>' +
+        '<p class="muted small">Three binary axes &mdash; temporal focus, coping architecture, relational worldview &mdash; generate all eight type codes.</p></div></li>' +
+      '<li class="start-step"><span class="start-num" aria-hidden="true">2</span>' +
+        '<div><a href="#/agents"><strong>Meet the three profiles</strong></a>' +
+        '<p class="muted small">TDI &middot; TJI &middot; NDI &mdash; complete dossiers with states, triggers, and communication playbooks.</p></div></li>' +
+      '<li class="start-step"><span class="start-num" aria-hidden="true">3</span>' +
+        '<div><a href="#/compare"><strong>Compare side by side</strong></a>' +
+        '<p class="muted small">Confusion risks and key distinctions &mdash; learn to tell the types apart fast.</p></div></li>' +
+    '</ol>');
+}
+
+/** Visual diagram of the three dimensional axes (poles on a track). */
+function homeFrameworkDiagram(dims) {
+  if (!dims.length) return '';
+  var diagram = '<div class="framework-diagram">' + dims.map(function (dim) {
+    var poles = dim.poles || [];
+    return '<div class="axis">' +
+      '<span class="axis-code">' + esc(dim.code || '') + '</span>' +
+      '<div class="axis-track">' +
+        '<span class="axis-pole">' + esc(poles[0] || '') + '</span>' +
+        '<span class="axis-mid" aria-hidden="true">&#10231;</span>' +
+        '<span class="axis-pole">' + esc(poles[1] || '') + '</span>' +
+      '</div>' +
+      '<p class="axis-name">' + esc(dim.dimension || dim.name || '') + '</p>' +
+      '<p class="muted small axis-fn">' + esc(dim.function || dim.description || '') + '</p></div>';
+  }).join('') + '</div>';
+  return section('dimensions', 'Dimensional Framework',
+    diagram +
+    '<p class="muted small">Each axis is a binary pole &mdash; combining all three gives the eight type codes. ' +
+    'This edition profiles the three Idealist-branch types. <a href="#/framework">Open the full taxonomy &rarr;</a></p>');
+}
+
+/** Richer agent card for the home page: key traits + state count + theming. */
+function homeAgentCard(agent) {
+  var code = esc(agent.code || '?');
+  var ident = {};
+  (agent.identity || []).forEach(function (row) { ident[row.parameter] = row.value; });
+  var traits = [
+    { label: 'Core desire',     value: ident['Core Desire'] },
+    { label: 'Primary defense', value: ident['Primary Defense'] },
+    { label: 'Core fear',       value: ident['Core Fear'] },
+  ];
+  var traitHtml = traits.map(function (t) {
+    return t.value
+      ? '<div class="trait"><span class="trait-label">' + esc(t.label) + '</span>' +
+        '<span class="trait-value">' + esc(String(t.value)) + '</span></div>'
+      : '';
+  }).join('');
+  var stateCount = (agent.states || []).length;
+  return '<a class="card agent-card home-agent-card" data-agent="' + String(agent.code || '').toLowerCase() +
+    '" href="#/agent/' + code + '">' +
+    '<div class="agent-card-top"><span class="agent-code">' + code + '</span>' +
+    statusBadge(agent.status) + '</div>' +
+    '<h3>' + esc(agent.name || code) + '</h3>' +
+    '<p class="muted small">' + esc(agent.archetype || '') + '</p>' +
+    '<div class="agent-traits">' + traitHtml + '</div>' +
+    '<p class="muted small">' + stateCount + ' behavioral states documented</p>' +
+    '<span class="card-link">Open full dossier &rarr;</span></a>';
+}
+
+/** "Popular Topics" quick-link chips that jump straight into search. */
+function homePopularTopics(glossaryCount) {
+  var topics = [
+    'Core desire', 'Primary defense', 'Savior mode',
+    'Social dispersion', 'Emotional invisibility', 'Confusion risks'
+  ];
+  var chips = topics.map(function (t) {
+    return '<a class="topic-chip" href="#/search?q=' + encodeURIComponent(t) + '">' + esc(t) + '</a>';
+  }).join('');
+  return section('topics', 'Popular Topics',
+    '<div class="popular-topics">' + chips + '</div>' +
+    '<p class="muted small">Or browse the <a href="#/glossary">full glossary</a> (' + glossaryCount +
+    ' terms) and the <a href="#/compare">confusion-risk table</a>.</p>');
+}
+
 function viewHome() {
   var d = App.data;
   var meta = d.meta || {};
   var dims = d.dimensions || [];
   var agents = d.agents || [];
-  var audit = d.auditSummary || {};
-  var totals = audit.totals || {};
+  var glossaryCount = (d.glossary || []).length;
 
   var hero =
     '<header class="hero">' +
       '<p class="hero-kicker">' + esc(meta.kicker || 'AI Agent Modeling Dataset') + '</p>' +
       '<h1>' + esc(meta.title || "Pandora's Box") + '</h1>' +
       '<p class="hero-sub">' + esc(meta.subtitle || 'Advanced distinguishable data set for AI agent modeling.') + '</p>' +
+      homeSearchBar() +
       '<div class="hero-meta">' +
         '<span class="pill">v' + esc(meta.version || '1.0') + '</span>' +
         '<span class="pill">' + esc(meta.auditDepth || '50,000x') + ' audited</span>' +
@@ -450,24 +1031,20 @@ function viewHome() {
       '</div>' +
     '</header>';
 
-  var dimCards = dims.length
-    ? '<div class="grid grid-3">' + dims.map(function (dim) {
-        return '<div class="card">' +
-          '<div class="dim-code">' + esc(dim.code || '') + '</div>' +
-          '<h3>' + esc(dim.dimension || dim.name || '') + '</h3>' +
-          '<p class="muted small">' + esc(dim.poles || '') + '</p>' +
-          '<p>' + esc(dim.function || dim.description || '') + '</p></div>';
-      }).join('') + '</div>'
-    : '';
-
   var agentCards = agents.length
-    ? '<div class="grid grid-3">' + agents.map(agentCard).join('') + '</div>'
+    ? '<div class="grid grid-3">' + agents.map(homeAgentCard).join('') + '</div>'
     : '<p class="muted">No agent profiles in this build.</p>';
 
+  // More meaningful metrics: coverage, depth, and the reader's own progress.
+  var stateTotal = agents.reduce(function (n, a) { return n + ((a.states || []).length); }, 0);
+  var completeCount = agents.filter(function (a) {
+    return String(a.status || '').toLowerCase() === 'complete';
+  }).length;
   var statItems = [
     { n: agents.length, label: 'Agent profiles' },
-    { n: (d.glossary || []).length, label: 'Glossary terms' },
-    { n: totals.critical != null ? totals.critical : '—', label: 'Critical findings fixed' },
+    { n: stateTotal, label: 'Behavioral states documented' },
+    { n: glossaryCount, label: 'Glossary terms' },
+    { n: completeCount + ' of ' + agents.length, label: 'Complete dossiers' },
     { n: visitedCount(), label: 'Sections you visited' },
   ];
   var stats = '<div class="stats-row">' + statItems.map(function (s) {
@@ -476,8 +1053,10 @@ function viewHome() {
   }).join('') + '</div>';
 
   return hero +
-    section('dimensions', 'Dimensional Framework', dimCards) +
+    homeStartHere() +
+    homeFrameworkDiagram(dims) +
     section('agents', 'Agent Profiles', agentCards) +
+    homePopularTopics(glossaryCount) +
     section('stats', 'At a Glance', stats);
 }
 
@@ -530,11 +1109,152 @@ function viewFramework() {
  * ------------------------------------------------------------------ */
 
 function findAgent(code) {
-  var agents = App.data.agents || [];
+  var agents = (App.data && App.data.agents) || [];
   for (var i = 0; i < agents.length; i++) {
     if ((agents[i].code || '').toUpperCase() === String(code).toUpperCase()) return agents[i];
   }
   return null;
+}
+
+/** Breadcrumb trail: [{ label, hash }]. Last item is the current page. */
+function breadcrumbs(items) {
+  var crumbs = items.map(function (item, i) {
+    var isLast = i === items.length - 1;
+    var label = '<span' + (isLast ? ' aria-current="page"' : '') + '>' + esc(item.label) + '</span>';
+    return '<li class="crumb">' + (isLast || !item.hash ? label
+      : '<a href="' + esc(item.hash) + '">' + esc(item.label) + '</a>') + '</li>';
+  }).join('<li class="crumb-sep" aria-hidden="true">›</li>');
+  return '<nav class="breadcrumbs" aria-label="Breadcrumb"><ol>' + crumbs + '</ol></nav>';
+}
+
+/** "Previous / Next agent" pager for the bottom of agent detail pages. */
+function prevNextAgent(agent) {
+  var agents = App.data.agents || [];
+  var idx = -1;
+  for (var i = 0; i < agents.length; i++) {
+    if (String(agents[i].code).toUpperCase() === String(agent.code).toUpperCase()) { idx = i; break; }
+  }
+  if (idx === -1) return '';
+  var prev = agents[(idx - 1 + agents.length) % agents.length];
+  var next = agents[(idx + 1) % agents.length];
+  function link(a, dir) {
+    return '<a class="pager-card" data-agent="' + String(a.code || '').toLowerCase() +
+      '" href="#/agent/' + esc(a.code) + '">' +
+      '<span class="pager-dir">' + (dir === 'prev' ? '← Previous' : 'Next →') + '</span>' +
+      '<span class="pager-code">' + esc(a.code) + '</span>' +
+      '<span class="pager-name">' + esc(a.name || a.code) + '</span></a>';
+  }
+  return '<nav class="prev-next-agent" aria-label="More agent profiles">' +
+    link(prev, 'prev') + link(next, 'next') + '</nav>';
+}
+
+/** Index of a tab id in AGENT_TABS (ES5-safe). */
+function tabIndexOf(tabId) {
+  for (var i = 0; i < AGENT_TABS.length; i++) {
+    if (AGENT_TABS[i].id === tabId) return i;
+  }
+  return 0;
+}
+
+/** "At a Glance" summary card: archetype, status, key traits, data coverage. */
+function glanceCard(agent) {
+  var code = (agent.code || '').toLowerCase();
+  var traits = (agent.identity || []).slice(0, 3).map(function (row) {
+    return '<div class="glance-trait">' +
+      '<span class="glance-trait-param">' + esc(row.parameter || '') + '</span>' +
+      '<span class="glance-trait-value">' + esc(row.value || '') + '</span></div>';
+  }).join('');
+
+  var coverage = [
+    ['Identity', agent.identity], ['States', agent.states],
+    ['Communication', agent.communication], ['Escalation', agent.escalationLadder],
+    ['Triggers', agent.triggers], ['Emotions', agent.emotionalSequence],
+    ['Resistance', agent.resistance], ['Maintenance', agent.maintenance]
+  ].map(function (c) {
+    var n = (c[1] || []).length;
+    return '<span class="coverage-item' + (n ? '' : ' empty') + '" title="' + n + ' rows documented">' +
+      '<span class="coverage-dot"></span>' + esc(c[0]) + ' <strong>' + n + '</strong></span>';
+  }).join('');
+
+  return '<section class="glance-card" data-agent="' + esc(code) + '" aria-label="At a glance">' +
+    '<h2 class="glance-title">At a Glance</h2>' +
+    '<div class="glance-row">' +
+      '<div class="glance-fact"><span class="glance-label">Archetype</span>' +
+        '<span class="glance-value">' + esc(agent.archetype || '—') + '</span></div>' +
+      '<div class="glance-fact"><span class="glance-label">Status</span>' +
+        statusBadge(agent.status) + '</div>' +
+    '</div>' +
+    (traits ? '<h3 class="glance-sub">Key traits</h3><div class="glance-traits">' + traits + '</div>' : '') +
+    '<h3 class="glance-sub">Data coverage</h3><div class="glance-coverage">' + coverage + '</div>' +
+  '</section>';
+}
+
+/** Visual tab progress indicator: "Section 3 of 8" + segmented bar. */
+function tabProgressHtml(agent, tab) {
+  var idx = tabIndexOf(tab);
+  var total = AGENT_TABS.length;
+  var label = AGENT_TABS[idx].label;
+  var segs = '';
+  for (var i = 0; i < total; i++) {
+    var cls = 'seg' + (i < idx ? ' done' : '') + (i === idx ? ' current' : '');
+    segs += '<a href="#/agent/' + esc(agent.code) + '?tab=' + AGENT_TABS[i].id + '"' +
+      ' class="' + cls + '" aria-label="Go to ' + esc(AGENT_TABS[i].label) + '"' +
+      (i === idx ? ' aria-current="true"' : '') + '></a>';
+  }
+  return '<div class="tab-progress" role="navigation" aria-label="Profile sections progress">' +
+    '<span class="tab-progress-label">Section <strong>' + (idx + 1) + '</strong> of ' + total +
+    ' · ' + esc(label) + '</span>' +
+    '<div class="seg-bar" aria-hidden="true">' + segs + '</div></div>';
+}
+
+/** Data-driven "Key Takeaways" box for each tab. No invented content. */
+function renderTabTakeaways(agent, tab) {
+  var items = [], title = 'Key takeaways';
+  function names(arr, key) {
+    return (arr || []).map(function (r) { return r[key]; })
+      .filter(function (v) { return v; });
+  }
+  switch (tab) {
+    case 'identity':
+      items = names(agent.identity, 'parameter').slice(0, 3);
+      title = 'Highest-weight identity parameters';
+      break;
+    case 'states':
+      items = names(agent.states, 'name');
+      title = 'Behavioral state sequence';
+      break;
+    case 'communication':
+      items = names(agent.communication, 'channel');
+      title = 'Communication channels covered';
+      break;
+    case 'escalation':
+      items = names(agent.escalationLadder, 'name');
+      title = 'Escalation levels';
+      break;
+    case 'triggers':
+      items = names(agent.triggers, 'trigger');
+      title = 'Documented triggers';
+      break;
+    case 'emotions':
+      items = names(agent.emotionalSequence, 'emotion');
+      title = 'Emotional sequence';
+      break;
+    case 'resistance':
+      items = names(agent.resistance, 'type');
+      title = 'Resistance patterns';
+      break;
+    case 'maintenance':
+      items = names(agent.maintenance, 'requirement');
+      title = 'Maintenance requirements';
+      break;
+  }
+  if (!items.length) return '';
+  var seq = (tab === 'states' || tab === 'emotions')
+    ? esc(items.join(' → '))
+    : '<ul>' + items.map(function (n) { return '<li>' + esc(n) + '</li>'; }).join('') + '</ul>';
+  return '<aside class="takeaways" aria-label="Key takeaways">' +
+    '<h3 class="takeaways-title">✦ ' + esc(title) + '</h3>' +
+    '<div class="takeaways-body">' + seq + '</div></aside>';
 }
 
 function viewAgentDetail(code, tabFromQuery) {
@@ -549,23 +1269,55 @@ function viewAgentDetail(code, tabFromQuery) {
   if (!AGENT_TABS.some(function (t) { return t.id === tab; })) tab = 'identity';
   App.activeTab[agent.code] = tab;
 
-  var tabsHtml = '<div class="tabs" role="tablist">' + AGENT_TABS.map(function (t) {
-    var active = t.id === tab ? ' active' : '';
-    return '<a role="tab" class="tab' + active + '" href="#/agent/' + esc(agent.code) +
-      '?tab=' + t.id + '">' + esc(t.label) + '</a>';
-  }).join('') + '</div>';
+  var agentCode = (agent.code || '').toLowerCase();
+  var tabsHtml = '<div class="tabs" role="tablist" aria-label="Agent profile sections">' +
+    AGENT_TABS.map(function (t) {
+      var active = t.id === tab;
+      return '<a role="tab" aria-selected="' + (active ? 'true' : 'false') + '"' +
+        ' class="tab' + (active ? ' active' : '') + '" href="#/agent/' + esc(agent.code) +
+        '?tab=' + t.id + '">' + esc(t.label) + '</a>';
+    }).join('') + '</div>';
 
   var body = renderAgentTab(agent, tab);
+  var takeaways = renderTabTakeaways(agent, tab);
+  var tabLabel = (function () {
+    for (var i = 0; i < AGENT_TABS.length; i++) {
+      if (AGENT_TABS[i].id === tab) return AGENT_TABS[i].label;
+    }
+    return tab;
+  })();
+  var bmKey = 'agent:' + agent.code + ':' + tab;
+  var bmTitle = agent.code + ' \u2014 ' + tabLabel;
+  var bmHash = '#/agent/' + agent.code + '?tab=' + tab;
 
-  return '<header class="page-head agent-head">' +
+  return breadcrumbs([
+      { label: 'Home', hash: '#/home' },
+      { label: 'Agents', hash: '#/agents' },
+      { label: agent.code + ' — ' + (agent.name || '') },
+    ]) +
+    '<div class="agent-detail" data-agent="' + esc(agentCode) + '">' +
+    '<header class="page-head agent-head">' +
       '<a class="back-link" href="#/agents">← All agents</a>' +
       '<div class="agent-head-row"><span class="agent-code big">' + esc(agent.code) + '</span>' +
       statusBadge(agent.status) + '</div>' +
       '<h1>' + esc(agent.name || agent.code) + '</h1>' +
       '<p class="muted">' + esc(agent.archetype || '') + '</p>' +
+      '<div class="hero-actions"><button class="btn btn-small" type="button" ' +
+        'onclick="PandoraBook.shareAgent(\'' + esc(agent.code) + '\')" aria-label="Share this agent profile">' +
+        '⤴ Share profile</button>' +
+        bookmarkBtn(bmKey, bmTitle, bmHash) +
+        '<button type="button" class="btn btn-sm" data-copy-link ' +
+          'data-url="' + esc(absoluteHashUrl(bmHash)) + '" ' +
+          'aria-label="Copy link to this section: ' + esc(bmTitle) + '">' +
+          '&#10697; Copy section link</button>' +
+        '<button type="button" class="btn btn-sm" data-print>&#128438; Print</button>' +
+      '</div>' +
     '</header>' +
-    tabsHtml +
-    '<div class="tab-body">' + body + '</div>';
+    glanceCard(agent) +
+    '<div class="tabs-wrap">' + tabProgressHtml(agent, tab) + tabsHtml + '</div>' +
+    '<div class="tab-body">' + body + takeaways + '</div>' +
+    prevNextAgent(agent) +
+  '</div>';
 }
 
 function renderAgentTab(agent, tab) {
@@ -579,7 +1331,7 @@ function renderAgentTab(agent, tab) {
         agent.identity, { empty: 'Identity matrix not documented for this agent.' });
 
     case 'states':
-      return renderStates(agent.states);
+      return renderStates(agent.states, agent.code);
 
     case 'communication':
       return table(
@@ -638,12 +1390,20 @@ function renderAgentTab(agent, tab) {
   }
 }
 
-/** Render behavioral state machine as cards (not a flat table — richer). */
-function renderStates(states) {
+/** Render behavioral state machine as cards (not a flat table — richer).
+ *  Includes quick-jump chips (buttons, hash-safe) to each state card. */
+function renderStates(states, agentCode) {
   if (!states || !states.length) {
     return '<p class="muted empty-note">State machine not documented for this agent.</p>';
   }
-  return '<div class="states-flow">' + states.map(function (s, i) {
+  var code = (agentCode || 'x').toLowerCase();
+  var jump = '<nav class="jump-nav" aria-label="Jump to a state">' +
+    '<span class="jump-label">Jump to:</span>' +
+    states.map(function (s, i) {
+      return '<button type="button" class="jump-chip" data-jump="state-' + code + '-' + i + '">' +
+        esc(s.name || ('State ' + (i + 1))) + '</button>';
+    }).join('') + '</nav>';
+  return jump + '<div class="states-flow">' + states.map(function (s, i) {
     var behaviors = (s.behaviors || []).map(function (b) {
       return '<li>' + esc(b) + '</li>';
     }).join('');
@@ -653,7 +1413,7 @@ function renderStates(states) {
     var exits = (s.exits || []).map(function (e) {
       return '<span class="exit-chip">' + esc(e) + '</span>';
     }).join('');
-    return '<article class="state-card">' +
+    return '<article class="state-card" id="state-' + code + '-' + i + '">' +
       '<div class="state-num">' + (i + 1) + '</div>' +
       '<h3 class="state-name">' + esc(s.name || ('State ' + (i + 1))) + '</h3>' +
       (s.trigger ? '<p class="state-trigger"><strong>Trigger:</strong> ' + esc(s.trigger) + '</p>' : '') +
@@ -689,56 +1449,189 @@ function viewCompare() {
 
   var left = findAgent(sel.left), right = findAgent(sel.right);
 
+  /* ---------- user-friendly selectors with descriptions ---------- */
   function selector(which, current) {
-    return '<label class="compare-select"><span>' + (which === 'left' ? 'Agent A' : 'Agent B') + '</span>' +
+    var cur = findAgent(current);
+    var desc = cur
+      ? '<p class="muted small cmp-current">' + esc(cur.code) + ' · ' + esc(cur.name || '') +
+        ' — ' + esc(shortArchetype(cur.archetype)) + '</p>'
+      : '';
+    return '<div class="compare-select-wrap"><label class="compare-select"><span>' +
+      (which === 'left' ? 'Agent A' : 'Agent B') + '</span>' +
       '<select id="cmp-' + which + '">' +
       agents.map(function (a) {
         var selected = a.code === current ? ' selected' : '';
         return '<option value="' + esc(a.code) + '"' + selected + '>' +
-          esc(a.code) + ' — ' + esc(a.name || '') + '</option>';
-      }).join('') + '</select></label>';
+          esc(a.code) + ' — ' + esc(a.name || '') + ' · ' + esc(shortArchetype(a.archetype)) + '</option>';
+      }).join('') + '</select></label>' + desc + '</div>';
   }
 
+  /* ---------- at-a-glance cards ---------- */
+  var glanceHtml = '<div class="cmp-glance">' +
+    cmpGlanceCard(left) + cmpGlanceCard(right) + '</div>';
+
+  /* ---------- comparison rows + diff stats ---------- */
   var rows = compareRows(left, right);
-  var tableHtml = '<div class="table-wrap"><table class="data-table compare-table"><thead><tr>' +
+  var diffRows = rows.filter(function (r) { return r.a !== r.b; });
+
+  var banner = '<div class="diff-banner"><span class="pill">' + diffRows.length +
+    ' of ' + rows.length + ' dimensions differ</span>' +
+    '<span class="muted small">Rows marked ≠ highlight exactly where ' +
+    esc(left.code) + ' and ' + esc(right.code) + ' diverge.</span></div>';
+
+  var tableHtml = '<section class="doc-section">' +
+    '<div class="compare-table-head"><h2 class="section-title">Full comparison</h2>' +
+    '<label class="diff-toggle"><input type="checkbox" id="diff-toggle" /> ' +
+    'Show differences only (' + diffRows.length + ')</label></div>' +
+    '<div class="table-wrap"><table class="data-table compare-table" id="compare-table"><thead><tr>' +
     '<th>Dimension</th><th>' + esc(left.code) + '</th><th>' + esc(right.code) + '</th>' +
     '</tr></thead><tbody>' +
     rows.map(function (r, i) {
-      var diff = r.a !== r.b ? ' class="diff"' : '';
-      return '<tr' + (i % 2 ? ' class="row-alt"' : '') + '><td><strong>' + esc(r.label) +
-        '</strong></td><td' + diff + '>' + esc(r.a) + '</td><td' + diff + '>' + esc(r.b) + '</td></tr>';
-    }).join('') + '</tbody></table></div>';
+      var isDiff = r.a !== r.b;
+      var cls = (isDiff ? 'diff-row' : 'same-row') + (i % 2 ? ' row-alt' : '');
+      var mark = isDiff ? ' <span class="diff-mark" title="These values differ">≠</span>' : '';
+      var cellCls = isDiff ? ' class="diff"' : '';
+      return '<tr class="' + cls + '"><td><strong>' + esc(r.label) + '</strong>' + mark +
+        '</td><td' + cellCls + '>' + esc(r.a) + '</td><td' + cellCls + '>' + esc(r.b) + '</td></tr>';
+    }).join('') + '</tbody></table></div></section>';
 
+  /* ---------- key differences summary ---------- */
+  var keyDiffs = cmpKeyDifferences(diffRows, left, right);
+
+  /* ---------- which-one guide ---------- */
+  var whichOne = cmpWhichOne(left, right);
+
+  /* ---------- confusion risks (existing data sections) ---------- */
   var confusion = '';
   var comp = App.data.comparison || {};
   var confRisks = comp.confusionRisks || comp.pairs || [];
   if (confRisks.length) {
-    confusion = '<h2>Confusion risks</h2>' + table(
+    confusion = '<section class="doc-section"><h2 class="section-title">Confusion risks</h2>' + table(
       [{ key: 'pair', label: 'Pair' },
        { key: 'risk', label: 'Risk' },
        { key: 'distinguisher', label: 'Distinguisher' }],
-      confRisks);
+      confRisks) + '</section>';
   }
   // Key distinctions (orphaned data fix)
   var distinctions = comp.distinctions || [];
   if (distinctions.length) {
-    confusion += '<h2>Key distinctions</h2>' + table(
+    confusion += '<section class="doc-section"><h2 class="section-title">Key distinctions</h2>' + table(
       [{ key: 'pair', label: 'Pair' },
        { key: 'text', label: 'Distinction' }],
-      distinctions);
+      distinctions) + '</section>';
   }
 
-  // Wire selectors after render (delegated via afterRender hook below).
+  // Wire selectors + diff toggle after render (delegated via afterRender hook below).
   setTimeout(wireCompareSelectors, 0);
 
   return '<header class="page-head"><h1>Compare Agents</h1>' +
-      '<p class="muted">Side-by-side dossier. Highlighted cells differ between the two types.</p></header>' +
+      '<p class="muted">Pick any two types. The glance cards summarize each one — then explore exactly what sets them apart.</p></header>' +
     '<div class="compare-bar">' + selector('left', sel.left) + selector('right', sel.right) + '</div>' +
-    '<div class="compare-heads">' +
-      '<div class="compare-head">' + agentCard(left) + '</div>' +
-      '<div class="compare-head">' + agentCard(right) + '</div>' +
-    '</div>' +
-    tableHtml + confusion;
+    glanceHtml + banner + keyDiffs + whichOne + tableHtml + confusion;
+}
+
+/** Short archetype for compact display: strip the " — ..." elaboration. */
+function shortArchetype(s) {
+  s = s || '';
+  var i = s.indexOf(' — ');
+  return i === -1 ? s : s.slice(0, i);
+}
+
+/** One identity value by parameter name (defensive against partial data). */
+function identValue(agent, paramName) {
+  var rows = (agent && agent.identity) || [];
+  for (var i = 0; i < rows.length; i++) {
+    if ((rows[i].parameter || '').toLowerCase() === String(paramName).toLowerCase()) {
+      return rows[i].value || '—';
+    }
+  }
+  return '—';
+}
+
+/** At-a-glance card for one agent in the compare view (agent-accent themed). */
+function cmpGlanceCard(agent) {
+  if (!agent) return '';
+  var code = (agent.code || '?').toLowerCase();
+  var fields = [
+    ['Archetype', shortArchetype(agent.archetype)],
+    ['Core fear', identValue(agent, 'Core Fear')],
+    ['Core desire', identValue(agent, 'Core Desire')],
+    ['Primary defense', identValue(agent, 'Primary Defense')],
+    ['Attachment style', identValue(agent, 'Attachment Style')],
+  ];
+  var rowsHtml = fields.map(function (f) {
+    return '<div class="glance-row"><span class="glance-label">' + esc(f[0]) +
+      '</span><span class="glance-value">' + esc(f[1]) + '</span></div>';
+  }).join('');
+  return '<div class="glance-card" data-agent="' + esc(code) + '">' +
+    '<div class="glance-head"><span class="agent-code">' + esc(agent.code || '?') + '</span>' +
+    statusBadge(agent.status) + '</div>' +
+    '<h3>' + esc(agent.name || agent.code || '') + '</h3>' +
+    '<p class="muted small">' + esc(agent.archetype || '') + '</p>' +
+    rowsHtml +
+    '<a class="card-link" href="#/agent/' + esc(agent.code || '') + '">Full profile →</a></div>';
+}
+
+/** Auto-generated "Key differences" summary from the differing compare rows. */
+function cmpKeyDifferences(diffRows, left, right) {
+  var head = '<section class="doc-section"><h2 class="section-title">Key differences ' +
+    '<span class="pill">' + diffRows.length + '</span></h2>';
+  if (!diffRows.length) {
+    return head + '<p class="muted">These two profiles match on every compared dimension.</p></section>';
+  }
+  var items = diffRows.map(function (r) {
+    return '<div class="keydiff-item">' +
+      '<p class="keydiff-label">' + esc(r.label) + '</p>' +
+      '<div class="keydiff-cols">' +
+        '<div class="keydiff-col" data-agent="' + esc((left.code || '').toLowerCase()) + '">' +
+          '<span class="agent-code">' + esc(left.code) + '</span><p>' + esc(r.a) + '</p></div>' +
+        '<div class="keydiff-vs" aria-hidden="true">≠</div>' +
+        '<div class="keydiff-col" data-agent="' + esc((right.code || '').toLowerCase()) + '">' +
+          '<span class="agent-code">' + esc(right.code) + '</span><p>' + esc(r.b) + '</p></div>' +
+      '</div></div>';
+  }).join('');
+  return head + '<p class="muted">Where ' + esc(left.code) + ' and ' + esc(right.code) +
+    ' diverge — side by side.</p><div class="keydiff-list">' + items + '</div></section>';
+}
+
+/** Curated "Which one...?" guide answers for every known pair (from identity data). */
+var WHICH_ONE_GUIDE = {
+  'TDI|TJI': [
+    { q: 'Which one is more socially outgoing?', a: 'TJI', why: 'The Party Girl is the social center — high energy and flirtatious.' },
+    { q: 'Which one hides their true feelings?', a: 'TDI', why: 'Her primary defense is emotional invisibility — 90% hidden beneath the surface.' },
+    { q: 'Which one chases novelty and excitement?', a: 'TJI', why: 'She fears missing out on excitement and seeks novelty.' },
+    { q: 'Which one secretly wants to be swept away?', a: 'TDI', why: 'Her core desire is to be swept away by a dominant romantic.' },
+  ],
+  'NDI|TDI': [
+    { q: 'Which one is more idealistic about love?', a: 'NDI', why: 'Her primary defense is emotional idealism — the old-fashioned dreamer.' },
+    { q: 'Which one guards against vulnerability?', a: 'TDI', why: 'She fears abandonment after vulnerability, so she hides instead of hoping.' },
+    { q: 'Which one wants to be saved by love?', a: 'NDI', why: 'Her core desire is to save and be saved by love.' },
+    { q: 'Which one invests more cautiously?', a: 'NDI', why: 'She practices cautious investment — her core fear is being used and abandoned.' },
+  ],
+  'NDI|TJI': [
+    { q: 'Which one craves excitement?', a: 'TJI', why: 'She fears missing out on excitement and disperses herself socially.' },
+    { q: 'Which one dreams of a perfect romance?', a: 'NDI', why: 'She daydreams of the perfect man — the old-fashioned dreamer.' },
+    { q: 'Which one keeps emotional distance?', a: 'TJI', why: 'Dismissive-avoidant: she craves genuine connection yet deflects it.' },
+    { q: 'Which one fears being used?', a: 'NDI', why: 'Her core fear is being used and abandoned.' },
+  ],
+};
+
+/** "Which one...?" helper section for the current pair. */
+function cmpWhichOne(left, right) {
+  if (!left || !right) return '';
+  var key = [left.code, right.code].sort().join('|');
+  var items = WHICH_ONE_GUIDE[key];
+  if (!items || !items.length) return '';
+  var html = items.map(function (it) {
+    var ans = it.a === left.code ? left : right;
+    return '<div class="whichone-item">' +
+      '<p class="whichone-q">' + esc(it.q) + '</p>' +
+      '<p class="whichone-a" data-agent="' + esc((ans.code || '').toLowerCase()) + '">' +
+      '<span class="agent-code">' + esc(ans.code) + '</span> — ' + esc(it.why) + '</p></div>';
+  }).join('');
+  return '<section class="doc-section"><h2 class="section-title">Which one…?</h2>' +
+    '<p class="muted">A quick guide to telling ' + esc(left.code) + ' and ' + esc(right.code) + ' apart.</p>' +
+    '<div class="whichone-list">' + html + '</div></section>';
 }
 
 /** Build comparable rows from two agents' identity matrices + meta. */
@@ -782,11 +1675,66 @@ function wireCompareSelectors() {
       route(); // re-render with new selection
     });
   });
+  // "Show differences only" toggle for the full comparison table.
+  var diffToggle = $('diff-toggle');
+  if (diffToggle) {
+    diffToggle.addEventListener('change', function () {
+      var sameRows = document.querySelectorAll('#compare-table .same-row');
+      for (var i = 0; i < sameRows.length; i++) {
+        sameRows[i].style.display = diffToggle.checked ? 'none' : '';
+      }
+    });
+  }
 }
 
 /* ------------------------------------------------------------------ *
- *  VIEW: Glossary (searchable, alphabetical)
+ *  VIEW: Glossary (searchable, alphabetical, A–Z jump, related terms)
  * ------------------------------------------------------------------ */
+
+/** URL-safe slug for in-page anchors (never written to location.hash). */
+function slugify(s) {
+  return String(s || '').toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '') || 'term';
+}
+
+/** Find related glossary terms: other terms mentioned in this term's definition
+ *  (whole-phrase, case-insensitive), topped up with alphabetical neighbours. */
+function glossaryRelated(term, allTerms) {
+  var def = String(term.definition || '');
+  var self = String(term.term || '');
+  var hits = [];
+  var byTerm = {};
+  allTerms.forEach(function (t) { byTerm[String(t.term || '')] = t; });
+  // Explicit cross-references from the data come first.
+  (term.relatedTerms || []).forEach(function (name) {
+    var t = byTerm[String(name)];
+    if (t && t.term !== self && hits.indexOf(t) === -1) hits.push(t);
+  });
+  allTerms.forEach(function (t) {
+    var other = String(t.term || '');
+    if (!other || other === self) return;
+    var q = other.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    try {
+      if (new RegExp('(^|[^a-z0-9])' + q + '([^a-z0-9]|$)', 'i').test(def)) hits.push(t);
+    } catch (e) {}
+  });
+  // Top up with alphabetical neighbours so every term shows context.
+  var sorted = allTerms.slice().sort(function (a, b) {
+    return String(a.term || '').localeCompare(String(b.term || ''));
+  });
+  var selfIdx = -1;
+  sorted.forEach(function (t, i) { if (t.term === self) selfIdx = i; });
+  var extra = [];
+  if (selfIdx !== -1) {
+    var order = [1, -1, 2, -2];
+    order.forEach(function (off) {
+      var t = sorted[selfIdx + off];
+      if (t && hits.indexOf(t) === -1 && extra.indexOf(t) === -1) extra.push(t);
+    });
+  }
+  return hits.concat(extra).slice(0, 4);
+}
 
 function viewGlossary(query) {
   var terms = (App.data.glossary || []).slice();
@@ -796,10 +1744,17 @@ function viewGlossary(query) {
     return String(a.term || '').localeCompare(String(b.term || ''));
   });
 
+  // Slugs + related-term graph computed on the full list (stable anchors).
+  var slugs = {};
+  terms.forEach(function (t) { slugs[t.term] = 'gloss-' + slugify(t.term); });
+  var related = {};
+  terms.forEach(function (t) { related[t.term] = glossaryRelated(t, terms); });
+
   if (q) {
     terms = terms.filter(function (t) {
       return String(t.term || '').toLowerCase().indexOf(q) !== -1 ||
-             String(t.definition || '').toLowerCase().indexOf(q) !== -1;
+             String(t.definition || '').toLowerCase().indexOf(q) !== -1 ||
+             String(t.simpleDefinition || '').toLowerCase().indexOf(q) !== -1;
     });
   }
 
@@ -811,21 +1766,48 @@ function viewGlossary(query) {
   });
   var letters = Object.keys(groups).sort();
 
+  // A–Z quick-jump (only meaningful when not filtering).
+  var azHtml = '';
+  if (!q) {
+    var allLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    azHtml = '<nav class="az-bar" aria-label="Jump to letter">' +
+      allLetters.map(function (L) {
+        return groups[L]
+          ? '<a class="az-letter" data-jump="glossgrp-' + L + '" href="#/glossary" aria-label="Terms starting with ' + L + '">' + L + '</a>'
+          : '<span class="az-letter az-disabled" aria-hidden="true">' + L + '</span>';
+      }).join('') + '</nav>';
+  }
+
   var listHtml = letters.length
     ? letters.map(function (L) {
-        return '<h2 class="gloss-letter">' + esc(L) + '</h2><dl class="gloss-list">' +
+        return '<h2 class="gloss-letter" id="glossgrp-' + L + '">' + esc(L) + '</h2><dl class="gloss-list">' +
           groups[L].map(function (t) {
-            return '<div class="gloss-item"><dt>' + highlight(t.term, query) + '</dt>' +
-              '<dd>' + highlight(t.definition, query) + '</dd></div>';
+            // Prefer curated relatedTerms from data; fall back to computed.
+            var curated = (t.relatedTerms || []).filter(function (name) { return slugs[name]; });
+            var rel = curated.length
+              ? curated.map(function (name) { return { term: name }; })
+              : (related[t.term] || []);
+            var relHtml = rel.length
+              ? '<div class="related-terms"><span class="related-label">Related:</span> ' +
+                rel.map(function (r) {
+                  return '<a data-jump="' + slugs[r.term] + '" href="#/glossary">' + esc(r.term) + '</a>';
+                }).join('<span class="related-sep">·</span> ') + '</div>'
+              : '';
+            return '<div class="gloss-item" id="' + slugs[t.term] + '"><dt>' + highlight(t.term, query) + '</dt>' +
+              '<dd class="gloss-plain">' + highlight(t.simpleDefinition || '', query) + '</dd>' +
+              '<dd>' + highlight(t.definition, query) + '</dd>' +
+              (t.exampleUsage ? '<dd class="gloss-example"><span class="gloss-example-label">Example:</span> ' + highlight(t.exampleUsage, query) + '</dd>' : '') +
+              relHtml + '</div>';
           }).join('') + '</dl>';
       }).join('')
-    : '<p class="muted">No glossary terms match.</p>';
+    : '<p class="muted">No glossary terms match "' + esc(query || '') + '". ' +
+      '<a href="#/glossary">Clear the filter</a> to browse all terms.</p>';
 
   return '<header class="page-head"><h1>Glossary</h1>' +
       '<p class="muted">' + terms.length + ' term' + (terms.length === 1 ? '' : 's') + ' defined.</p></header>' +
     '<div class="search-bar"><input id="glossary-q" type="search" placeholder="Filter terms…" ' +
       'value="' + esc(query || '') + '" autocomplete="off" aria-label="Filter glossary terms"></div>' +
-    listHtml;
+    azHtml + listHtml;
 }
 
 /* ------------------------------------------------------------------ *
@@ -840,97 +1822,394 @@ function buildSearchIndex() {
   var d = App.data;
   var docs = [];
 
-  function pushDoc(kind, title, text, link) {
+  function pushDoc(kind, title, text, link, agent, section) {
     if (!text) return;
-    docs.push({ kind: kind, title: title, text: String(text), link: link });
+    var t = String(text);
+    docs.push({ kind: kind, title: title, text: t, link: link,
+                agent: agent || null, section: section || kind,
+                // Lowercased word list (len>=3) used by fuzzy typo-tolerant scoring.
+                _words: t.toLowerCase().split(/[^a-z0-9']+/).filter(function (w) { return w.length >= 3; }) });
   }
 
   // Preface
   var preface = d.preface || {};
   Object.keys(preface).forEach(function (k) {
-    pushDoc('Preface', 'Preface: ' + k, preface[k], '#/home');
+    pushDoc('Preface', 'Preface: ' + k, preface[k], '#/home', null, 'Preface');
   });
 
   // Dimensions
   (d.dimensions || []).forEach(function (dim) {
     pushDoc('Framework', 'Dimension: ' + (dim.dimension || dim.code),
-      [dim.dimension, dim.code, dim.poles, dim.function, dim.description].join(' '), '#/home');
+      [dim.dimension, dim.code, dim.poles, dim.function, dim.description].join(' '),
+      '#/home', null, 'Framework');
   });
 
   // Agents — every section becomes searchable docs
   (d.agents || []).forEach(function (a) {
     var base = '#/agent/' + a.code;
-    pushDoc('Agent', a.code + ' ' + (a.name || ''), [a.code, a.name, a.archetype, a.status].join(' '), base);
+    pushDoc('Agent', a.code + ' ' + (a.name || ''), [a.code, a.name, a.archetype, a.status].join(' '),
+      base, a.code, 'Overview');
     (a.identity || []).forEach(function (r) {
       pushDoc('Identity', a.code + ' identity: ' + r.parameter,
-        [r.parameter, r.value, r.manifestation].join(' '), base + '?tab=identity');
+        [r.parameter, r.value, r.manifestation].join(' '), base + '?tab=identity',
+        a.code, 'Identity');
     });
     (a.states || []).forEach(function (s) {
       pushDoc('State', a.code + ' state: ' + s.name,
         [s.name, s.trigger, (s.behaviors || []).join(' '), (s.internal || []).join(' '),
-         (s.exits || []).join(' ')].join(' '), base + '?tab=states');
+         (s.exits || []).join(' ')].join(' '), base + '?tab=states',
+        a.code, 'States');
     });
     (a.communication || []).forEach(function (r) {
       pushDoc('Communication', a.code + ' channel: ' + r.channel,
-        [r.channel, r.optimization, r.example, r.avoid].join(' '), base + '?tab=communication');
+        [r.channel, r.optimization, r.example, r.avoid].join(' '), base + '?tab=communication',
+        a.code, 'Communication');
     });
     (a.escalationLadder || []).forEach(function (r) {
       pushDoc('Escalation', a.code + ' level ' + r.level + ': ' + r.name,
-        [r.level, r.name, r.behaviors, r.timing, r.resistance].join(' '), base + '?tab=escalation');
+        [r.level, r.name, r.behaviors, r.timing, r.resistance].join(' '), base + '?tab=escalation',
+        a.code, 'Escalation');
     });
     (a.triggers || []).forEach(function (r) {
       pushDoc('Trigger', a.code + ' trigger: ' + r.trigger,
-        [r.trigger, r.response, r.resolution].join(' '), base + '?tab=triggers');
+        [r.trigger, r.response, r.resolution].join(' '), base + '?tab=triggers',
+        a.code, 'Triggers');
     });
     (a.emotionalSequence || []).forEach(function (r) {
       pushDoc('Emotion', a.code + ' emotion: ' + r.emotion,
-        [r.emotion, r.condition, r.manifestation].join(' '), base + '?tab=emotions');
+        [r.emotion, r.condition, r.manifestation].join(' '), base + '?tab=emotions',
+        a.code, 'Emotions');
     });
     (a.resistance || []).forEach(function (r) {
       pushDoc('Resistance', a.code + ' resistance: ' + r.type,
-        [r.type, r.trigger, r.manifestation, r.strategy].join(' '), base + '?tab=resistance');
+        [r.type, r.trigger, r.manifestation, r.strategy].join(' '), base + '?tab=resistance',
+        a.code, 'Resistance');
     });
     (a.maintenance || []).forEach(function (r) {
       pushDoc('Maintenance', a.code + ' maintenance: ' + r.requirement,
-        [r.requirement, r.frequency, r.indicator, r.failure].join(' '), base + '?tab=maintenance');
+        [r.requirement, r.frequency, r.indicator, r.failure].join(' '), base + '?tab=maintenance',
+        a.code, 'Maintenance');
     });
   });
 
   // Glossary
   (d.glossary || []).forEach(function (t) {
-    pushDoc('Glossary', 'Term: ' + t.term, t.term + ' ' + t.definition, '#/glossary');
+    pushDoc('Glossary', 'Term: ' + t.term, t.term + ' ' + t.definition + ' ' + (t.simpleDefinition || ''),
+      '#/glossary', null, 'Glossary');
   });
 
   searchIndex = docs;
   return docs;
 }
 
-function viewSearch(query) {
+/* ------------------------------------------------------------------ *
+ *  Search helpers: fuzzy matching, suggestions, "did you mean?"
+ * ------------------------------------------------------------------ */
+
+/**
+ * Levenshtein edit distance with early exit past maxDist.
+ * Returns maxDist + 1 when the distance exceeds the cap.
+ */
+function levenshtein(a, b, maxDist) {
+  var al = a.length, bl = b.length;
+  if (Math.abs(al - bl) > maxDist) return maxDist + 1;
+  var prev = new Array(bl + 1), cur = new Array(bl + 1);
+  var i, j;
+  for (j = 0; j <= bl; j++) prev[j] = j;
+  for (i = 1; i <= al; i++) {
+    cur[0] = i;
+    var rowMin = i;
+    var ac = a.charCodeAt(i - 1);
+    for (j = 1; j <= bl; j++) {
+      var cost = ac === b.charCodeAt(j - 1) ? 0 : 1;
+      var v = prev[j] + 1;
+      var ins = cur[j - 1] + 1;
+      if (ins < v) v = ins;
+      var sub = prev[j - 1] + cost;
+      if (sub < v) v = sub;
+      cur[j] = v;
+      if (v < rowMin) rowMin = v;
+    }
+    if (rowMin > maxDist) return maxDist + 1;
+    var tmp = prev; prev = cur; cur = tmp;
+  }
+  return prev[bl];
+}
+
+/**
+ * Best fuzzy similarity (0..1) of `term` against a doc's word list.
+ * Returns 0 when nothing is within the typo tolerance (1 edit for short
+ * terms, 2 for longer ones).
+ */
+function fuzzyTermScore(term, words) {
+  var maxDist = term.length <= 4 ? 1 : 2;
+  var best = 0;
+  for (var i = 0; i < words.length; i++) {
+    var w = words[i];
+    if (w === term) continue; // exact hits are scored elsewhere
+    if (Math.abs(w.length - term.length) > maxDist) continue;
+    var dist = levenshtein(term, w, maxDist);
+    if (dist <= maxDist) {
+      var sim = 1 - dist / Math.max(term.length, w.length);
+      if (sim > best) best = sim;
+    }
+  }
+  return best;
+}
+
+/** Escape a string for use inside a RegExp. */
+function regexEsc(s) {
+  return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+/**
+ * Score one doc against the query terms.
+ * Returns { score, fuzzy } — fuzzy is true when a typo-tolerant match
+ * contributed. Returns null when not all terms matched.
+ */
+function scoreDoc(doc, terms, phrase) {
+  var title = doc.title.toLowerCase();
+  var text = doc.text.toLowerCase();
+  var score = 0, matched = 0, fuzzy = false;
+
+  terms.forEach(function (t) {
+    if (!t) return;
+    var titleIdx = title.indexOf(t);
+    var textIdx = text.indexOf(t);
+    if (titleIdx !== -1 || textIdx !== -1) {
+      matched++;
+      if (titleIdx !== -1) {
+        // Title wins: word-boundary hits outrank mid-word substrings.
+        score += new RegExp('\\b' + regexEsc(t)).test(title) ? 4 : 2.5;
+        score += Math.max(0, 1.5 - titleIdx / 300);
+      }
+      if (textIdx !== -1) {
+        score += 1 + Math.max(0, 1 - textIdx / 500);
+      }
+    } else {
+      // Typo-tolerant fallback: close word in the doc still counts.
+      var sim = fuzzyTermScore(t, doc._words || []);
+      if (sim > 0) {
+        matched++;
+        fuzzy = true;
+        score += sim * 1.4;
+      }
+    }
+  });
+
+  if (matched !== terms.length) return null;
+
+  // Exact-phrase bonuses: searching "core desire" should surface the
+  // doc that contains that exact phrase first.
+  if (phrase && terms.length > 1) {
+    if (title.indexOf(phrase) !== -1) score += 6;
+    else if (text.indexOf(phrase) !== -1) score += 3;
+  }
+  return { score: score, fuzzy: fuzzy };
+}
+
+/** Cached pool of suggestion strings: glossary terms, agents, states, triggers, dimensions. */
+var suggestPool = null;
+
+function searchSuggestPool() {
+  if (suggestPool) return suggestPool;
+  var d = App.data, pool = [], seen = {};
+  function add(s, kind) {
+    s = String(s == null ? '' : s).trim();
+    if (!s) return;
+    var key = s.toLowerCase();
+    if (seen[key]) return;
+    seen[key] = 1;
+    pool.push({ text: s, kind: kind });
+  }
+  (d.agents || []).forEach(function (a) {
+    add(a.code, 'Agent');
+    add(a.name, 'Agent');
+    if (a.archetype) add(a.archetype, 'Agent');
+    (a.states || []).forEach(function (s) { add(s.name, 'State'); });
+    (a.triggers || []).forEach(function (t) { add(t.trigger, 'Trigger'); });
+  });
+  (d.dimensions || []).forEach(function (x) { add(x.dimension || x.code, 'Framework'); });
+  (d.glossary || []).forEach(function (g) { add(g.term, 'Glossary'); });
+  suggestPool = pool;
+  return pool;
+}
+
+/** Top-N autocomplete suggestions for the current query (prefix matches first). */
+function searchSuggestions(q, limit) {
+  var needle = String(q || '').trim().toLowerCase();
+  if (!needle) return [];
+  var pool = searchSuggestPool();
+  var starts = [], contains = [];
+  for (var i = 0; i < pool.length; i++) {
+    var t = pool[i].text.toLowerCase();
+    if (t === needle) continue;
+    if (t.indexOf(needle) === 0) starts.push(pool[i]);
+    else if (t.indexOf(needle) !== -1) contains.push(pool[i]);
+  }
+  return starts.concat(contains).slice(0, limit || 8);
+}
+
+/**
+ * "Did you mean?" — when a search has zero hits, find the closest
+ * suggestion-pool word for each query term (edit distance <= 2).
+ * Returns a corrected query string, or null when nothing is close.
+ */
+function didYouMean(q) {
+  var terms = String(q || '').trim().toLowerCase().split(/\s+/).filter(Boolean);
+  if (!terms.length) return null;
+  var pool = searchSuggestPool();
+  var words = [], seen = {};
+  pool.forEach(function (p) {
+    p.text.toLowerCase().split(/[^a-z0-9']+/).forEach(function (w) {
+      if (w.length >= 4 && !seen[w]) { seen[w] = 1; words.push(w); }
+    });
+  });
+  var changed = false;
+  var corrected = terms.map(function (term) {
+    var maxDist = term.length <= 4 ? 1 : 2;
+    var best = null, bestDist = 99;
+    for (var i = 0; i < words.length; i++) {
+      var w = words[i];
+      if (w === term) return term;
+      if (Math.abs(w.length - term.length) > maxDist) continue;
+      var dist = levenshtein(term, w, maxDist);
+      if (dist > 0 && dist <= maxDist && dist < bestDist) {
+        bestDist = dist;
+        best = w;
+      }
+    }
+    if (best) { changed = true; return best; }
+    return term;
+  });
+  return changed ? corrected.join(' ') : null;
+}
+
+/** Agent code -> display name, for search breadcrumbs. */
+function agentName(code) {
+  var agents = (App.data && App.data.agents) || [];
+  for (var i = 0; i < agents.length; i++) {
+    if (agents[i].code === code) return agents[i].name || code;
+  }
+  return code;
+}
+
+/** Breadcrumb: "TDI · The Playette · States" or "Glossary · Terms". */
+function resultCrumb(doc) {
+  if (doc.agent) return doc.agent + ' · ' + agentName(doc.agent) + ' · ' + doc.section;
+  return doc.section;
+}
+
+var SEARCH_FILTERS = [
+  { id: 'all',     label: 'All' },
+  { id: 'TDI',     label: 'TDI' },
+  { id: 'TJI',     label: 'TJI' },
+  { id: 'NDI',     label: 'NDI' },
+  { id: 'glossary',label: 'Glossary' },
+];
+
+/** Does a search doc belong to the active filter? */
+function docInFilter(doc, filter) {
+  if (!filter || filter === 'all') return true;
+  if (filter === 'glossary') return doc.kind === 'Glossary';
+  return doc.agent === filter;
+}
+
+/** Filter chips row; preserves the current query in each chip link. */
+function filterChips(query, active) {
+  active = active || 'all';
+  return '<div class="chips" role="group" aria-label="Filter results">' +
+    SEARCH_FILTERS.map(function (f) {
+      var href = '#/search?q=' + encodeURIComponent(query || '') +
+                 (f.id !== 'all' ? '&filter=' + f.id : '');
+      return '<a class="chip' + (f.id === active ? ' active' : '') + '" data-filter="' + f.id + '"' +
+        ' href="' + href + '"' + (f.id === active ? ' aria-current="true"' : '') + '>' + f.label + '</a>';
+    }).join('') + '</div>';
+}
+
+/** Render one result card with agent/section breadcrumb context. */
+function resultCard(r, q) {
+  var doc = r.doc;
+  var agentAttr = doc.agent ? ' data-agent="' + esc(doc.agent.toLowerCase()) + '"' : '';
+  var snippet = makeSnippet(doc.text, q);
+  return '<a class="result-card"' + agentAttr + ' href="' + esc(doc.link) + '">' +
+    '<span class="result-kind">' + esc(doc.kind) + '</span>' +
+    '<span class="result-crumb">' + esc(resultCrumb(doc)) + '</span>' +
+    '<h3>' + highlight(doc.title, q) + '</h3>' +
+    '<p>' + snippet + '</p></a>';
+}
+
+/** "No results" panel with typo correction + actionable suggestions. */
+function noResultsHtml(q) {
+  var dym = didYouMean(q);
+  var dymHtml = dym
+    ? '<p class="did-you-mean">Did you mean ' +
+      '<a href="#/search?q=' + encodeURIComponent(dym) + '">"' + esc(dym) + '"</a>?</p>'
+    : '';
+  var terms = (App.data.glossary || []).slice(0, 6);
+  var termChips = terms.map(function (t) {
+    return '<a class="chip" href="#/search?q=' + encodeURIComponent(t.term) + '">' + esc(t.term) + '</a>';
+  }).join('');
+  return '<div class="no-results">' +
+    '<div class="no-results-icon" aria-hidden="true">⌕</div>' +
+    '<h3>No results for "' + esc(q) + '"</h3>' +
+    dymHtml +
+    '<p class="muted">Try one of these, or check your spelling and use fewer keywords:</p>' +
+    '<div class="chips">' + termChips + '</div>' +
+    '<p class="suggest-links">Or browse: ' +
+      '<a href="#/glossary">full glossary</a> · ' +
+      '<a href="#/agents">agent profiles</a> · ' +
+      '<a href="#/framework">framework</a></p>' +
+    '</div>';
+}
+
+/** Autocomplete dropdown HTML for the current query (empty string when none). */
+function searchSuggestHtml(q) {
+  if (!q || !q.trim()) return '';
+  var suggs = searchSuggestions(q, 8);
+  if (!suggs.length) return '';
+  return '<div class="search-suggest" id="search-suggest" role="listbox" aria-label="Search suggestions">' +
+    suggs.map(function (s) {
+      return '<a class="search-suggest-item" role="option" tabindex="-1" ' +
+        'href="#/search?q=' + encodeURIComponent(s.text) + '">' +
+        '<span class="suggest-text">' + highlight(s.text, q) + '</span>' +
+        '<span class="suggest-kind">' + esc(s.kind) + '</span></a>';
+    }).join('') + '</div>';
+}
+
+function viewSearch(query, filter) {
   var q = (query || '').trim();
+  var f = filter || 'all';
+  var docs = buildSearchIndex();
   var resultsHtml = '';
 
   if (!q) {
-    resultsHtml = '<p class="muted">Type above to search every agent profile, state, trigger, ' +
-      'communication channel, and glossary term. Results highlight your keywords.</p>';
+    // Browse mode: show filtered doc list (top 50) or the standard hint.
+    var browsable = docs.filter(function (d) { return docInFilter(d, f); }).slice(0, 50);
+    if (f === 'all') {
+      resultsHtml = '<p class="muted">Type above to search every agent profile, state, trigger, ' +
+        'communication channel, and glossary term. Results highlight your keywords.</p>';
+    } else {
+      var fLabel = f === 'glossary' ? 'Glossary' : f + ' · ' + agentName(f);
+      resultsHtml = '<p class="muted">Browsing <strong>' + esc(fLabel) + '</strong> — ' +
+        browsable.length + ' item' + (browsable.length === 1 ? '' : 's') + '.</p>' +
+        '<div class="results">' + browsable.map(function (d) {
+          return resultCard({ doc: d, score: 0 }, '');
+        }).join('') + '</div>';
+    }
   } else {
-    var docs = buildSearchIndex();
-    var terms = q.toLowerCase().split(/\s+/);
+    var terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+    var phrase = q.toLowerCase();
     var scored = [];
+    var anyFuzzy = false;
 
     docs.forEach(function (doc) {
-      var hay = (doc.title + ' ' + doc.text).toLowerCase();
-      var score = 0, matched = 0;
-      terms.forEach(function (t) {
-        if (!t) return;
-        var idx = hay.indexOf(t);
-        if (idx !== -1) {
-          matched++;
-          // Title matches weigh more; earlier matches weigh more.
-          score += (doc.title.toLowerCase().indexOf(t) !== -1 ? 3 : 1) +
-                   Math.max(0, 2 - idx / 200);
-        }
-      });
-      if (matched === terms.length) scored.push({ doc: doc, score: score });
+      if (!docInFilter(doc, f)) return;
+      var r = scoreDoc(doc, terms, phrase);
+      if (r) {
+        if (r.fuzzy) anyFuzzy = true;
+        scored.push({ doc: doc, score: r.score, fuzzy: r.fuzzy });
+      }
     });
 
     scored.sort(function (x, y) { return y.score - x.score; });
@@ -938,30 +2217,43 @@ function viewSearch(query) {
 
     resultsHtml = top.length
       ? '<p class="muted">' + top.length + ' result' + (top.length === 1 ? '' : 's') +
-        (scored.length > 50 ? ' (top 50 shown)' : '') + ' for "' + esc(q) + '".</p>' +
+        (scored.length > 50 ? ' (top 50 shown)' : '') + ' for "' + esc(q) + '"' +
+        (f !== 'all' ? ' in <strong>' + esc(f) + '</strong>' : '') +
+        (anyFuzzy ? ' <span class="fuzzy-note">(includes close matches)</span>' : '') + '.</p>' +
         '<div class="results">' + top.map(function (r) {
-          var snippet = makeSnippet(r.doc.text, q);
-          return '<a class="result-card" href="' + esc(r.doc.link) + '">' +
-            '<span class="result-kind">' + esc(r.doc.kind) + '</span>' +
-            '<h3>' + highlight(r.doc.title, q) + '</h3>' +
-            '<p>' + snippet + '</p></a>';
+          return resultCard(r, q);
         }).join('') + '</div>'
-      : '<p class="muted">No results for "' + esc(q) + '". Try fewer or different keywords.</p>';
+      : noResultsHtml(q);
   }
 
   return '<header class="page-head"><h1>Search</h1>' +
-      '<p class="muted">Full-text search across the entire dataset.</p></header>' +
-    '<div class="search-bar"><input id="search-q" type="search" placeholder="Search agents, states, triggers…" ' +
-      'value="' + esc(query || '') + '" autocomplete="off" aria-label="Search the dataset"></div>' +
+      '<p class="muted">Full-text search across the entire dataset. ' +
+      '<span class="kbd-hint">Press <kbd>/</kbd> anywhere to jump here.</span></p></header>' +
+    '<div class="search-wrap"><div class="search-bar"><input id="search-q" type="search" ' +
+      'placeholder="Search agents, states, triggers…  ( / )" ' +
+      'value="' + esc(query || '') + '" autocomplete="off" aria-label="Search the dataset" ' +
+      'aria-expanded="' + (q && searchSuggestions(q, 1).length ? 'true' : 'false') + '" ' +
+      'aria-controls="search-suggest" role="combobox" aria-autocomplete="list"></div>' +
+    searchSuggestHtml(q) + '</div>' +
+    filterChips(q, f) +
     resultsHtml;
 }
 
-/** Extract a ~160-char snippet around the first query hit, with highlighting. */
+/** Extract a ~160-char snippet around the earliest query hit, with highlighting. */
 function makeSnippet(text, query) {
   var plain = String(text || '');
   var lower = plain.toLowerCase();
-  var q = query.trim().toLowerCase().split(/\s+/)[0] || '';
-  var idx = q ? lower.indexOf(q) : -1;
+  var trimmed = query.trim().toLowerCase();
+  var terms = trimmed.split(/\s+/).filter(Boolean);
+  var idx = -1;
+  // Whole-phrase hit first (usually the most relevant context)...
+  var pi = trimmed ? lower.indexOf(trimmed) : -1;
+  if (pi !== -1) idx = pi;
+  // ...otherwise the earliest individual term.
+  terms.forEach(function (t) {
+    var i = lower.indexOf(t);
+    if (i !== -1 && (idx === -1 || i < idx)) idx = i;
+  });
   var start = idx === -1 ? 0 : Math.max(0, idx - 60);
   var snippet = plain.slice(start, start + 170);
   if (start > 0) snippet = '…' + snippet;
@@ -1023,6 +2315,176 @@ function viewAudit() {
 }
 
 /* ------------------------------------------------------------------ *
+ *  VIEW: Sitemap (all routes in one place)
+ * ------------------------------------------------------------------ */
+
+function viewSitemap() {
+  var pages = [
+    { hash: '#/home', label: 'Home', desc: 'Overview, framework diagram, stats' },
+    { hash: '#/agents', label: 'Agent Profiles', desc: 'All three agent archetypes' },
+    { hash: '#/framework', label: 'Dimensional Framework', desc: 'Core axes and type-code taxonomy' },
+    { hash: '#/compare', label: 'Compare', desc: 'Side-by-side dossier comparison' },
+    { hash: '#/glossary', label: 'Glossary', desc: 'Searchable term definitions' },
+    { hash: '#/search', label: 'Search', desc: 'Full-text search across the archive' },
+    { hash: '#/audit', label: 'Audit Report', desc: 'Findings, fixes, and known issues' },
+    { hash: '#/changelog', label: "What's New", desc: 'Version history and changelog' },
+  ];
+  function linkRow(l) {
+    return '<a class="sitemap-row" href="' + esc(l.hash) + '">' +
+      '<span class="sitemap-label">' + esc(l.label) + '</span>' +
+      '<span class="sitemap-desc muted">' + esc(l.desc) + '</span>' +
+      '<span class="sitemap-go" aria-hidden="true">→</span></a>';
+  }
+  // Agent dossiers with deep links into every tab of the dossier.
+  var agents = (App.data.agents || []).map(function (a) {
+    var code = encodeURIComponent(a.code || '');
+    var tabs = AGENT_TABS.map(function (t) {
+      return '<a class="chip" href="#/agent/' + code + '?tab=' + t.id + '">' + esc(t.label) + '</a>';
+    }).join(' ');
+    return { hash: '#/agent/' + code, label: (a.code || '') + ' — ' + (a.name || ''), desc: a.archetype || '', tabs: tabs };
+  });
+  function agentRow(l) {
+    return '<div class="sitemap-agent">' + linkRow(l) +
+      '<div class="sitemap-tabs">' + l.tabs + '</div></div>';
+  }
+  // Glossary terms as direct search links.
+  var glossaryRows = (App.data.glossary || []).map(function (g) {
+    return { hash: '#/glossary?q=' + encodeURIComponent(g.term), label: g.term, desc: '' };
+  });
+  var shortcuts = [
+    { hash: '#/search', keys: ['/'],      label: 'jump to search', desc: 'Focuses the search box from anywhere' },
+    { hash: '#/agents', keys: ['←', '→'], label: 'switch tabs', desc: 'On an agent dossier, arrow keys flip through the 8 tabs' },
+    { hash: '#/search', keys: ['Esc'],    label: 'leave the search box', desc: 'Blurs the active input' },
+  ];
+  function shortcutRow(s) {
+    return '<a class="sitemap-row" href="' + esc(s.hash) + '">' +
+      '<span class="sitemap-label">' + s.keys.map(function (k) { return '<kbd>' + esc(k) + '</kbd>'; }).join(' ') +
+      ' ' + esc(s.label) + '</span>' +
+      '<span class="sitemap-desc muted">' + esc(s.desc) + '</span>' +
+      '<span class="sitemap-go" aria-hidden="true">→</span></a>';
+  }
+  return breadcrumbs([
+      { label: 'Home', hash: '#/home' },
+      { label: 'Sitemap' },
+    ]) +
+    '<header class="page-head"><h1>Sitemap</h1>' +
+    '<p class="muted">Every section of the archive, one tap away. All pages work offline once installed.</p></header>' +
+    section('pages', 'Sections', '<div class="sitemap-list">' + pages.map(linkRow).join('') + '</div>') +
+    (agents.length ? section('agents', 'Agent dossiers', '<div class="sitemap-list">' + agents.map(agentRow).join('') + '</div>') : '') +
+    section('shortcuts', 'Keyboard shortcuts', '<div class="sitemap-list">' + shortcuts.map(shortcutRow).join('') + '</div>') +
+    (glossaryRows.length ? section('glossary', 'Glossary terms', '<div class="sitemap-list">' + glossaryRows.map(linkRow).join('') + '</div>') : '');
+}
+
+/* ------------------------------------------------------------------ *
+ *  VIEW: Changelog ("What's New")
+ * ------------------------------------------------------------------ */
+
+var CHANGELOG = [
+  {
+    version: '1.1.0', date: '2026-10-08', tag: 'Latest',
+    items: [
+      'Share button on every agent dossier (Web Share API with copy-link fallback).',
+      'Redesigned offline page: shows every section available offline plus one-tap retry.',
+      'App shortcuts: long-press the icon for Agents, Search, and Compare.',
+      '"What\'s New" changelog view and full sitemap.',
+      'Smarter install prompt: appears after you\'ve explored, with clear benefits.',
+      'Faster loads: data preloading, lazy rendering hints for long sections.',
+    ],
+  },
+  {
+    version: '1.0.1', date: '2026-10-07', tag: 'Fixes',
+    items: [
+      'Fixed loader that could leave the app shell hidden.',
+      'Added the missing Framework route and view.',
+      'Restored hidden Compare and Audit content (data-key fixes).',
+      'Wired the PWA install button to the real install prompt.',
+      'Added 64 missing style definitions; agent color theming now renders.',
+      'Hardened share URLs and search against malformed input.',
+    ],
+  },
+  {
+    version: '1.0.0', date: '2026-10-07', tag: 'Launch',
+    items: [
+      'Initial release: interactive PWA book of the Pandora\'s Box dataset.',
+      'Three agent archetypes (TDI, TJI, NDI) with eight-section dossiers.',
+      'Search, compare, glossary, framework, and audit views.',
+      'Offline-first via service worker; installable on home screen.',
+      '1,000x multi-agent audit before release.',
+    ],
+  },
+];
+
+function viewChangelog() {
+  var entries = CHANGELOG.map(function (e) {
+    return '<article class="changelog-entry">' +
+      '<div class="changelog-head"><span class="pill">' + esc('v' + e.version) + '</span>' +
+      '<span class="muted small">' + esc(e.date) + '</span>' +
+      (e.tag ? '<span class="badge">' + esc(e.tag) + '</span>' : '') + '</div>' +
+      '<ul class="check-list">' + e.items.map(function (it) {
+        return '<li><span class="check">✓</span> ' + esc(it) + '</li>';
+      }).join('') + '</ul></article>';
+  }).join('');
+  return '<header class="page-head"><h1>What\'s New</h1>' +
+    '<p class="muted">Version history for PandoraBook. The app updates automatically when you\'re online.</p></header>' +
+    '<div class="changelog-list">' + entries + '</div>';
+}
+
+/* ------------------------------------------------------------------ *
+ *  Share (Web Share API with clipboard fallback)
+ * ------------------------------------------------------------------ */
+
+/** Toast notification helper. */
+var toastTimer = null;
+function showToast(msg) {
+  var t = $('toast');
+  if (!t) return;
+  t.textContent = msg;
+  t.hidden = false;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function () {
+    t.classList.remove('show');
+    t.hidden = true;
+  }, 2600);
+}
+
+/** Share an agent dossier: native sheet on mobile, copy-link fallback elsewhere. */
+function shareAgent(code) {
+  var agent = findAgent(code);
+  if (!agent) return;
+  var url = location.origin + location.pathname + '#/agent/' + encodeURIComponent(agent.code);
+  var data = {
+    title: "Pandora's Box — " + (agent.name || agent.code),
+    text: (agent.code || '') + ': ' + (agent.archetype || 'AI agent behavioral profile') + ' — from the Pandora\'s Box archive.',
+    url: url,
+  };
+  function fallbackCopy() {
+    function copied() { showToast('Link copied — paste it anywhere to share.'); }
+    function failed() { showToast('Copy this link: ' + url); }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(data.title + '\n' + url).then(copied, failed);
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = data.title + '\n' + url;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); copied(); } catch (e) { failed(); }
+      document.body.removeChild(ta);
+    }
+  }
+  if (navigator.share) {
+    navigator.share(data).catch(function (err) {
+      // User dismissed the sheet: stay silent. Real errors fall back to copy.
+      if (err && err.name !== 'AbortError') fallbackCopy();
+    });
+  } else {
+    fallbackCopy();
+  }
+}
+
+/* ------------------------------------------------------------------ *
  *  Boot
  * ------------------------------------------------------------------ */
 
@@ -1032,6 +2494,14 @@ function init() {
   window.addEventListener('hashchange', route);
   loadData();
   wireInstallButton();
+  wireBackTop();
+  wireKeyboard();
+  wireJumpChips();
+  wireInteractive();
+  injectDynamicStyles();
+  applyFontSize(loadFontSize());
+  ensureProgressBar();
+  wireProgressScroll();
 
   // Note: SW also registered in index.html (root-relative). This relative
   // registration is a no-op duplicate; kept as fallback for subpath mounts.
@@ -1044,27 +2514,295 @@ function init() {
   }
 }
 
-/** PWA install prompt wiring (M2 fix). */
+/** Quick-jump chips: scroll to a section without touching location.hash
+ *  (hash changes would be intercepted by the router). Delegated so it
+ *  survives tab-body re-renders. */
+function wireJumpChips() {
+  document.addEventListener('click', function (e) {
+    var el = e.target;
+    while (el && el !== document) {
+      if (el.classList && el.classList.contains('jump-chip')) {
+        var target = document.getElementById(el.getAttribute('data-jump'));
+        if (target && target.scrollIntoView) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        e.preventDefault();
+        return;
+      }
+      el = el.parentNode;
+    }
+  });
+}
+
+/** Delegated handler for all interactive-feature controls:
+ *  bookmarks, font size, copy-link, table collapse, print, unsave.
+ *  One listener survives every innerHTML re-render. */
+function wireInteractive() {
+  document.addEventListener('click', function (e) {
+    var el = e.target;
+    while (el && el !== document) {
+      if (el.getAttribute) {
+        // 1. Bookmark star toggle
+        var bmKey = el.getAttribute('data-bookmark-key');
+        if (bmKey) {
+          var nowSaved = toggleBookmark(
+            bmKey,
+            el.getAttribute('data-bookmark-title') || bmKey,
+            el.getAttribute('data-bookmark-hash') || '#/home'
+          );
+          el.classList.toggle('saved', nowSaved);
+          el.setAttribute('aria-pressed', nowSaved ? 'true' : 'false');
+          el.innerHTML = nowSaved ? '&#9733;' : '&#9734;';
+          var label = (nowSaved ? 'Remove bookmark: ' : 'Bookmark this section: ') +
+            (el.getAttribute('data-bookmark-title') || '');
+          el.setAttribute('aria-label', label);
+          syncSavedCount();
+          e.preventDefault();
+          return;
+        }
+        // 2. Font-size buttons
+        var fs = el.getAttribute('data-fs');
+        if (fs) {
+          applyFontSize(fs);
+          e.preventDefault();
+          return;
+        }
+        // 3. Copy-link buttons
+        if (el.hasAttribute('data-copy-link')) {
+          var url = el.getAttribute('data-url') || absoluteHashUrl();
+          var btn = el;
+          copyTextToClipboard(url,
+            function () {
+              var orig = btn.innerHTML;
+              btn.innerHTML = '&#10003; Copied!';
+              setTimeout(function () { btn.innerHTML = orig; }, 1600);
+            },
+            function () {
+              var orig2 = btn.innerHTML;
+              btn.innerHTML = 'Copy failed';
+              setTimeout(function () { btn.innerHTML = orig2; }, 1600);
+            });
+          e.preventDefault();
+          return;
+        }
+        // 4. Table expand/collapse
+        var cTarget = el.getAttribute('data-collapse-target');
+        if (cTarget) {
+          var body = document.getElementById(cTarget);
+          if (body) {
+            var hiddenNow = body.hasAttribute('hidden');
+            if (hiddenNow) body.removeAttribute('hidden');
+            else body.setAttribute('hidden', '');
+            var total = el.getAttribute('data-total') || '';
+            el.setAttribute('aria-expanded', hiddenNow ? 'true' : 'false');
+            el.innerHTML = hiddenNow
+              ? 'Show fewer rows &#x25B2;'
+              : 'Show all ' + total + ' rows &#x25BE;';
+          }
+          e.preventDefault();
+          return;
+        }
+        // 5. Print button
+        if (el.hasAttribute('data-print')) {
+          if (window.print) window.print();
+          e.preventDefault();
+          return;
+        }
+        // 6. Remove bookmark (Saved view)
+        var unKey = el.getAttribute('data-unsave');
+        if (unKey) {
+          removeBookmark(unKey);
+          syncSavedCount();
+          route();
+          e.preventDefault();
+          return;
+        }
+      }
+      el = el.parentNode;
+    }
+  });
+}
+
+/** Refresh the "Saved (N)" count badge in the utility toolbar. */
+function syncSavedCount() {
+  var badges = document.querySelectorAll('.util-count');
+  for (var i = 0; i < badges.length; i++) {
+    badges[i].textContent = String(savedCount());
+  }
+}
+
+/** PWA install prompt wiring — engagement-aware, benefit-led. */
 var deferredPrompt = null;
+var LS_INSTALL_DISMISSED = 'pandorabook.install.dismissed.v1';
+var LS_INSTALL_VIEWS = 'pandorabook.install.views.v1';
+
+function isStandalone() {
+  return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) ||
+    (window.navigator && window.navigator.standalone === true);
+}
+
+function installDismissed() {
+  try { return localStorage.getItem(LS_INSTALL_DISMISSED) === '1'; } catch (e) { return true; }
+}
+
+function bumpInstallViews() {
+  try {
+    var n = parseInt(localStorage.getItem(LS_INSTALL_VIEWS) || '0', 10) || 0;
+    localStorage.setItem(LS_INSTALL_VIEWS, String(n + 1));
+    return n + 1;
+  } catch (e) { return 99; }
+}
+
+/** Decide whether the moment is right to surface the install banner. */
+function maybeShowInstallBanner() {
+  if (!deferredPrompt || isStandalone() || installDismissed()) return;
+  var banner = document.getElementById('installBanner');
+  if (!banner || !banner.hidden === false) return;
+  var views = bumpInstallViews();
+  // Show after real engagement: 3+ section views, or 45s on site.
+  var engaged = views >= 3;
+  if (engaged) {
+    banner.hidden = false;
+  } else {
+    setTimeout(function () {
+      if (deferredPrompt && !isStandalone() && !installDismissed()) {
+        var b = document.getElementById('installBanner');
+        if (b && b.hidden) b.hidden = false;
+      }
+    }, 45000);
+  }
+}
+
+function dismissInstallBanner() {
+  var banner = document.getElementById('installBanner');
+  if (banner) banner.hidden = true;
+  try { localStorage.setItem(LS_INSTALL_DISMISSED, '1'); } catch (e) {}
+}
+
+function triggerInstall() {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then(function (choice) {
+    if (choice && choice.outcome === 'accepted') {
+      showToast('PandoraBook installed — find it on your home screen.');
+    }
+    deferredPrompt = null;
+    dismissInstallBanner();
+    var btn = document.getElementById('installBtn');
+    if (btn) btn.hidden = true;
+  }).catch(function () {
+    deferredPrompt = null;
+  });
+}
+
 function wireInstallButton() {
   var btn = document.getElementById('installBtn');
+  var bannerBtn = document.getElementById('installBannerBtn');
+  var bannerDismiss = document.getElementById('installBannerDismiss');
+
+  if (bannerBtn) bannerBtn.addEventListener('click', triggerInstall);
+  if (bannerDismiss) bannerDismiss.addEventListener('click', dismissInstallBanner);
+  if (btn) btn.addEventListener('click', triggerInstall);
+
   window.addEventListener('beforeinstallprompt', function (e) {
     e.preventDefault();
     deferredPrompt = e;
-    if (btn) btn.hidden = false;
+    // Header button = quiet persistent entry point; banner = the persuasive one.
+    if (btn && !isStandalone()) btn.hidden = false;
+    maybeShowInstallBanner();
   });
-  if (btn) {
-    btn.addEventListener('click', function () {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then(function () { deferredPrompt = null; btn.hidden = true; });
-      }
-    });
-  }
+  // Re-evaluate on every navigation: engagement may cross the threshold later.
+  window.addEventListener('hashchange', maybeShowInstallBanner);
   window.addEventListener('appinstalled', function () {
     deferredPrompt = null;
-    if (btn) btn.hidden = true;
+    dismissInstallBanner();
+    var b2 = document.getElementById('installBtn');
+    if (b2) b2.hidden = true;
   });
+}
+
+/** Floating "Back to top" button: appears after scrolling down. */
+function wireBackTop() {
+  var btn = document.getElementById('backTop');
+  if (!btn) return;
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      ticking = false;
+      var y = window.scrollY || window.pageYOffset || 0;
+      btn.hidden = y < 600;
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  btn.addEventListener('click', function () {
+    var reduce = window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+    var main = document.getElementById('app');
+    if (main) main.focus({ preventScroll: true });
+  });
+  // Reset on every route change (route() scrolls to top anyway).
+  window.addEventListener('hashchange', function () { btn.hidden = true; });
+}
+
+/** True while the user is typing in a form control. */
+function isTypingTarget(el) {
+  if (!el) return false;
+  var tag = (el.tagName || '').toLowerCase();
+  return tag === 'input' || tag === 'textarea' || tag === 'select' || el.isContentEditable;
+}
+
+/** Keyboard shortcuts: "/" = search, arrows = agent-detail tabs. */
+function wireKeyboard() {
+  document.addEventListener('keydown', function (e) {
+    var typing = isTypingTarget(document.activeElement) || isTypingTarget(e.target);
+    var mod = e.ctrlKey || e.metaKey || e.altKey;
+
+    if (e.key === 'Escape') {
+      if (typing && document.activeElement && document.activeElement.blur) {
+        document.activeElement.blur();
+      }
+      return;
+    }
+    if (mod || typing) return;
+
+    // "/" jumps to search and focuses the input.
+    if (e.key === '/') {
+      e.preventDefault();
+      focusSearchInput();
+      return;
+    }
+
+    // Arrow keys flip through agent-detail tabs.
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+      var r = parseHash();
+      if (r.name !== 'agentDetail') return;
+      var agent = findAgent(r.param);
+      if (!agent) return;
+      var idx = tabIndexOf(r.query.tab || App.activeTab[agent.code] || 'identity');
+      var next = idx + (e.key === 'ArrowRight' ? 1 : -1);
+      next = (next + AGENT_TABS.length) % AGENT_TABS.length;
+      e.preventDefault();
+      go('#/agent/' + agent.code + '?tab=' + AGENT_TABS[next].id);
+    }
+  });
+}
+
+/** Go to search and focus the query input once rendered. */
+function focusSearchInput() {
+  var r = parseHash();
+  function focus() {
+    var input = document.getElementById('search-q');
+    if (input) { input.focus(); input.select(); }
+  }
+  if (r.name === 'search') {
+    focus();
+  } else {
+    go('#/search');
+    setTimeout(focus, 60);
+  }
 }
 
 // Expose minimal API for debugging / future extensions.
@@ -1072,7 +2810,9 @@ window.PandoraBook = {
   go: go,
   getData: function () { return App.data; },
   getProgress: function () { return App.progress; },
-  version: '1.0.0',
+  shareAgent: shareAgent,
+  showToast: showToast,
+  version: '1.1.0',
 };
 
 document.addEventListener('DOMContentLoaded', init);
