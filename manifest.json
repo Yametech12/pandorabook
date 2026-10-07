@@ -1,11 +1,10 @@
 {
   "background_color": "#06070d",
   "categories": [
-    "books",
     "education",
     "reference"
   ],
-  "description": "An interactive book of AI agent behavioral models \u2014 three archetypes, one framework.",
+  "description": "An interactive guide to AI agent behavioral models \u2014 three archetypes, one framework.",
   "dir": "ltr",
   "display": "standalone",
   "icons": [
@@ -45,9 +44,9 @@
       "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
     },
     {
-      "name": "Search the Archive",
+      "name": "Search the Library",
       "short_name": "Search",
-      "description": "Full-text search across all dossiers",
+      "description": "Full-text search across all profiles",
       "url": "/#/search",
       "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
     },

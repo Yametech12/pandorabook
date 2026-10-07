@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#2c3e50" />
-  <meta name="description" content="Pandora's Box — an interactive book of AI agent behavioral models. Three archetypes, one framework." />
+  <meta name="theme-color" content="#06070d" />
+  <meta name="description" content="Pandora's Box — an interactive guide to AI agent behavioral models. Three archetypes, one framework." />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta property="og:title" content="Pandora's Box" />
-  <meta property="og:description" content="An interactive book of AI agent behavioral models. Three archetypes, one framework." />
+  <meta property="og:description" content="An interactive guide to AI agent behavioral models. Three archetypes, one framework." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="/icons/icon-512.png" />
   <title>Pandora's Box</title>
@@ -32,25 +32,56 @@
   <div id="loader" role="status" aria-label="Loading Pandora's Box">
     <div class="loader-mark" aria-hidden="true">◈</div>
     <p class="loader-title">Pandora's Box</p>
-    <p class="loader-sub">Opening the archive…</p>
+    <p class="loader-sub">Preparing your workspace…</p>
   </div>
 
   <!-- App shell -->
   <div id="shell" hidden>
-    <header class="app-header">
-      <div class="header-inner">
-        <span class="brand-mark" aria-hidden="true">◈</span>
-        <div class="brand-text">
-          <h1 class="brand-title">Pandora's Box</h1>
-          <p class="brand-sub">AI Agent Behavioral Models</p>
+    <header class="app-header" id="appHeader">
+      <div class="header-bar">
+        <a href="#/home" class="brand" aria-label="PandoraBook — home">
+          <span class="brand-mark" aria-hidden="true">◈</span>
+          <span class="brand-wordmark">Pandora<em>Book</em></span>
+        </a>
+        <form class="header-searchbar" role="search" onsubmit="return headerSearchGo(event)" aria-label="Site search">
+          <span class="searchbar-icon" aria-hidden="true">&#8981;</span>
+          <input id="headerSearchInput" class="header-searchbar-input" type="search"
+            placeholder="Search the library&hellip;  ( / )" aria-label="Search the library"
+            autocomplete="off" spellcheck="false">
+          <kbd class="searchbar-kbd" aria-hidden="true">/</kbd>
+        </form>
+        <div class="header-actions">
+          <a href="#/saved" class="icon-btn header-link" data-intent="saved" aria-label="Saved bookmarks" title="Saved">
+            <span aria-hidden="true">&#9733;</span>
+          </a>
+          <button id="installBtn" class="install-btn install-btn-compact" hidden type="button" aria-label="Install PandoraBook">
+            <span class="install-icon" aria-hidden="true">&#11015;</span><span class="install-text">Install</span>
+          </button>
+          <a href="#/search" class="icon-btn header-search" data-intent="search" aria-label="Search the library" title="Search">
+            <span aria-hidden="true">&#9906;</span>
+          </a>
+          <div class="more-wrap">
+            <button type="button" class="icon-btn more-btn" id="moreBtn" data-intent="more"
+                    aria-haspopup="true" aria-expanded="false" aria-controls="moreMenu"
+                    aria-label="More sections" title="More">
+              <span aria-hidden="true">&#8943;</span>
+            </button>
+          <div class="more-menu" id="moreMenu" role="menu" aria-label="More sections" hidden>
+            <a href="#/audit" class="more-link" role="menuitem" data-intent="more" data-hash="#/audit">Audit Report</a>
+            <a href="#/sitemap" class="more-link" role="menuitem" data-intent="more" data-hash="#/sitemap">Site Map</a>
+            <a href="#/changelog" class="more-link" role="menuitem" data-intent="more" data-hash="#/changelog">What&rsquo;s New</a>
+          </div>
         </div>
-        <button id="installBtn" class="install-btn" hidden type="button">Install</button>
       </div>
+      </div>
+      <!-- Task-oriented IA: Discover / Explore / Compare / Learn / Saved.
+           Search lives in the header; lesser-used sections in More. -->
       <nav class="top-nav" aria-label="Primary">
-        <a href="#/home" data-route="home" class="top-link">Overview</a>
-        <a href="#/framework" data-route="framework" class="top-link">Framework</a>
-        <a href="#/audit" data-route="audit" class="top-link">Audit</a>
-        <a href="#/sitemap" data-route="sitemap" class="top-link">Site Map</a>
+        <a href="#/home" data-intent="home" class="top-link">Home</a>
+        <a href="#/agents" data-intent="agents" class="top-link">Agents</a>
+        <a href="#/compare" data-intent="compare" class="top-link">Compare</a>
+        <a href="#/framework" data-intent="learn" class="top-link">Learn</a>
+        <a href="#/saved" data-intent="saved" class="top-link">Saved</a>
       </nav>
     </header>
 
@@ -59,29 +90,25 @@
     </main>
 
     <nav class="bottom-nav" aria-label="Sections">
-      <a href="#/home" data-route="home" class="bottom-link" aria-label="Home">
-        <span class="bottom-icon" aria-hidden="true">⌂</span>
+      <a href="#/home" data-intent="home" class="bottom-link" aria-label="Discover — home dashboard">
+        <span class="bottom-icon" aria-hidden="true">&#8962;</span>
         <span class="bottom-label">Home</span>
       </a>
-      <a href="#/agents" data-route="agents" class="bottom-link" aria-label="Agents">
-        <span class="bottom-icon" aria-hidden="true">◈</span>
+      <a href="#/agents" data-intent="agents" class="bottom-link" aria-label="Explore — agent profiles">
+        <span class="bottom-icon" aria-hidden="true">&#9672;</span>
         <span class="bottom-label">Agents</span>
       </a>
-      <a href="#/framework" data-route="framework" class="bottom-link" aria-label="Framework">
-        <span class="bottom-icon" aria-hidden="true">⬡</span>
-        <span class="bottom-label">Framework</span>
-      </a>
-      <a href="#/compare" data-route="compare" class="bottom-link" aria-label="Compare">
-        <span class="bottom-icon" aria-hidden="true">⇄</span>
+      <a href="#/compare" data-intent="compare" class="bottom-link" aria-label="Compare agents side by side">
+        <span class="bottom-icon" aria-hidden="true">&#8646;</span>
         <span class="bottom-label">Compare</span>
       </a>
-      <a href="#/glossary" data-route="glossary" class="bottom-link" aria-label="Glossary">
-        <span class="bottom-icon" aria-hidden="true">≡</span>
-        <span class="bottom-label">Glossary</span>
+      <a href="#/framework" data-intent="learn" class="bottom-link" aria-label="Learn — framework and glossary">
+        <span class="bottom-icon" aria-hidden="true">&#11042;</span>
+        <span class="bottom-label">Learn</span>
       </a>
-      <a href="#/search" data-route="search" class="bottom-link" aria-label="Search">
-        <span class="bottom-icon" aria-hidden="true">⚲</span>
-        <span class="bottom-label">Search</span>
+      <a href="#/saved" data-intent="saved" class="bottom-link" aria-label="Saved bookmarks">
+        <span class="bottom-icon" aria-hidden="true">&#9733;</span>
+        <span class="bottom-label">Saved</span>
       </a>
     </nav>
     <button id="backTop" class="back-top" type="button" aria-label="Back to top" hidden>↑</button>
@@ -90,22 +117,21 @@
     <noscript>
     <div class="noscript">
       <h1>Pandora's Box</h1>
-      <p>This interactive book requires JavaScript. Please enable it to read the archive.</p>
+      <p>This interactive web app requires JavaScript. Please enable JavaScript to explore the library.</p>
     </div>
   </noscript>
 
-  <!-- Install prompt banner (shown after engagement; see wireInstallButton) -->
+  <!-- Install prompt card (shown after engagement; see wireInstallButton) -->
   <div id="installBanner" class="install-banner" hidden role="dialog" aria-label="Install PandoraBook">
     <div class="install-banner-inner">
-      <span class="install-banner-mark" aria-hidden="true">◈</span>
+      <button id="installBannerDismiss" class="install-banner-close" type="button" aria-label="Dismiss install prompt">×</button>
+      <img class="install-banner-icon" src="/icons/icon-192.png" alt="" width="56" height="56" />
       <div class="install-banner-text">
-        <strong>Install PandoraBook</strong>
-        <span>Read offline, launch from your home screen, and pick up where you left off.</span>
+        <strong>PandoraBook</strong>
+        <span class="install-banner-sub">Pandora's Box · AI Agent Models</span>
+        <span class="install-banner-meta">Free · Works offline</span>
       </div>
-      <div class="install-banner-actions">
-        <button id="installBannerBtn" class="btn btn-primary btn-small" type="button">Install</button>
-        <button id="installBannerDismiss" class="btn btn-small" type="button" aria-label="Dismiss install prompt">Later</button>
-      </div>
+      <button id="installBannerBtn" class="install-banner-get" type="button">GET</button>
     </div>
   </div>
 
