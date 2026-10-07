@@ -1,0 +1,39 @@
+{
+  "background_color": "#06070d",
+  "categories": [
+    "books",
+    "education",
+    "reference"
+  ],
+  "description": "An interactive book of AI agent behavioral models \u2014 three archetypes, one framework.",
+  "dir": "ltr",
+  "display": "standalone",
+  "icons": [
+    {
+      "purpose": "any",
+      "sizes": "192x192",
+      "src": "/icons/icon-192.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "any",
+      "sizes": "512x512",
+      "src": "/icons/icon-512.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "maskable",
+      "sizes": "512x512",
+      "src": "/icons/icon-512.png",
+      "type": "image/png"
+    }
+  ],
+  "lang": "en",
+  "name": "Pandora's Box",
+  "orientation": "portrait",
+  "scope": "/",
+  "short_name": "PandoraBook",
+  "start_url": "/",
+  "theme_color": "#06070d",
+  "id": "/"
+}
