@@ -1,7 +1,7 @@
 /* PandoraBook service worker — cache-first for static assets, offline fallback. */
 'use strict';
 
-const CACHE_NAME = 'pandorabook-v1';
+const CACHE_NAME = 'pandorabook-v2';
 
 // Core app shell: cached on install so the app opens offline.
 const CORE_ASSETS = [
@@ -44,7 +44,6 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   const { request } = event;
-
   // Only handle GET requests; let everything else pass through.
   if (request.method !== 'GET') return;
 
@@ -78,6 +77,26 @@ self.addEventListener('fetch', (event) => {
         }
         return response;
       });
+    })
+  );
+});
+
+/* App → SW messaging: lets the offline page report what's cached. */
+self.addEventListener('message', (event) => {
+  if (!event.data || event.data.type !== 'CACHE_STATUS') return;
+  const port = event.ports && event.ports[0];
+  caches.open(CACHE_NAME).then((cache) =>
+    cache.keys().then((keys) => {
+      const urls = keys.map((r) => new URL(r.url).pathname);
+      const status = {
+        shell: urls.includes('/index.html') || urls.includes('/'),
+        styles: urls.includes('/css/app.css'),
+        appJs: urls.includes('/js/app.js'),
+        data: urls.includes('/data/content.json'),
+        icons: urls.includes('/icons/icon-192.png'),
+        total: keys.length,
+      };
+      if (port) port.postMessage({ type: 'CACHE_STATUS', status });
     })
   );
 });

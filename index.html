@@ -22,6 +22,9 @@
   <meta name="apple-mobile-web-app-title" content="PandoraBook" />
 
   <link rel="stylesheet" href="/css/app.css" />
+  <!-- PWA perf: hint the browser that the data payload is needed ASAP -->
+  <link rel="preload" href="/data/content.json" as="fetch" crossorigin="anonymous" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#06070d" />
 </head>
 <body>
   <a class="skip-link" href="#app">Skip to content</a>
@@ -47,6 +50,7 @@
         <a href="#/home" data-route="home" class="top-link">Overview</a>
         <a href="#/framework" data-route="framework" class="top-link">Framework</a>
         <a href="#/audit" data-route="audit" class="top-link">Audit</a>
+        <a href="#/sitemap" data-route="sitemap" class="top-link">Site Map</a>
       </nav>
     </header>
 
@@ -63,6 +67,10 @@
         <span class="bottom-icon" aria-hidden="true">◈</span>
         <span class="bottom-label">Agents</span>
       </a>
+      <a href="#/framework" data-route="framework" class="bottom-link" aria-label="Framework">
+        <span class="bottom-icon" aria-hidden="true">⬡</span>
+        <span class="bottom-label">Framework</span>
+      </a>
       <a href="#/compare" data-route="compare" class="bottom-link" aria-label="Compare">
         <span class="bottom-icon" aria-hidden="true">⇄</span>
         <span class="bottom-label">Compare</span>
@@ -76,14 +84,33 @@
         <span class="bottom-label">Search</span>
       </a>
     </nav>
+    <button id="backTop" class="back-top" type="button" aria-label="Back to top" hidden>↑</button>
   </div>
 
-  <noscript>
+    <noscript>
     <div class="noscript">
       <h1>Pandora's Box</h1>
       <p>This interactive book requires JavaScript. Please enable it to read the archive.</p>
     </div>
   </noscript>
+
+  <!-- Install prompt banner (shown after engagement; see wireInstallButton) -->
+  <div id="installBanner" class="install-banner" hidden role="dialog" aria-label="Install PandoraBook">
+    <div class="install-banner-inner">
+      <span class="install-banner-mark" aria-hidden="true">◈</span>
+      <div class="install-banner-text">
+        <strong>Install PandoraBook</strong>
+        <span>Read offline, launch from your home screen, and pick up where you left off.</span>
+      </div>
+      <div class="install-banner-actions">
+        <button id="installBannerBtn" class="btn btn-primary btn-small" type="button">Install</button>
+        <button id="installBannerDismiss" class="btn btn-small" type="button" aria-label="Dismiss install prompt">Later</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Share toast -->
+  <div id="toast" class="toast" hidden role="status" aria-live="polite"></div>
 
   <script src="/js/app.js" defer></script>
   <script>

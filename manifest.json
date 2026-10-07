@@ -35,5 +35,28 @@
   "short_name": "PandoraBook",
   "start_url": "/",
   "theme_color": "#06070d",
-  "id": "/"
+  "id": "/",
+  "shortcuts": [
+    {
+      "name": "Agent Profiles",
+      "short_name": "Agents",
+      "description": "Browse the three agent archetypes",
+      "url": "/#/agents",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Search the Archive",
+      "short_name": "Search",
+      "description": "Full-text search across all dossiers",
+      "url": "/#/search",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Compare Agents",
+      "short_name": "Compare",
+      "description": "Side-by-side agent comparison",
+      "url": "/#/compare",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
 }
