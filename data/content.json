@@ -552,7 +552,45 @@
           "indicator": "Initiates touch",
           "failureMode": "Coldness, distance"
         }
-      ]
+      ],
+      "expandedContent": {
+        "simpleSummary": "TDI stands for Tester-Denier-Idealist, and her archetype is called \"The Iceberg\" because about 90% of what she thinks and feels stays hidden below the surface. She observes people carefully before letting anyone in, and she values self-control, modesty, and emotional safety above almost everything else. Deep down she holds an idealized, old-fashioned view of romance and hopes to meet someone exceptional enough to be worth opening up to. Winning her trust is slow and requires patience, consistency, and genuine respect for her boundaries.",
+        "examples": [
+          {
+            "title": "The Quiet Corner at the Party",
+            "scenario": "At a social gathering, a TDI woman sits slightly apart from the main group. She dresses modestly, watches the room more than she talks, and gives short, polite answers to small talk. She is not being rude — she is scanning the environment and deciding who, if anyone, is worth her attention.",
+            "whatItShows": "Her GUARDED_OBSERVER state: emotional invisibility as a defense, high environmental awareness, and minimal verbal output until safety is assessed."
+          },
+          {
+            "title": "The Slow Text Back",
+            "scenario": "After exchanging numbers, she takes hours or even a day to reply to messages, and her replies are brief. When asked about herself, she deflects with humor or turns the question around. Weeks later, out of nowhere, she asks a surprisingly deep, personal question — she has been quietly evaluating the whole time.",
+            "whatItShows": "Her testing pattern: delayed vulnerability, deflection of early intimacy, and selective deep engagement only after her internal safety checks pass."
+          },
+          {
+            "title": "The Door Test",
+            "scenario": "On a date, when the conversation turns flirtatious or physical tension rises, she suddenly goes quiet, changes the subject, or creates physical distance — crossed arms, stepping back. If the other person respects the boundary without pressure or sulking, she relaxes and becomes warmer afterward. If they push, she withdraws completely and may end contact.",
+            "whatItShows": "Her resistance responses: withdrawal under pressure, and how respect for her boundaries (rather than persistence) is what actually builds her trust. Pressure is an exit trigger, not a challenge to overcome."
+          }
+        ],
+        "strengths": [
+          "Exceptional emotional self-control — rarely acts on impulse",
+          "Highly observant; notices details and inconsistencies others miss",
+          "Loyal and deeply committed once trust is genuinely earned",
+          "Strong personal boundaries and clear sense of self",
+          "Independent — does not need constant validation or attention",
+          "Thoughtful and deliberate in decisions, including in relationships"
+        ],
+        "challenges": [
+          "Can appear cold, distant, or uninterested even when she is not",
+          "Slow to open up, which can frustrate people who expect quick intimacy",
+          "High standards and idealized expectations may be hard for anyone to meet",
+          "Tendency to withdraw rather than communicate when uncomfortable",
+          "May test people in ways that feel like mixed signals",
+          "Vulnerability feels risky to her, so emotional honesty comes late"
+        ],
+        "recognitionGuide": "You can recognize a TDI by her calm, reserved presence. She dresses modestly and avoids drawing attention to herself. She watches more than she speaks, and her facial expressions stay neutral even in lively settings. She answers questions briefly, deflects personal topics early on, and takes her time responding to messages. She positions herself as an observer rather than the center of attention. Underneath the reserve, watch for small tells of interest: she asks a deep question out of nowhere, remembers tiny details you mentioned weeks ago, or becomes noticeably warmer after you respect a boundary she set. The key sign is contrast — guarded with most people, selectively open with the very few she trusts.",
+        "identityExplained": "TDI's identity is built around one core idea: protection through invisibility. Her \"Primary Defense\" of emotional invisibility means she deliberately reveals very little, so that others cannot use her feelings against her. Her \"Core Fear\" — being abandoned after becoming vulnerable — explains why she delays intimacy: closeness feels like handing someone the power to hurt her. Her \"Core Desire\" is idealistic and romantic: she wants to be swept away by someone exceptional, but only after that person has proven worthy through patience and consistency. Think of her as a vault: extremely difficult to open, but what is inside is genuine and lasting once the right person earns access."
+      }
     },
     {
       "code": "TJI",
@@ -987,7 +1025,82 @@
           "indicator": "No pressure",
           "failureMode": "Butterfly flight"
         }
-      ]
+      ],
+      "expandedContent": {
+        "inSimpleTerms": "The Social Butterfly (TJI) is the life of the party — high energy, flirtatious by default, and usually the center of attention in any room. She spreads her attention across many people instead of focusing on one, driven by a deep fear of missing out on excitement. The people who fascinate her most are the ones who don't chase her back — she loves the thrill of winning over someone indifferent. Beneath the playful surface, she secretly craves a genuine connection, though anything that feels like being tied down sends her running.",
+        "realWorldExamples": [
+          {
+            "title": "The Party Entrance",
+            "scenario": "She arrives at a party and within minutes is on the dance floor, high-fiving strangers, starting conversations with three different groups, and making everyone laugh. But the moment the energy dips or the conversation turns routine, she drifts to another group — or leaves entirely.",
+            "whatItShows": "Her SOCIAL_CENTER state: attention distributed across many targets, flirtation as a default mode, and boredom as the instant exit trigger."
+          },
+          {
+            "title": "The Aloof Stranger",
+            "scenario": "Everyone at the gathering is giving her attention except one person who seems uninterested. Suddenly that's the only person in the room. She teases him, challenges him, finds excuses to be near him, and turns up the charm — she has to win him over.",
+            "whatItShows": "Her SELECTIVE_FOCUS state and her core desire: to chase and win the unattainable. Indifference intensifies her pursuit; easy attention bores her."
+          },
+          {
+            "title": "The Morning After the Win",
+            "scenario": "She finally wins over the person who ignored her. Things are exciting for a while — new experiences, playful energy, quick bonding. But once he starts texting constantly, asking where she is, and settling into a routine, she goes quiet, makes other plans, and is suddenly 'too busy.'",
+            "whatItShows": "CONQUEST_MODE collapsing into BUTTERFLY_FLIGHT. Her dismissive-avoidant attachment treats clinginess and routine as threats; novelty maintenance is the only thing that keeps her engaged."
+          }
+        ],
+        "keyStrengths": [
+          "Charismatic and magnetic — puts people at ease and lights up any social setting",
+          "Bold and confident — takes initiative without fear of rejection",
+          "Fun and spontaneous — brings energy, humor, and excitement wherever she goes",
+          "Resilient to rejection — bounces back fast and never dwells on setbacks",
+          "Capable of real loyalty — her emotional sequence ends in Devotion and Comfort for the rare person who keeps her engaged"
+        ],
+        "potentialChallenges": [
+          "Bores quickly — struggles with routine, stability, and slow-paced connection",
+          "Flees emotional pressure — clinginess or demands for commitment trigger withdrawal",
+          "Chases unavailable people — can overlook those who genuinely care in favor of the challenge",
+          "Uses busyness as a shield — constant socializing can be a way to avoid deeper feelings",
+          "Can mistake excitement for connection — novelty feels like intimacy but fades fast"
+        ],
+        "howToRecognize": {
+          "firstImpression": "The loudest laugh in the room. She moves constantly, touches everyone's arm when she talks, and makes fast friends with strangers within minutes.",
+          "socialBehavior": "She flirts with everyone by default — that's her baseline, not a signal of special interest. The real tell is who she keeps returning to after circulating.",
+          "conversationStyle": "Teasing, playful banter, rapid topic changes. She'll challenge you to keep up and test your reactions — she's reading how you respond.",
+          "losingInterest": "Shorter replies, physically drifting toward the door or another group, suddenly fascinated by someone across the room. Don't chase — pressure accelerates her exit.",
+          "commonMistake": "Assuming her flirting means deep interest or easy availability. Her default mode is playful with everyone; genuine interest shows as selective focus plus consistent follow-through over time."
+        },
+        "identityExplained": [
+          {
+            "parameter": "Type Code (TJI)",
+            "whatItMeans": "Tester-Justifier-Idealist: she tests people to read their reactions, justifies her choices to herself afterward, and idealizes romance as something thrilling and dramatic."
+          },
+          {
+            "parameter": "Primary Defense — Social Dispersion",
+            "whatItMeans": "When uncomfortable, she doesn't withdraw — she spreads out. Surrounding herself with many people means no single person can get close enough to hurt or trap her."
+          },
+          {
+            "parameter": "Core Fear — Missing Out on Excitement",
+            "whatItMeans": "Boredom feels like a genuine threat to her. Stillness, routine, and predictability trigger an almost physical urge to flee or find stimulation somewhere else."
+          },
+          {
+            "parameter": "Core Desire — To Chase and Win the Unattainable",
+            "whatItMeans": "She values what she has to work for. Easy, available attention is boring; an indifferent person is an irresistible challenge that proves her worth when conquered."
+          },
+          {
+            "parameter": "Hidden Trait — Craves Genuine Connection",
+            "whatItMeans": "Beneath the party-girl surface, shallow interactions exhaust her. She wants something real — she just struggles to stay still long enough, and with someone patient enough, to let it develop."
+          },
+          {
+            "parameter": "Secondary Defense — Novelty Seeking",
+            "whatItMeans": "New experiences, new people, new thrills — novelty is how she regulates her emotions. When feelings get heavy, she reaches for something new instead of sitting with them."
+          },
+          {
+            "parameter": "Attachment Style — Dismissive-Avoidant",
+            "whatItMeans": "Closeness triggers a fear of being trapped. She needs partners who give her space and don't demand constant reassurance; pressure for commitment makes her pull away faster."
+          },
+          {
+            "parameter": "Love Language — Quality Time + Physical Touch",
+            "whatItMeans": "She bonds through shared experiences and playful physical affection — adventures together, dancing, casual touch — not through words, gifts, or long emotional conversations."
+          }
+        ]
+      }
     },
     {
       "code": "NDI",
@@ -1109,145 +1222,638 @@
         "3.7",
         "3.8",
         "3.9"
-      ]
+      ],
+      "expandedContent": {
+        "frameworkNote": "NDI stands for Investor–Denier–Idealist, one of three profiled types on the Idealist (I) branch of the Relational Worldview axis. Its three coordinates mean: N — single-threaded mate evaluation (she focuses on one person at a time instead of keeping multiple options); D — suppression-based coping (she gates emotional and physical intensity until trust is verified); I — romantic projection (she relates through idealized, storybook-style romantic narratives). NDI is the only profiled type with the N+D combination, which is why she differs so sharply from TDI (multi-threaded, intrigue-based testing) and TJI (fast, novelty-driven).",
+        "inSimpleTerms": "The Hopeful Romantic is an old-fashioned dreamer who believes in one great love. She dates one person at a time, takes things slow, and watches for honesty before she lets her guard down. She dreams of a deep, storybook romance — but that dream makes her vulnerable to seeing potential instead of reality. When she meets someone who is struggling, her \"savior\" instinct kicks in and she wants to help him heal. Her biggest fear is being used and then abandoned, so she quietly tests for authenticity and pulls back when she senses game-playing. Once trust is earned, she invests deeply, loyally, and for the long term.",
+        "howToRecognize": [
+          "She focuses on one person at a time and does not juggle multiple suitors (single-threaded evaluation).",
+          "Early on she is warm but cautious — she asks deep, honest questions before opening up.",
+          "She talks about romance, \"the one,\" and long-term potential, framing dating as a love story.",
+          "When excited about someone, she tends to overlook small flaws and focus on their potential.",
+          "Verbal reassurance matters most to her — \"Are we okay?\" carries more weight than grand gestures (Words of Affirmation + Quality Time).",
+          "If her partner is going through a hard time, she becomes extra attentive, patient, and nurturing (Savior Mode).",
+          "She withdraws quietly when she senses dishonesty or \"player\" signals, rather than confronting loudly.",
+          "She is drawn to \"helping him become his best self\" — the emotional-challenge attraction."
+        ],
+        "realWorldExamples": [
+          {
+            "title": "The slow-burn first month",
+            "context": "She has been seeing someone for a few weeks and enjoys his company.",
+            "whatSheDoes": "She keeps the pace comfortable, asks about his values and honesty, and does not rush exclusivity or intensity. She is observing whether his words and actions line up.",
+            "whatItMeans": "She is in ROMANTIC_SCANNING: testing authenticity before investing. Slowness is caution, not disinterest."
+          },
+          {
+            "title": "The rescue instinct",
+            "context": "Her partner mentions he is going through a rough patch at work and feels lost.",
+            "whatSheDoes": "She becomes his biggest supporter — patient, nurturing, offering emotional support and extra time. Her investment speeds up noticeably.",
+            "whatItMeans": "SAVIOR_MODE has activated: her core desire \"to save and be saved by love\" is engaged. This is when she is most likely to overlook red flags, so honesty from the partner matters most here."
+          },
+          {
+            "title": "The quiet withdrawal",
+            "context": "She notices inconsistencies — stories that do not add up, evasive answers about simple things.",
+            "whatSheDoes": "Instead of a dramatic confrontation, she cools off: shorter replies, less availability, guarded warmth. She is watching to see whether the pattern continues.",
+            "whatItMeans": "Her core fear of being used has been triggered (exit toward CAUTIOUS_WITHDRAWAL). Consistent honesty is the only way to re-engage her; pressure or charm offensives backfire."
+          }
+        ],
+        "keyStrengths": [
+          "Deeply loyal once trust is earned — she invests for the long term (Cautious Investment).",
+          "An emotionally supportive, nurturing partner, especially in hard times (Core Desire).",
+          "Values honesty and depth over surface charm; authenticity is her love language filter.",
+          "Committed and focused — one person at a time, no divided attention (single-threaded).",
+          "Sees the best in people and can inspire genuine growth (Emotional Idealism)."
+        ],
+        "potentialChallenges": [
+          "She may overlook real flaws because she falls for potential, not reality (Emotional Idealism).",
+          "The \"fix him\" urge can create one-sided, exhausting dynamics (Attracted to Emotional Challenges).",
+          "Fear of abandonment can show up as a need for frequent reassurance (Anxious-Preoccupied attachment).",
+          "Being slow to trust can frustrate partners who are genuine but impatient.",
+          "Savior Mode can accelerate her investment before the other person has earned it."
+        ],
+        "availableVsComingSoon": {
+          "available": [
+            "3.1 Core Identity Matrix — 9 parameters (type code, archetype, defenses, core fear/desire, hidden trait, attachment style, love language).",
+            "3.2 Behavioral State Machine — ROMANTIC_SCANNING fully described; SAVIOR_MODE partially described (source truncated mid-section)."
+          ],
+          "comingSoon": [
+            "3.3 Communication Protocol Matrix",
+            "3.4 Physical Escalation Ladder",
+            "3.5 Trigger-Response Database",
+            "3.6 AI Agent Decision Tree Logic",
+            "3.7 Emotional Trigger Sequence Activation",
+            "3.8 Resistance Pattern Matrix",
+            "3.9 Long-Term Devotion Maintenance Protocol"
+          ]
+        },
+        "analyticalNote": "This profile is a descriptive analytical model of dating-behavior patterns — it explains tendencies, not rules for how anyone should behave. Sections marked \"Coming Soon\" were absent from the source document and have not been invented here. Healthy relating always centers on mutual respect, honesty, and clear communication."
+      }
     }
   ],
   "glossary": [
     {
+      "term": "Abandonment Fear",
+      "definition": "TDI's resistance pattern — withdrawing preemptively to avoid being left first.",
+      "simpleDefinition": "Pushing someone away first so they can't be the one to leave.",
+      "relatedTerms": [
+        "Resistance Pattern",
+        "Anxious-Preoccupied",
+        "Fantasy Protection"
+      ]
+    },
+    {
       "term": "Activation Threshold",
-      "definition": "The modeled stimulus intensity (0.0–1.0) required to trigger an emotional state transition."
-    },
-    {
-      "term": "Archetype",
-      "definition": "The narrative label for an agent type (e.g., \"The Iceberg\")."
-    },
-    {
-      "term": "Behavioral State Machine",
-      "definition": "A finite-state model describing an agent's behavioral modes, transition triggers, and exit conditions."
-    },
-    {
-      "term": "Blank Expression Tolerance",
-      "definition": "The ability to maintain a neutral facial expression under social pressure; used as a passive test."
-    },
-    {
-      "term": "Butterfly Flight",
-      "definition": "TJI's primary withdrawal pattern — leaving a social situation or redirecting attention when pressured."
-    },
-    {
-      "term": "Cautious Investment",
-      "definition": "NDI's secondary defense — slow trust-building with authenticity verification."
-    },
-    {
-      "term": "Denier (D)",
-      "definition": "Suppression-based sexual coping; uses gating and barriers as tests."
-    },
-    {
-      "term": "Devotion",
-      "definition": "The fourth emotional trigger in the sequence; represents complete surrender and loyalty."
-    },
-    {
-      "term": "Dimensional Axis",
-      "definition": "One of three binary dimensions (T/N, D/J, R/I) defining the agent type space."
-    },
-    {
-      "term": "Dismissive-Avoidant",
-      "definition": "Attachment style characterized by discomfort with closeness and emphasis on independence."
+      "definition": "The modeled stimulus intensity (0.0–1.0) required to trigger an emotional state transition.",
+      "simpleDefinition": "The amount of stimulation needed before someone's feelings shift into a new gear.",
+      "relatedTerms": [
+        "Emotional Sequence",
+        "Trigger-Response Database"
+      ]
     },
     {
       "term": "Anxious-Avoidant",
-      "definition": "Attachment style characterized by craving intimacy while fearing engulfment."
+      "definition": "Attachment style characterized by craving intimacy while fearing engulfment.",
+      "simpleDefinition": "An attachment style where you want closeness but also feel trapped by it.",
+      "relatedTerms": [
+        "Dismissive-Avoidant",
+        "Anxious-Preoccupied"
+      ]
     },
     {
       "term": "Anxious-Preoccupied",
-      "definition": "Attachment style characterized by craving closeness while fearing abandonment."
+      "definition": "Attachment style characterized by craving closeness while fearing abandonment.",
+      "simpleDefinition": "An attachment style where you crave closeness and worry about being abandoned.",
+      "relatedTerms": [
+        "Dismissive-Avoidant",
+        "Anxious-Avoidant",
+        "Abandonment Fear"
+      ]
+    },
+    {
+      "term": "Archetype",
+      "definition": "The narrative label for an agent type (e.g., \"The Iceberg\").",
+      "simpleDefinition": "A memorable nickname for an agent type, like \"The Iceberg.\"",
+      "relatedTerms": [
+        "Type Code",
+        "Social Butterfly",
+        "Playette",
+        "Old-Fashioned Dreamer"
+      ],
+      "exampleUsage": "Each profile opens with its archetype: TDI is \"The Iceberg,\" TJI is \"The Party Girl.\""
+    },
+    {
+      "term": "Arousal",
+      "definition": "The second emotional trigger in the sequence — physical and emotional charge building toward connection.",
+      "simpleDefinition": "The rising excitement and attraction you feel as interest deepens.",
+      "relatedTerms": [
+        "Emotional Sequence",
+        "Intrigue",
+        "Comfort"
+      ]
+    },
+    {
+      "term": "Behavioral State Machine",
+      "definition": "A finite-state model describing an agent's behavioral modes, transition triggers, and exit conditions.",
+      "simpleDefinition": "A map showing the different modes someone can be in and what moves them between modes.",
+      "relatedTerms": [
+        "Activation Threshold",
+        "Guarded Observer",
+        "Social Center",
+        "Romantic Scanning"
+      ]
+    },
+    {
+      "term": "Blank Expression Tolerance",
+      "definition": "The ability to maintain a neutral facial expression under social pressure; used as a passive test.",
+      "simpleDefinition": "Keeping a poker face under social pressure instead of reacting right away.",
+      "relatedTerms": [
+        "Emotional Invisibility",
+        "Cautious Investment"
+      ]
+    },
+    {
+      "term": "Boredom",
+      "definition": "TJI's resistance pattern — disengaging when stimulation drops below her novelty threshold.",
+      "simpleDefinition": "When she loses interest fast because things got too predictable.",
+      "relatedTerms": [
+        "Resistance Pattern",
+        "Novelty Seeking",
+        "Butterfly Flight"
+      ]
+    },
+    {
+      "term": "Butterfly Flight",
+      "definition": "TJI's primary withdrawal pattern — leaving a social situation or redirecting attention when pressured.",
+      "simpleDefinition": "Quietly slipping away from a conversation or person when feeling pressured.",
+      "relatedTerms": [
+        "Boredom",
+        "Social Dispersion",
+        "Conquest Resistance"
+      ],
+      "exampleUsage": "When the topic turns serious, she uses butterfly flight — changing the subject or drifting to another group."
+    },
+    {
+      "term": "Cautious Investment",
+      "definition": "NDI's secondary defense — slow trust-building with authenticity verification.",
+      "simpleDefinition": "Moving slowly with trust and checking that someone is genuine before opening up.",
+      "relatedTerms": [
+        "Blank Expression Tolerance",
+        "Emotional Idealism"
+      ]
+    },
+    {
+      "term": "Comfort",
+      "definition": "The third emotional trigger in the sequence — a sense of safety and ease with the other person.",
+      "simpleDefinition": "Feeling safe, relaxed, and at ease around someone.",
+      "relatedTerms": [
+        "Emotional Sequence",
+        "Arousal",
+        "Devotion",
+        "Cautious Investment"
+      ]
+    },
+    {
+      "term": "Conquest Mode",
+      "definition": "TJI's state of actively pursuing a chosen target with playful dominance.",
+      "simpleDefinition": "Her flirting-on-purpose mode: chasing someone she has decided she wants.",
+      "relatedTerms": [
+        "Selective Focus",
+        "Conquest Resistance",
+        "Sustained Engagement"
+      ]
+    },
+    {
+      "term": "Conquest Resistance",
+      "definition": "TJI's resistance pattern — pulling away once the thrill of pursuit fades after winning attention.",
+      "simpleDefinition": "Losing interest right after the chase is over and the person is \"won.\"",
+      "relatedTerms": [
+        "Resistance Pattern",
+        "Conquest Mode",
+        "Butterfly Flight",
+        "Boredom"
+      ]
+    },
+    {
+      "term": "Curiosity Activated",
+      "definition": "TDI's state when something finally catches her interest after observation.",
+      "simpleDefinition": "The moment her interest switches on after quietly watching for a while.",
+      "relatedTerms": [
+        "Guarded Observer",
+        "Intrigue",
+        "Romantic Fantasy"
+      ]
+    },
+    {
+      "term": "Denier (D)",
+      "definition": "Suppression-based sexual coping; uses gating and barriers as tests.",
+      "simpleDefinition": "A dating style that holds back physically and uses boundaries as a way to test someone.",
+      "relatedTerms": [
+        "Justifier (J)",
+        "Suppression-based Coping",
+        "No Sex Zone",
+        "Sexual Hesitation"
+      ]
+    },
+    {
+      "term": "Devotion",
+      "definition": "The fourth emotional trigger in the sequence; represents complete surrender and loyalty.",
+      "simpleDefinition": "Deep, committed loyalty — the final stage of the emotional sequence.",
+      "relatedTerms": [
+        "Emotional Sequence",
+        "Intrigue",
+        "Arousal",
+        "Comfort"
+      ]
+    },
+    {
+      "term": "Dimensional Axis",
+      "definition": "One of three binary dimensions (T/N, D/J, R/I) defining the agent type space.",
+      "simpleDefinition": "One of three yes-or-no questions that together define all eight agent types.",
+      "relatedTerms": [
+        "Type Code",
+        "Tester (T)",
+        "Investor (N)",
+        "Denier (D)",
+        "Justifier (J)",
+        "Realist (R)",
+        "Idealist (I)"
+      ]
+    },
+    {
+      "term": "Dismissive-Avoidant",
+      "definition": "Attachment style characterized by discomfort with closeness and emphasis on independence.",
+      "simpleDefinition": "An attachment style where closeness feels uncomfortable and independence feels safest.",
+      "relatedTerms": [
+        "Anxious-Avoidant",
+        "Anxious-Preoccupied",
+        "Emotional Wall"
+      ]
     },
     {
       "term": "Emotional Idealism",
-      "definition": "NDI's primary defense — seeing potential in partners while overlooking flaws."
+      "definition": "NDI's primary defense — seeing potential in partners while overlooking flaws.",
+      "simpleDefinition": "Falling for someone's potential and overlooking their flaws.",
+      "relatedTerms": [
+        "Cautious Investment",
+        "Savior Mode",
+        "Fantasy Protection"
+      ]
     },
     {
       "term": "Emotional Invisibility",
-      "definition": "TDI's primary defense — modest presentation and observer positioning to avoid premature attention."
+      "definition": "TDI's primary defense — modest presentation and observer positioning to avoid premature attention.",
+      "simpleDefinition": "Blending into the background so no one notices you too early.",
+      "relatedTerms": [
+        "Blank Expression Tolerance",
+        "Guarded Observer"
+      ]
+    },
+    {
+      "term": "Emotional Sequence",
+      "definition": "The ordered four-stage emotional progression (Intrigue → Arousal → Comfort → Devotion) modeled for each agent, with agent-specific ordering.",
+      "simpleDefinition": "The four feelings — intrigue, arousal, comfort, devotion — that unfold in a specific order for each type.",
+      "relatedTerms": [
+        "Intrigue",
+        "Arousal",
+        "Comfort",
+        "Devotion",
+        "Activation Threshold"
+      ],
+      "exampleUsage": "TDI's emotional sequence runs Intrigue → Arousal → Comfort → Devotion, while TJI's order puts Devotion before Comfort."
+    },
+    {
+      "term": "Emotional Wall",
+      "definition": "A resistance pattern where someone shuts down emotionally to block vulnerability.",
+      "simpleDefinition": "When someone goes cold and stops sharing feelings to protect themselves.",
+      "relatedTerms": [
+        "Resistance Pattern",
+        "Dismissive-Avoidant",
+        "Sexual Hesitation"
+      ]
     },
     {
       "term": "Escalation Ladder",
-      "definition": "Ordered levels of physical intimacy progression, each with behaviors, timing, and resistance indicators."
+      "definition": "Ordered levels of physical intimacy progression, each with behaviors, timing, and resistance indicators.",
+      "simpleDefinition": "The step-by-step stages of getting more physically close, with timing and warning signs for each step.",
+      "relatedTerms": [
+        "Resistance Pattern",
+        "Sexual Hesitation"
+      ],
+      "exampleUsage": "The escalation ladder for TDI runs from PLATONIC through PERSISTENT ESCALATION across four labeled levels."
+    },
+    {
+      "term": "Fantasy Protection",
+      "definition": "TDI's resistance pattern — defending an idealized image of a partner against contradictory reality.",
+      "simpleDefinition": "Clinging to the perfect version of someone in your head, even when reality disagrees.",
+      "relatedTerms": [
+        "Resistance Pattern",
+        "Romantic Fantasy",
+        "Emotional Idealism",
+        "Abandonment Fear"
+      ]
     },
     {
       "term": "FOMO",
-      "definition": "Fear of Missing Out; TJI's core fear driving constant activity."
+      "definition": "Fear of Missing Out; TJI's core fear driving constant activity.",
+      "simpleDefinition": "Fear of missing out — the anxiety that fun is happening somewhere without you.",
+      "relatedTerms": [
+        "Social Dispersion",
+        "Novelty Seeking",
+        "Boredom"
+      ],
+      "exampleUsage": "Her FOMO keeps her scanning the room for a better option instead of settling into one conversation."
+    },
+    {
+      "term": "Guarded Observer",
+      "definition": "TDI's default state — watching from the sidelines, modest and hard to read.",
+      "simpleDefinition": "Her resting mode: quiet, watchful, and blending in rather than standing out.",
+      "relatedTerms": [
+        "Emotional Invisibility",
+        "Curiosity Activated",
+        "Behavioral State Machine"
+      ]
     },
     {
       "term": "Idealist (I)",
-      "definition": "Romantic-projection pole of the Relational Worldview axis."
+      "definition": "Romantic-projection pole of the Relational Worldview axis.",
+      "simpleDefinition": "Seeing relationships through romance and fantasy rather than cold reality.",
+      "relatedTerms": [
+        "Realist (R)",
+        "Dimensional Axis",
+        "Emotional Idealism"
+      ]
     },
     {
       "term": "Internal Process",
-      "definition": "The modeled inner monologue during a behavioral state."
+      "definition": "The modeled inner monologue during a behavioral state.",
+      "simpleDefinition": "The inner thoughts someone has while in a particular behavioral state.",
+      "relatedTerms": [
+        "Behavioral State Machine"
+      ]
+    },
+    {
+      "term": "Intrigue",
+      "definition": "The first emotional trigger in the sequence — sparked curiosity and mental engagement.",
+      "simpleDefinition": "The spark of curiosity when someone catches your interest.",
+      "relatedTerms": [
+        "Emotional Sequence",
+        "Arousal",
+        "Punchy Opener"
+      ]
     },
     {
       "term": "Investor (N)",
-      "definition": "Single-threaded temporal optimization; focuses on one partner at a time."
+      "definition": "Single-threaded temporal optimization; focuses on one partner at a time.",
+      "simpleDefinition": "A dating style that focuses on one person at a time, going deep instead of wide.",
+      "relatedTerms": [
+        "Tester (T)",
+        "Dimensional Axis",
+        "Orbiter / Orbiter Maintenance"
+      ],
+      "exampleUsage": "As an Investor, he puts all his energy into one connection rather than juggling several."
     },
     {
       "term": "Justifier (J)",
-      "definition": "Minimization-based sexual coping; reduces the weight of sexual framing through directness."
-    },
-    {
-      "term": "No Sex Zone",
-      "definition": "The category in which TDI places orbiter males — friendly but non-sexual."
-    },
-    {
-      "term": "Novelty Seeking",
-      "definition": "TJI's secondary defense — requirement for constant stimulation."
-    },
-    {
-      "term": "Orbiter / Orbiter Maintenance",
-      "definition": "TDI's practice of keeping multiple male friends in non-sexual roles as backup options and social proof."
-    },
-    {
-      "term": "Punchy Opener",
-      "definition": "An opinion-based, intrigue-generating conversation starter (as opposed to a direct compliment)."
-    },
-    {
-      "term": "Realist (R)",
-      "definition": "Pragmatic-survival pole of the Relational Worldview axis."
-    },
-    {
-      "term": "Resistance Pattern",
-      "definition": "A predictable defensive response to a specific trigger, with documented resolution strategy."
-    },
-    {
-      "term": "Savior Mode",
-      "definition": "NDI's state when encountering a wounded/healing partner — nurturing and investment acceleration."
-    },
-    {
-      "term": "Social Dispersion",
-      "definition": "TJI's primary defense — distributing attention across many social targets."
-    },
-    {
-      "term": "Suppression-based Coping",
-      "definition": "Managing sexual dynamics through gating, delay, and barrier-testing."
+      "definition": "Minimization-based sexual coping; reduces the weight of sexual framing through directness.",
+      "simpleDefinition": "A dating style that is direct and matter-of-fact about sex, without overthinking it.",
+      "relatedTerms": [
+        "Denier (D)",
+        "Minimization-based Coping"
+      ]
     },
     {
       "term": "Minimization-based Coping",
-      "definition": "Managing sexual dynamics through directness and reduced framing weight."
+      "definition": "Managing sexual dynamics through directness and reduced framing weight.",
+      "simpleDefinition": "Handling sexual dynamics by being direct and not making it a big deal.",
+      "relatedTerms": [
+        "Justifier (J)",
+        "Suppression-based Coping"
+      ]
+    },
+    {
+      "term": "No Sex Zone",
+      "definition": "The category in which TDI places orbiter males — friendly but non-sexual.",
+      "simpleDefinition": "The friend category where romance is off the table — warm but strictly platonic.",
+      "relatedTerms": [
+        "Orbiter / Orbiter Maintenance",
+        "Denier (D)"
+      ]
+    },
+    {
+      "term": "Novelty Seeking",
+      "definition": "TJI's secondary defense — requirement for constant stimulation.",
+      "simpleDefinition": "Needing new experiences and stimulation to stay interested.",
+      "relatedTerms": [
+        "FOMO",
+        "Boredom",
+        "Social Dispersion"
+      ]
+    },
+    {
+      "term": "Old-Fashioned Dreamer",
+      "definition": "NDI's archetype — a hopeful romantic who believes in classic love and slow, sincere courtship.",
+      "simpleDefinition": "The old-school romantic who believes in true love and taking things slowly.",
+      "relatedTerms": [
+        "Archetype",
+        "Emotional Idealism",
+        "Savior Mode"
+      ]
+    },
+    {
+      "term": "Orbiter / Orbiter Maintenance",
+      "definition": "TDI's practice of keeping multiple male friends in non-sexual roles as backup options and social proof.",
+      "simpleDefinition": "Keeping friendly admirers at arm's length as backup options and social proof.",
+      "relatedTerms": [
+        "No Sex Zone",
+        "Investor (N)",
+        "Social Dispersion"
+      ],
+      "exampleUsage": "Her orbiter maintenance keeps three old friends texting her, none of them in the romantic zone."
+    },
+    {
+      "term": "Playette",
+      "definition": "TDI's archetype — a refined, selective dater who curates attention and keeps options at a distance.",
+      "simpleDefinition": "The elegant, picky type who enjoys attention but lets very few people get close.",
+      "relatedTerms": [
+        "Archetype",
+        "Emotional Invisibility",
+        "Orbiter / Orbiter Maintenance"
+      ]
+    },
+    {
+      "term": "Punchy Opener",
+      "definition": "An opinion-based, intrigue-generating conversation starter (as opposed to a direct compliment).",
+      "simpleDefinition": "A bold, opinion-based first line designed to spark curiosity instead of a plain compliment.",
+      "relatedTerms": [
+        "Internal Process"
+      ]
+    },
+    {
+      "term": "Realist (R)",
+      "definition": "Pragmatic-survival pole of the Relational Worldview axis.",
+      "simpleDefinition": "Seeing relationships practically, focused on what actually works.",
+      "relatedTerms": [
+        "Idealist (I)",
+        "Dimensional Axis"
+      ]
+    },
+    {
+      "term": "Resistance Pattern",
+      "definition": "A predictable defensive response to a specific trigger, with documented resolution strategy.",
+      "simpleDefinition": "A predictable defensive reaction, and the known way to resolve it.",
+      "relatedTerms": [
+        "Escalation Ladder",
+        "Emotional Wall",
+        "Sexual Hesitation"
+      ],
+      "exampleUsage": "When the resistance pattern \"Boredom\" appears, the resolution is to reintroduce novelty fast."
+    },
+    {
+      "term": "Romantic Fantasy",
+      "definition": "TDI's state of projecting idealized romance onto a chosen person.",
+      "simpleDefinition": "When she starts daydreaming about a fairytale romance with someone.",
+      "relatedTerms": [
+        "Curiosity Activated",
+        "Fantasy Protection",
+        "Emotional Idealism"
+      ]
+    },
+    {
+      "term": "Romantic Scanning",
+      "definition": "NDI's default state — quietly watching for signs of a sincere, worthy partner.",
+      "simpleDefinition": "His resting mode: watching people for genuine character before approaching.",
+      "relatedTerms": [
+        "Cautious Investment",
+        "Savior Mode",
+        "Behavioral State Machine"
+      ]
+    },
+    {
+      "term": "Savior Mode",
+      "definition": "NDI's state when encountering a wounded/healing partner — nurturing and investment acceleration.",
+      "simpleDefinition": "A nurturing state where someone is drawn to heal or rescue a struggling partner.",
+      "relatedTerms": [
+        "Emotional Idealism",
+        "Romantic Scanning"
+      ]
+    },
+    {
+      "term": "Selective Focus",
+      "definition": "TJI's state of briefly locking attention onto one person amid the crowd.",
+      "simpleDefinition": "The brief window when she actually focuses on one person instead of the room.",
+      "relatedTerms": [
+        "Social Center",
+        "Conquest Mode",
+        "FOMO"
+      ]
+    },
+    {
+      "term": "Sexual Hesitation",
+      "definition": "A resistance pattern where physical escalation meets last-minute doubt or withdrawal.",
+      "simpleDefinition": "Pulling back right when things get physical, out of doubt or fear.",
+      "relatedTerms": [
+        "Resistance Pattern",
+        "Denier (D)",
+        "Escalation Ladder"
+      ]
+    },
+    {
+      "term": "Sexual Surrender",
+      "definition": "TDI's final state — full physical and emotional yielding after extended vetting.",
+      "simpleDefinition": "Her end state: completely letting go after someone has passed all her tests.",
+      "relatedTerms": [
+        "Romantic Fantasy",
+        "Devotion",
+        "Escalation Ladder"
+      ]
+    },
+    {
+      "term": "Social Butterfly",
+      "definition": "TJI's archetype — a high-energy social center who thrives on attention and constant activity.",
+      "simpleDefinition": "The life-of-the-party type who flits between groups and loves being noticed.",
+      "relatedTerms": [
+        "Archetype",
+        "Social Dispersion",
+        "FOMO"
+      ]
+    },
+    {
+      "term": "Social Center",
+      "definition": "TJI's default state — commanding attention at the heart of the group.",
+      "simpleDefinition": "Her natural habitat: the middle of the action with all eyes on her.",
+      "relatedTerms": [
+        "Social Butterfly",
+        "Social Dispersion",
+        "Selective Focus"
+      ]
+    },
+    {
+      "term": "Social Dispersion",
+      "definition": "TJI's primary defense — distributing attention across many social targets.",
+      "simpleDefinition": "Spreading attention across many people instead of focusing on one.",
+      "relatedTerms": [
+        "Butterfly Flight",
+        "Orbiter / Orbiter Maintenance",
+        "FOMO"
+      ]
+    },
+    {
+      "term": "Suppression-based Coping",
+      "definition": "Managing sexual dynamics through gating, delay, and barrier-testing.",
+      "simpleDefinition": "Handling sexual dynamics by setting gates, delays, and tests.",
+      "relatedTerms": [
+        "Denier (D)",
+        "Minimization-based Coping"
+      ]
+    },
+    {
+      "term": "Sustained Engagement",
+      "definition": "TJI's state of maintaining interest in one person over time despite novelty pull.",
+      "simpleDefinition": "The rare state where she sticks with one person instead of moving on.",
+      "relatedTerms": [
+        "Conquest Mode",
+        "Novelty Seeking",
+        "Boredom"
+      ]
     },
     {
       "term": "Tester (T)",
-      "definition": "Multi-threaded temporal optimization; evaluates multiple options simultaneously."
+      "definition": "Multi-threaded temporal optimization; evaluates multiple options simultaneously.",
+      "simpleDefinition": "A dating style that compares multiple options at once before choosing.",
+      "relatedTerms": [
+        "Investor (N)",
+        "Dimensional Axis",
+        "Orbiter / Orbiter Maintenance"
+      ],
+      "exampleUsage": "As a Tester, she keeps several conversations alive and compares them side by side."
     },
     {
       "term": "Trigger-Response Database",
-      "definition": "A table mapping specific stimuli to predicted responses, intensity, recovery time, and resolution."
+      "definition": "A table mapping specific stimuli to predicted responses, intensity, recovery time, and resolution.",
+      "simpleDefinition": "A reference table showing exactly how someone reacts to specific stimuli.",
+      "relatedTerms": [
+        "Activation Threshold",
+        "Resistance Pattern"
+      ]
     },
     {
       "term": "Type Code",
-      "definition": "Three-letter identifier combining one letter from each dimensional axis (e.g., TDI)."
+      "definition": "Three-letter identifier combining one letter from each dimensional axis (e.g., TDI).",
+      "simpleDefinition": "A three-letter ID (like TDI) that captures an agent's full personality type.",
+      "relatedTerms": [
+        "Dimensional Axis",
+        "Archetype",
+        "Tester (T)",
+        "Investor (N)"
+      ],
+      "exampleUsage": "TDI means Tester on the temporal axis, Denier on the sexual axis, and Idealist on the relational axis."
     },
     {
       "term": "Weight",
-      "definition": "Relative salience/confidence (0.0–1.0) assigned to a trait within an agent's identity matrix."
+      "definition": "Relative salience/confidence (0.0–1.0) assigned to a trait within an agent's identity matrix.",
+      "simpleDefinition": "A score from 0 to 1 showing how strongly a trait defines someone.",
+      "relatedTerms": [
+        "Type Code"
+      ]
     }
   ],
   "comparison": {
@@ -1414,5 +2020,293 @@
       "moderate": 38,
       "minor": 42
     }
+  },
+  "quickComparison": {
+    "title": "At a Glance: TDI vs TJI vs NDI",
+    "intro": "Five key differences between the three profiled types, side by side. Use this table when you already know the types and want the fastest possible contrast.",
+    "dimensions": [
+      {
+        "dimension": "Pace of opening up",
+        "whatItMeans": "How quickly she lets someone past the surface once interest exists.",
+        "tdi": "Slow and gated. A 6-level escalation ladder; resistance to early physicality is expected as part of her pattern, not a verdict on you.",
+        "tji": "Fast and bold. A 5-level ladder with no early gate; momentum matters more than vetting.",
+        "ndi": "Slow and cautious. She verifies authenticity before committing; profile data for this type is partial, so treat this as provisional."
+      },
+      {
+        "dimension": "Social energy",
+        "whatItMeans": "How she behaves in a group, before any one-on-one dynamic begins.",
+        "tdi": "Quiet observer. Calm, reserved, neutral expressions; she watches more than she speaks.",
+        "tji": "The social center. High energy, playful, flirtatious as her default setting with everyone.",
+        "ndi": "Daydreamer. Less about crowds; she is romantic-scanning — watching for 'the one' rather than working the room."
+      },
+      {
+        "dimension": "What she wants most",
+        "whatItMeans": "Her core desire — the thing her pattern is organized around.",
+        "tdi": "To be swept away by someone exceptional enough to be worth opening up to.",
+        "tji": "To chase and win the unattainable; novelty and excitement are the reward.",
+        "ndi": "A fairy-tale love — to save and be saved by love."
+      },
+      {
+        "dimension": "What she fears most",
+        "whatItMeans": "Her core fear — what triggers her strongest defensive reactions.",
+        "tdi": "Opening up and then being abandoned: abandonment post-vulnerability.",
+        "tji": "Missing out: boredom, and being tied down before the fun is over.",
+        "ndi": "Being used — giving herself to someone who was never serious — and then left."
+      },
+      {
+        "dimension": "How her feelings build",
+        "whatItMeans": "The modeled emotional sequence: the order feelings arrive in.",
+        "tdi": "Intrigue → Arousal → Comfort → Devotion. Trust comes late; devotion is the finish line.",
+        "tji": "Intrigue → Arousal → Devotion → Comfort. She dives in first, then decides whether she feels safe.",
+        "ndi": "Sequence not fully modeled in this edition (profile is partial). The observed pattern suggests devotion-led, cautious bonding."
+      }
+    ]
+  },
+  "whenToReference": {
+    "title": "Which Agent Should I Look At?",
+    "intro": "Start from what you are observing. Each question below points to the type whose pattern best explains it, and why.",
+    "entries": [
+      {
+        "question": "She is quiet, hard to read, and nothing seems to move fast.",
+        "agent": "TDI",
+        "why": "Check the recognition guide: calm presence, brief answers, she watches more than she speaks. Her reserve is a filter, not necessarily disinterest — look for small tells like a deep question out of nowhere."
+      },
+      {
+        "question": "She is the life of the party and flirts with everyone — but is she interested in me?",
+        "agent": "TJI",
+        "why": "High energy and flirtation are her default with the whole room. The real signal is SELECTIVE_FOCUS: sustained attention on one person stands out against her social-center baseline."
+      },
+      {
+        "question": "She talks about finding 'the one' and wants a love story.",
+        "agent": "NDI",
+        "why": "Romantic idealism is her signature: she daydreams of perfect love and wants to save and be saved. Note her profile is partial in this edition."
+      },
+      {
+        "question": "She pulled away right after things got intense — is she gone?",
+        "agent": "TDI",
+        "why": "Her core fear is abandonment after vulnerability, so withdrawal following closeness fits the pattern. Patience and consistency matter more here than pressure."
+      },
+      {
+        "question": "She was all over me, then disappeared.",
+        "agent": "TJI",
+        "why": "Novelty-driven and avoidant under pressure: her pattern runs hot-cold by design. Disappearance after intensity is characteristic, not a verdict on you."
+      },
+      {
+        "question": "She asks about my intentions very early on.",
+        "agent": "NDI",
+        "why": "Authenticity verification: because her core fear is being used, she screens for sincerity early. Direct, honest answers are what she is testing for."
+      },
+      {
+        "question": "I am deciding between two similar-seeming quiet, romantic types.",
+        "agent": "Compare TDI vs NDI",
+        "why": "Both are Denier + Idealist (D+I). The tell is attention structure: does she keep several warm options (TDI, multi-threaded) or focus on one person at a time (NDI, single-threaded)?"
+      },
+      {
+        "question": "Where do I start if I want to classify someone from scratch?",
+        "agent": "Framework",
+        "why": "Begin with the dimensional axes: T/N explains attention patterns (one person vs several), D/J explains pacing (gated vs fast). That narrows the field before you open any profile."
+      }
+    ]
+  },
+  "commonConfusions": {
+    "title": "Pairs People Mix Up",
+    "intro": "Five confusions readers report most, with the single clearest differentiator for each. Each includes a quick test question you can apply to what you have actually observed.",
+    "pairs": [
+      {
+        "pair": "TDI vs NDI",
+        "whyConfused": "Both are Denier + Idealist: romantic framing, cautious with intimacy, old-fashioned streak.",
+        "differentiator": "Attention structure. TDI multi-threads — she maintains warm orbiters while evaluating. NDI single-threads — she invests cautiously in one person at a time.",
+        "quickTest": "Is she keeping several options warm, or focused on one person?"
+      },
+      {
+        "pair": "TDI vs TJI",
+        "whyConfused": "Both are Testers (T): they evaluate rather than commit early.",
+        "differentiator": "Pacing. TDI gates and suppresses — slow 6-level ladder, early resistance expected. TJI accelerates and minimizes — bold 5-level ladder, no early gate.",
+        "quickTest": "Does she slow things down (TDI) or speed them up (TJI)?"
+      },
+      {
+        "pair": "TJI vs NDI",
+        "whyConfused": "Surface-level flirtation can look similar in early moments.",
+        "differentiator": "Response to pressure. TJI flees pressure — intensity makes her pull back. NDI seeks reassurance — pressure makes her ask for clarity and lean in.",
+        "quickTest": "When tension rises, does she pull away (TJI) or ask for reassurance (NDI)?"
+      },
+      {
+        "pair": "TDI's emotional wall vs genuine disinterest",
+        "whyConfused": "Her neutral expression and brief answers read as cold from the outside.",
+        "differentiator": "Small tells. A TDI still leaks interest: a deep question out of nowhere, remembering tiny details from weeks ago, or visibly warming after you respect a boundary. Genuine disinterest shows no tells at all.",
+        "quickTest": "Over time, are there any small, specific signs of attention — or none?"
+      },
+      {
+        "pair": "TJI's social energy vs real interest in you",
+        "whyConfused": "She is flirtatious and high-energy with everyone, so attention feels meaningful when it may be default.",
+        "differentiator": "Selectivity. Her baseline is the social center; the signal is SELECTIVE_FOCUS — sustained, repeated attention on one specific person.",
+        "quickTest": "Is her energy directed at you specifically, or at the whole room?"
+      }
+    ]
+  },
+  "frameworkExplained": {
+    "title": "The Framework, in Plain Language",
+    "intro": "Every type code is three letters. Each letter is a choice on one axis. Learn the three axes and you can read any code — even the types not profiled in this edition.",
+    "axes": [
+      {
+        "code": "T/N",
+        "name": "Temporal Mate Optimization",
+        "plainLanguage": "How she structures her attention: one person at a time, or several in parallel?",
+        "poles": [
+          {
+            "letter": "T",
+            "label": "Multi-threaded evaluation",
+            "explained": "She keeps several connections warm at once while she evaluates. Think of it as parallel processing: no single person gets full focus until someone stands out."
+          },
+          {
+            "letter": "N",
+            "label": "Single-threaded evaluation",
+            "explained": "She focuses on one person at a time. Attention is scarce and deliberate — if she is spending it on you, that is significant."
+          }
+        ],
+        "whyItMatters": "This axis predicts the most visible behavior: texting patterns, availability, and whether 'she seems interested in others too' is normal for her type."
+      },
+      {
+        "code": "D/J",
+        "name": "Sexual Coping Architecture",
+        "plainLanguage": "When romantic or physical tension appears, does she slow it down or speed it up?",
+        "poles": [
+          {
+            "letter": "D",
+            "label": "Suppression-based coping",
+            "explained": "She manages tension by slowing things down and gating it — setting the pace, creating distance, requiring more trust before each step. Resistance to early escalation is structural, not personal."
+          },
+          {
+            "letter": "J",
+            "label": "Minimization-based coping",
+            "explained": "She manages tension by treating it lightly and moving fast — playfulness over vetting, momentum over caution. Speed is the default; slowing down is what needs a reason."
+          }
+        ],
+        "whyItMatters": "This axis sets the tempo of the whole dynamic. Misreading it is the most common source of frustration: expecting a D to move at J speed, or a J to slow down without cause."
+      },
+      {
+        "code": "R/I",
+        "name": "Relational Worldview",
+        "plainLanguage": "How does she see relationships: as a practical partnership, or as a love story?",
+        "poles": [
+          {
+            "letter": "R",
+            "label": "Pragmatic survival",
+            "explained": "Relationships are evaluated like partnerships: stability, reliability, what each person contributes. Sentiment is nice; substance decides."
+          },
+          {
+            "letter": "I",
+            "label": "Romantic projection",
+            "explained": "Relationships are evaluated like stories: chemistry, fate, the feeling of being swept away. She is looking for the narrative, not just the logistics."
+          }
+        ],
+        "whyItMatters": "This axis explains what she is optimizing for — and therefore what 'winning' looks like to her. A grand gesture lands with an I; consistency and reliability land with an R."
+      }
+    ],
+    "howToReadCode": {
+      "title": "How to read a type code",
+      "example": "TDI = T + D + I",
+      "breakdown": [
+        "T — she evaluates several people in parallel (multi-threaded)",
+        "D — she slows down and gates physical/romantic pacing (suppression-based)",
+        "I — she believes in the grand-romance story (romantic projection)"
+      ],
+      "readAloud": "TDI reads as: a tester who keeps her options open, gates intimacy carefully, and is waiting for a love story worth opening up to — 'The Playette.'"
+    },
+    "scopeNote": "This edition profiles only the Idealist (I) branch: TDI, TJI, and NDI. The Realist (R) branch — TDR, TJR, NDR, NJR — and NJI are listed as predictions from the axes, not as full profiles."
+  },
+  "typeCodeGuide": {
+    "title": "Type Code Guide: All 8 Combinations",
+    "intro": "Three profiled in full, five predicted from the axes. Predicted entries describe what the axis combination implies — they are not observed profiles.",
+    "codes": [
+      {
+        "code": "TDI",
+        "name": "The Playette",
+        "status": "profiled",
+        "axisBreakdown": {
+          "T": "Multi-threaded: keeps several connections warm while evaluating.",
+          "D": "Suppression-based: gates intimacy, slow 6-level escalation.",
+          "I": "Romantic projection: waiting for a grand love story."
+        },
+        "snapshot": "A careful observer who hides 90% of herself, tests through intrigue, and opens slowly — only to someone she deems exceptional."
+      },
+      {
+        "code": "TJI",
+        "name": "The Social Butterfly",
+        "status": "profiled",
+        "axisBreakdown": {
+          "T": "Multi-threaded: thrives on attention from many.",
+          "J": "Minimization-based: moves fast, bold 5-level escalation.",
+          "I": "Romantic projection: romanticizes the chase itself."
+        },
+        "snapshot": "A high-energy social center who flirts as her default, chases the unattainable, and bonds through excitement rather than vetting."
+      },
+      {
+        "code": "NDI",
+        "name": "The Hopeful Romantic",
+        "status": "profiled-partial",
+        "axisBreakdown": {
+          "N": "Single-threaded: focuses on one person at a time.",
+          "D": "Suppression-based: cautious, verifies authenticity before committing.",
+          "I": "Romantic projection: dreams of fairy-tale love."
+        },
+        "snapshot": "A dreamer who invests carefully in one person, screening hard for sincerity because her deepest fear is being used. Profile incomplete in this edition."
+      },
+      {
+        "code": "NJI",
+        "name": null,
+        "status": "predicted",
+        "axisBreakdown": {
+          "N": "Single-threaded: locks onto one person.",
+          "J": "Minimization-based: moves fast once decided.",
+          "I": "Romantic projection: all-in on the love story."
+        },
+        "snapshot": "Predicted: a romantic who picks one person quickly and dives in headfirst — fast-moving devotion. Not profiled in this edition."
+      },
+      {
+        "code": "TDR",
+        "name": null,
+        "status": "predicted",
+        "axisBreakdown": {
+          "T": "Multi-threaded: keeps options open.",
+          "D": "Suppression-based: careful, gated pacing.",
+          "R": "Pragmatic survival: relationships as partnerships."
+        },
+        "snapshot": "Predicted: a practical tester who evaluates several people against real-world criteria — stability over story. Not profiled in this edition."
+      },
+      {
+        "code": "TJR",
+        "name": null,
+        "status": "predicted",
+        "axisBreakdown": {
+          "T": "Multi-threaded: social and options-rich.",
+          "J": "Minimization-based: fast, excitement-led.",
+          "R": "Pragmatic survival: calculating beneath the fun."
+        },
+        "snapshot": "Predicted: a pragmatic social operator — seeks excitement but keeps score. Not profiled in this edition."
+      },
+      {
+        "code": "NDR",
+        "name": null,
+        "status": "predicted",
+        "axisBreakdown": {
+          "N": "Single-threaded: one person, full focus.",
+          "D": "Suppression-based: vets thoroughly before committing.",
+          "R": "Pragmatic survival: substance over sentiment."
+        },
+        "snapshot": "Predicted: a cautious pragmatist who investigates one candidate deeply before committing — slow, serious, evidence-driven. Not profiled in this edition."
+      },
+      {
+        "code": "NJR",
+        "name": null,
+        "status": "predicted",
+        "axisBreakdown": {
+          "N": "Single-threaded: decides on one person.",
+          "J": "Minimization-based: moves quickly once decided.",
+          "R": "Pragmatic survival: clear-eyed about what she wants."
+        },
+        "snapshot": "Predicted: a decisive pragmatist — picks one person, moves fast, eyes open. Not profiled in this edition."
+      }
+    ]
   }
 }
