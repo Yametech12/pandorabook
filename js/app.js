@@ -1113,8 +1113,8 @@ function homeStartHereInner() {
   var steps = [
     { route: 'framework', href: '#/framework', title: 'Learn the framework',
       blurb: 'Three binary axes \u2014 temporal focus, coping architecture, relational worldview \u2014 generate all eight type codes.' },
-    { route: 'agents', href: '#/agents', title: 'Meet the three profiles',
-      blurb: 'TDI \u00b7 TJI \u00b7 NDI \u2014 complete profiles with states, triggers, and communication playbooks.' },
+    { route: 'agents', href: '#/agents', title: 'Meet the eight profiles',
+      blurb: 'TDI \u00b7 TJI \u00b7 NDI \u00b7 NJI \u00b7 TDR \u00b7 TJR \u00b7 NDR \u00b7 NJR \u2014 complete profiles with states, triggers, and communication playbooks.' },
     { route: 'compare', href: '#/compare', title: 'Compare side by side',
       blurb: 'Confusion risks and key distinctions \u2014 learn to tell the types apart fast.' },
   ];
@@ -1999,12 +1999,7 @@ function renderAgentTab(agent, tab) {
       return renderStates(agent.states, agent.code);
 
     case 'communication':
-      return table(
-        [{ key: 'channel', label: 'Channel' },
-         { key: 'optimization', label: 'Optimization' },
-         { key: 'example', label: 'Example' },
-         { key: 'avoid', label: 'Avoid' }],
-        agent.communication, { empty: 'Communication protocol not documented for this agent.' });
+      return renderCommunication(agent);
 
     case 'escalation':
       return table(
@@ -2053,6 +2048,36 @@ function renderAgentTab(agent, tab) {
     default:
       return '<p class="muted">Unknown tab.</p>';
   }
+}
+
+/** Render communication playbook as rich channel cards.
+ *  Each channel shows: optimization, details, example scripts, and avoid list.
+ *  NDI entries flagged origin=derived get a "derived" badge (source pending). */
+function renderCommunication(agent) {
+  var rows = agent.communication || [];
+  if (!rows.length) {
+    return '<p class="muted empty-note">Communication protocol not documented for this agent.</p>';
+  }
+  var note = agent.communicationNote
+    ? '<p class="muted derived-note">&#9432; ' + esc(agent.communicationNote) + '</p>' : '';
+  var cards = rows.map(function (c, i) {
+    var examples = c.examples || (c.example ? [c.example] : []);
+    var exHtml = examples.length
+      ? '<ul class="comm-examples">' + examples.map(function (ex) {
+          return '<li><q>' + esc(String(ex).replace(/^"|"$/g, '')) + '</q></li>';
+        }).join('') + '</ul>'
+      : '';
+    var derived = c.origin === 'derived'
+      ? ' <span class="badge badge-derived">derived</span>' : '';
+    return '<article class="card comm-card" id="comm-' + i + '">' +
+      '<h3 class="comm-channel">' + esc(c.channel || ('Channel ' + (i + 1))) + derived + '</h3>' +
+      (c.optimization ? '<p class="comm-opt"><strong>Optimization:</strong> ' + esc(c.optimization) + '</p>' : '') +
+      (c.details ? '<p class="comm-details">' + esc(c.details) + '</p>' : '') +
+      (exHtml ? '<h4 class="comm-ex-title">Example scripts (' + examples.length + ')</h4>' + exHtml : '') +
+      (c.avoid ? '<p class="comm-avoid"><strong>Avoid:</strong> ' + esc(c.avoid) + '</p>' : '') +
+      '</article>';
+  }).join('');
+  return note + '<div class="comm-grid">' + cards + '</div>';
 }
 
 /** Render behavioral state machine as cards (not a flat table — richer).
