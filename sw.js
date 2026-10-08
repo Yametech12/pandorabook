@@ -1,7 +1,7 @@
 /* PandoraBook service worker — cache-first for static assets, offline fallback. */
 'use strict';
 
-const CACHE_NAME = 'pandorabook-v2';
+const CACHE_NAME = 'pandorabook-v4';
 
 // Core app shell: cached on install so the app opens offline.
 const CORE_ASSETS = [
