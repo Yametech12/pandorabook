@@ -292,44 +292,93 @@
         {
           "channel": "Openers",
           "optimization": "Punchy, opinion-based, intrigue-generating",
-          "example": "\"I don't know about you... you might be trouble\"",
-          "avoid": "Direct compliments on appearance"
+          "details": "She decides in seconds whether you are entertainment or background noise. Open with an observation or playful opinion about HER specifically — never a generic compliment. The goal is to make her curious enough to invest the first reply. Keep it short; one line beats a paragraph.",
+          "examples": [
+            "\"I don't know about you... you might be trouble.\"",
+            "\"You look like you have strong opinions about pizza toppings. Defend yourself.\"",
+            "\"Okay, be honest — are you always this intriguing, or is today special?\"",
+            "\"I was going to say hi normally, but you don't strike me as a 'normal hi' person.\"",
+            "\"Quick question: what's the most spontaneous thing you've done this year? I'm judging.\""
+          ],
+          "avoid": "Direct compliments on appearance (\"you're gorgeous\"), generic \"hey\", interview-style questions"
         },
         {
           "channel": "Momentum",
           "optimization": "Unpredictable, non-sexual, playful teasing",
-          "example": "\"You're cute when you try to be mysterious\"",
-          "avoid": "Sexual escalation, neediness"
+          "details": "Once she replies, keep the rhythm playful and slightly unpredictable. Tease her choices, misinterpret her playfully, change topics before they go stale. Momentum dies the moment you get serious too early or start seeking reassurance. She should never be able to predict your next message.",
+          "examples": [
+            "\"You're cute when you try to be mysterious.\"",
+            "\"That's your third plot twist today. Are you always this dramatic?\"",
+            "\"I'd argue with you, but I'm afraid you'd win and I'd have to respect you more.\"",
+            "\"You just went from 6 to 9 on my interesting scale. Don't let it go to your head.\"",
+            "\"Plot twist: I was just about to say the same thing. Great minds...\""
+          ],
+          "avoid": "Sexual escalation this early, neediness, double-texting for attention, over-explaining yourself"
         },
         {
           "channel": "Connection",
           "optimization": "Light topics, humor, adventure stories",
-          "example": "\"What's the dorkiest thing about you?\"",
-          "avoid": "Deep emotional processing"
+          "details": "Build the bond through shared laughter and curiosity, not emotional depth. Ask about adventures, opinions, funny stories, dreams. She connects through experience and play — save the heavy life-story exchange for much later, after trust is earned.",
+          "examples": [
+            "\"What's the dorkiest thing about you?\"",
+            "\"If you could teleport anywhere right now, where are we going?\"",
+            "\"Tell me something you've never told anyone on a first conversation. I'll go first if you're scared.\"",
+            "\"What's a hill you'd die on? Mine is that cereal is better dry.\"",
+            "\"Describe your perfect Sunday in three words. No pressure. Okay, some pressure.\""
+          ],
+          "avoid": "Deep emotional processing, trauma talk, ex-drama, heavy vulnerability before trust exists"
         },
         {
           "channel": "Deep Talk",
-          "optimization": "Avoided until trust established",
-          "example": "Listen more than share",
-          "avoid": "Vulnerability too soon"
+          "optimization": "Avoided until trust established; when it happens, listen more than share",
+          "details": "She will test whether you can handle depth without making it weird. When she opens a real topic, don't rush to fix it or match it with your own story. Ask one good follow-up, listen, and let silence be comfortable. Your calm presence is the whole message.",
+          "examples": [
+            "Her: \"I don't really trust people easily.\" You: \"That makes sense. What taught you that?\" — then listen.",
+            "Her: shares something vulnerable. You: \"Thanks for telling me that. I'm not going anywhere.\" — then change nothing.",
+            "\"You don't have to explain that to me. I get it.\" (then let her continue or drop it — her call)",
+            "When she goes quiet after sharing: stay present, don't fill the silence with jokes.",
+            "\"I like that you told me that\" — simple acknowledgment beats a 5-minute monologue about yourself."
+          ],
+          "avoid": "Vulnerability too soon on your side, trying to \"fix\" her feelings, turning her share into your story"
         },
         {
           "channel": "Sexual Talk",
-          "optimization": "Minimal initially, escalates with safety",
-          "example": "\"I love how you respond to me\"",
-          "avoid": "Explicit sexual comments early"
+          "optimization": "Minimal initially; only escalates with clear comfort and safety",
+          "details": "Keep it suggestive, never explicit, and only after she is clearly comfortable. Frame things around how she makes you feel rather than graphic detail. And the iron rule: any hesitation, subject change, or cooling = stop that thread immediately. Comfort is the accelerator; pressure is the brake.",
+          "examples": [
+            "\"I love how you respond to me.\"",
+            "\"You have this effect on people. It's dangerous.\"",
+            "\"I'm trying to be good right now. You're not helping.\"",
+            "\"There's something about the way you look at me when you laugh...\"",
+            "If she leans in: match her energy. If she deflects: \"Noted — back to being charming and innocent.\""
+          ],
+          "avoid": "Explicit sexual comments early, pressuring after deflection, \"joking\" past a boundary she set"
         },
         {
           "channel": "Future Talk",
-          "optimization": "Romantic fantasy framing acceptable",
-          "example": "\"I could see us on an adventure together\"",
-          "avoid": "Commitment pressure"
+          "optimization": "Romantic fantasy framing is fine; commitment pressure is not",
+          "details": "She loves the IDEA of a future — adventures, stories, \"us against the world\" energy. What kills it is anything that sounds like a contract: labels, timelines, expectations. Paint pictures, don't draw blueprints.",
+          "examples": [
+            "\"I could see us on an adventure together.\"",
+            "\"We'd be the couple everyone's slightly jealous of. Just saying.\"",
+            "\"One day I'm taking you somewhere with no phone signal and great sunsets.\"",
+            "\"If we ever do something crazy spontaneous, I'm blaming you. Happily.\"",
+            "\"I like where this is going. No maps, just vibes.\""
+          ],
+          "avoid": "Commitment pressure (\"so what are we?\"), timelines, jealousy tests, future-faking promises you won't keep"
         },
         {
           "channel": "Conflict Style",
-          "optimization": "Withdraws, needs space, tests loyalty",
-          "example": "Give space, then re-engage warmly",
-          "avoid": "Pursuing during withdrawal"
+          "optimization": "She withdraws and needs space; give it freely, re-engage warmly",
+          "details": "When tension hits, she goes quiet and pulls back to test whether you'll chase or stay steady. Do neither extreme: don't pursue, don't punish. Give genuine space, live your life visibly, and re-engage later with warmth and zero guilt-tripping. Steadiness wins.",
+          "examples": [
+            "She goes cold: \"Hey, no pressure at all — I'm here when you feel like talking. 🤙\" — then actually give space.",
+            "Re-engaging later: \"Saw this and thought of you.\" (light, funny, no mention of the gap)",
+            "If she tests you: stay calm, don't defend for 10 paragraphs. \"Fair enough. I hear you.\"",
+            "Never send: \"Why are you ignoring me??\" / \"Did I do something??\" — that fails the test instantly.",
+            "After space, don't demand a debrief. Just be normal, warm, and fun — that IS the repair."
+          ],
+          "avoid": "Pursuing during withdrawal, guilt-tripping, demanding explanations, love-bombing to \"fix\" it"
         }
       ],
       "escalationLadder": [
@@ -359,7 +408,7 @@
           "name": "PERSISTENT ESCALATION",
           "behaviors": "Following kiss resistance, slow sensual exploration, body worship approach, emotional safety verbalization",
           "timing": "First date end",
-          "resistance": "Verbal no, body yes, \"not yet\""
+          "resistance": "Any verbal no, hesitation, freezing, or withdrawal means STOP immediately. A \"not yet\" is a no for now — back off warmly, rebuild comfort with zero pressure."
         },
         {
           "level": 4,
@@ -403,7 +452,7 @@
           "response": "Wall deployment",
           "intensity": 0.9,
           "recovery": "Slow",
-          "resolution": "Safety + persistence"
+          "resolution": "Safety through respected boundaries (never pressure)"
         },
         {
           "trigger": "Protective touch",
@@ -414,10 +463,10 @@
         },
         {
           "trigger": "Kiss head-turn",
-          "response": "Test of persistence",
+          "response": "Stop the advance, stay warm, no pouting",
           "intensity": 0.7,
           "recovery": "Decision point",
-          "resolution": "Gentle persistence"
+          "resolution": "Respect the boundary; comfort without pressure"
         },
         {
           "trigger": "Emotional vulnerability (his)",
@@ -490,8 +539,8 @@
           "type": "Sexual Hesitation",
           "trigger": "Early sexual advance",
           "manifestation": "Head turn, \"not yet\"",
-          "strategy": "Persistence + safety framing",
-          "timeToResolve": "Same interaction"
+          "strategy": "Stop immediately and respect the boundary. A head turn or \"not yet\" is a complete answer — do not persist, reframe, or try again in the same interaction. Warmly change the subject; pressure is an exit trigger, not a challenge to overcome.",
+          "timeToResolve": "Respect it in the moment; revisit only if SHE re-initiates"
         },
         {
           "type": "Orbiter Maintenance",
@@ -779,44 +828,93 @@
         {
           "channel": "Openers",
           "optimization": "Bold, physical, high-energy",
-          "example": "\"You're out of control - I love it!\"",
-          "avoid": "Timid, indirect approaches"
+          "details": "She respects boldness and is bored by caution. Open with energy — a confident observation, a playful challenge, something that signals you're fun and unafraid. Timid openers get left on read; bold ones get a laughing reply.",
+          "examples": [
+            "\"You're out of control — I love it!\"",
+            "\"Okay, you have exactly ten seconds to impress me. Go.\"",
+            "\"I saw you from across the room and thought: that one looks like trouble. Was I right?\"",
+            "\"Warning: I'm about to be the most fun conversation you have today.\"",
+            "\"You vs. me, dance-off, right now. Don't be scared.\""
+          ],
+          "avoid": "Timid or indirect approaches, overly formal intros, slow-burn \"getting to know you\" openers"
         },
         {
           "channel": "Momentum",
           "optimization": "Playful, teasing, challenge-based",
-          "example": "\"You're trouble, I can tell\"",
-          "avoid": "Serious, deep conversation"
+          "details": "Keep it a game. Challenge her, bet her, dare her. She stays engaged when there's playful friction — compliments are fine but challenges are better. If the energy dips, inject novelty instead of depth.",
+          "examples": [
+            "\"You're trouble, I can tell.\"",
+            "\"I bet you can't guess my hidden talent. Loser buys coffee.\"",
+            "\"You talk a big game. Prove it.\"",
+            "\"Alright, truth or dare. And 'truth' is the coward's choice.\"",
+            "\"You're fun. I'm fun. This is either great or a disaster — let's find out.\""
+          ],
+          "avoid": "Serious deep conversation too early, heavy emotional topics, long serious paragraphs"
         },
         {
           "channel": "Connection",
-          "optimization": "Fun topics, social adventures",
-          "example": "\"What's the craziest thing you've done this month?\"",
-          "avoid": "Emotional heaviness"
+          "optimization": "Fun topics, social adventures, shared experiences",
+          "details": "Bond over doing, not dissecting. Talk about nights out, trips, funny stories, mutual friends, plans. She feels closest to people she has FUN with — the connection is built in motion, not in heart-to-hearts.",
+          "examples": [
+            "\"What's the craziest thing you've done this month?\"",
+            "\"We're planning a spontaneous road trip. You're invited. Pack light.\"",
+            "\"Tell me your best party story. I'll tell you mine, and mine wins.\"",
+            "\"If we had one free night in the city, what are we doing?\"",
+            "\"You strike me as someone with legendary group-chat stories.\""
+          ],
+          "avoid": "Emotional heaviness, trauma-dumping, long serious life-story exchanges"
         },
         {
           "channel": "Deep Talk",
-          "optimization": "One or two topics max, brief",
-          "example": "Let her lead depth",
-          "avoid": "Extended vulnerability"
+          "optimization": "One or two topics max, brief — let her lead depth",
+          "details": "She CAN go deep, but on her terms and in small doses. If she opens a real topic, match her briefly and warmly, then let her decide whether to continue. Never drag her into an emotional marathon she didn't sign up for.",
+          "examples": [
+            "Her: mentions something real. You: \"That's real. I respect that.\" — then follow HER lead.",
+            "\"We don't have to get deep — but I'm here if you ever want to.\" (then drop it)",
+            "Keep deep moments short: one honest line beats a therapy session.",
+            "If she changes the subject after something real: follow happily. She got what she needed.",
+            "\"You're deeper than you let on. I see you.\" — then back to fun."
+          ],
+          "avoid": "Extended vulnerability sessions, forcing emotional conversations, analyzing her feelings at length"
         },
         {
           "channel": "Sexual Talk",
-          "optimization": "Open, playful, non-serious",
-          "example": "\"You're a bad influence\"",
-          "avoid": "Romantic framing"
+          "optimization": "Open, playful, non-serious — always with clear mutual comfort",
+          "details": "She's comfortable with playful, cheeky energy — but playful never means pressuring. Keep it light and mutual; the moment she deflects, cools, or changes the subject, you drop it completely and cheerfully. Enthusiasm is the only green light.",
+          "examples": [
+            "\"You're a bad influence.\"",
+            "\"Stop looking at me like that, I have plans and you're ruining them.\"",
+            "\"You're dangerous. I like dangerous.\"",
+            "If she escalates playfully: match it. If she deflects: laugh it off and pivot — zero awkwardness.",
+            "\"Okay, behave. (You first.)\""
+          ],
+          "avoid": "Romantic framing she didn't ask for, pushing past a deflection, \"jokes\" that ignore her signals"
         },
         {
           "channel": "Future Talk",
-          "optimization": "Avoided or framed as adventure",
-          "example": "\"We'd get in so much trouble together\"",
-          "avoid": "Commitment pressure"
+          "optimization": "Avoided, or framed purely as adventure",
+          "details": "The word \"future\" makes her itch unless it sounds like a trip itinerary. Frame everything as experience, not commitment: places, parties, stories you'll tell. Never as labels or plans she has to live up to.",
+          "examples": [
+            "\"We'd get in so much trouble together.\"",
+            "\"Next adventure: you pick the city, I pick the chaos.\"",
+            "\"We need a story worth telling. Ideas?\"",
+            "\"Someday we're doing something ridiculous in another country. Filing that under 'inevitable'.\"",
+            "\"No plans, just possibilities. That's our whole thing.\""
+          ],
+          "avoid": "Commitment pressure, labels, \"where is this going\" talks, guilt about her freedom"
         },
         {
           "channel": "Conflict Style",
-          "optimization": "Flutters away, needs space",
-          "example": "Let her go, stay non-needy",
-          "avoid": "Chasing, demanding"
+          "optimization": "She flutters away; let her go, stay non-needy, welcome her back",
+          "details": "Her conflict move is disappearance — she leaves the conversation, the room, sometimes the week. Chasing her confirms you're no fun under pressure. Let her fly, keep living loudly, and be genuinely glad (not grudging) when she circles back.",
+          "examples": [
+            "She vanishes: say nothing needy. Post your fun life, be unbothered — for real, not as strategy.",
+            "When she returns: \"There she is! The prodigal party animal returns.\" (warm, teasing, zero guilt)",
+            "Never: \"Where did you go?\" / \"You just disappeared?\" — that's a lecture, and she'll vanish again.",
+            "If she brings up the issue: hear it lightly, own your part briefly, move on. No 2-hour processing.",
+            "\"I missed your chaos, not gonna lie.\" — honest, light, no strings."
+          ],
+          "avoid": "Chasing, demanding explanations, guilt-tripping, punishing her return with coldness"
         }
       ],
       "escalationLadder": [
@@ -837,7 +935,7 @@
         {
           "level": 2,
           "name": "BOLD ESCALATION",
-          "behaviors": "Direct kiss initiation, body grabbing (playful), public displays, no-rejection tolerance",
+          "behaviors": "Direct kiss initiation, body grabbing (playful), public displays (every step requires clear, enthusiastic consent; any hesitation = stop)",
           "timing": "First 1-2 hours",
           "resistance": "Laughing, \"you're crazy\""
         },
@@ -1027,8 +1125,8 @@
         }
       ],
       "expandedContent": {
-        "inSimpleTerms": "The Social Butterfly (TJI) is the life of the party — high energy, flirtatious by default, and usually the center of attention in any room. She spreads her attention across many people instead of focusing on one, driven by a deep fear of missing out on excitement. The people who fascinate her most are the ones who don't chase her back — she loves the thrill of winning over someone indifferent. Beneath the playful surface, she secretly craves a genuine connection, though anything that feels like being tied down sends her running.",
-        "realWorldExamples": [
+        "simpleSummary": "The Social Butterfly (TJI) is the life of the party — high energy, flirtatious by default, and usually the center of attention in any room. She spreads her attention across many people instead of focusing on one, driven by a deep fear of missing out on excitement. The people who fascinate her most are the ones who don't chase her back — she loves the thrill of winning over someone indifferent. Beneath the playful surface, she secretly craves a genuine connection, though anything that feels like being tied down sends her running.",
+        "examples": [
           {
             "title": "The Party Entrance",
             "scenario": "She arrives at a party and within minutes is on the dance floor, high-fiving strangers, starting conversations with three different groups, and making everyone laugh. But the moment the energy dips or the conversation turns routine, she drifts to another group — or leaves entirely.",
@@ -1045,21 +1143,21 @@
             "whatItShows": "CONQUEST_MODE collapsing into BUTTERFLY_FLIGHT. Her dismissive-avoidant attachment treats clinginess and routine as threats; novelty maintenance is the only thing that keeps her engaged."
           }
         ],
-        "keyStrengths": [
+        "strengths": [
           "Charismatic and magnetic — puts people at ease and lights up any social setting",
           "Bold and confident — takes initiative without fear of rejection",
           "Fun and spontaneous — brings energy, humor, and excitement wherever she goes",
           "Resilient to rejection — bounces back fast and never dwells on setbacks",
           "Capable of real loyalty — her emotional sequence ends in Devotion and Comfort for the rare person who keeps her engaged"
         ],
-        "potentialChallenges": [
+        "challenges": [
           "Bores quickly — struggles with routine, stability, and slow-paced connection",
           "Flees emotional pressure — clinginess or demands for commitment trigger withdrawal",
           "Chases unavailable people — can overlook those who genuinely care in favor of the challenge",
           "Uses busyness as a shield — constant socializing can be a way to avoid deeper feelings",
           "Can mistake excitement for connection — novelty feels like intimacy but fades fast"
         ],
-        "howToRecognize": {
+        "recognitionGuide": {
           "firstImpression": "The loudest laugh in the room. She moves constantly, touches everyone's arm when she talks, and makes fast friends with strangers within minutes.",
           "socialBehavior": "She flirts with everyone by default — that's her baseline, not a signal of special interest. The real tell is who she keeps returning to after circulating.",
           "conversationStyle": "Teasing, playful banter, rapid topic changes. She'll challenge you to keep up and test your reactions — she's reading how you respond.",
@@ -1106,7 +1204,7 @@
       "code": "NDI",
       "name": "The Hopeful Romantic",
       "archetype": "The Old-Fashioned Dreamer",
-      "status": "partial",
+      "status": "complete",
       "identity": [
         {
           "parameter": "Type Code",
@@ -1206,14 +1304,307 @@
           ],
           "internalProcess": [],
           "exits": []
+        },
+        {
+          "name": "CHALLENGE_HUNGER",
+          "trigger": "Man becomes subdued/domesticated",
+          "behaviors": [
+            "Seeks a new challenge",
+            "Drawn to mysterious, unattainable, artistic, out-of-bounds men",
+            "Wants to bring a hard man in from the cold"
+          ],
+          "internalProcess": [
+            "Needs a man to conquer; the challenge itself is the attraction",
+            "Once domesticated, hunger returns"
+          ],
+          "exits": [
+            {
+              "condition": "Man stays a challenge, a bit out of reach",
+              "target": "DEVOTED_NURTURER"
+            },
+            {
+              "condition": "Man fully subdued",
+              "target": "ROMANTIC_SCANNING"
+            }
+          ]
+        },
+        {
+          "name": "DEVOTED_NURTURER",
+          "trigger": "She believes in his vision and her role in it",
+          "behaviors": [
+            "Docile, warm haven of emotional support",
+            "Nurtures and tends to loved ones",
+            "Responds powerfully when aroused and taken"
+          ],
+          "internalProcess": [
+            "Feels needed: she helps his vision",
+            "Devotion sustained while he leads somewhere"
+          ],
+          "exits": [
+            {
+              "condition": "He stops leading / loses direction",
+              "target": "ROMANTIC_SCANNING"
+            },
+            {
+              "condition": "Dishonesty discovered",
+              "target": "ROMANTIC_SCANNING"
+            }
+          ]
         }
       ],
-      "communication": [],
-      "escalationLadder": [],
-      "triggers": [],
-      "emotionalSequence": [],
-      "resistance": [],
-      "maintenance": [],
+      "communication": [
+        {
+          "channel": "Openers",
+          "optimization": "Sincere, warm, and genuine — no games, no lines",
+          "details": "She has a finely tuned player-detector (Core Fear: being used). Anything that smells like a routine or a pickup line triggers instant guard. Open with honest warmth: a genuine observation, a sincere compliment about something real, or simple honest interest. Authenticity is the only opener that works.",
+          "examples": [
+            "\"Hi — I just wanted to say you have a really warm energy. I'm [name].\"",
+            "\"I noticed you [genuine observation]. I had to come say hello properly.\"",
+            "\"This might be forward, but I'd regret not introducing myself. How's your evening going?\"",
+            "\"You seem like someone with interesting stories. I'd love to hear one sometime.\"",
+            "Simple, direct, kind — then ask about HER, and actually listen."
+          ],
+          "avoid": "Pickup lines, player energy, overconfident routines, anything rehearsed",
+          "origin": "derived"
+        },
+        {
+          "channel": "Momentum",
+          "optimization": "Steady, consistent, and reassuring — no hot-and-cold",
+          "details": "She is scanning for authenticity and consistency (ROMANTIC_SCANNING state). Mixed signals read as player behavior and trigger CAUTIOUS_WITHDRAWAL. Keep a steady, warm rhythm: reply reliably, show up when you say you will, and let interest build gradually. Boring-consistency beats exciting-chaos with her every time.",
+          "examples": [
+            "Reply when you say you will. If you're busy: \"Crazy day — I'll properly reply tonight.\" Then do it.",
+            "\"Good morning 🌤️ Hope today treats you well.\" — small, consistent care beats grand gestures.",
+            "Remember details she shared and follow up: \"How did the [thing] go?\"",
+            "\"I like talking to you. Just wanted you to know that.\" — direct sincerity, no games.",
+            "Steady pace: don't flood her, don't vanish. Predictable in the best way."
+          ],
+          "avoid": "Hot-and-cold texting, disappearing then love-bombing, mixed signals, playing hard to get",
+          "origin": "derived"
+        },
+        {
+          "channel": "Connection",
+          "optimization": "Meaningful conversation: values, dreams, what matters",
+          "details": "She connects through depth, not banter. Ask about her dreams, her values, what she cares about, her story. Share yours honestly too — she's testing emotional authenticity, and guarded vagueness fails the test. This is where SAVIOR_MODE-adjacent warmth lives: genuine care, not pity.",
+          "examples": [
+            "\"What's something you've always dreamed of doing?\"",
+            "\"What matters most to you in the people you keep close?\"",
+            "\"Tell me about a time that really shaped who you are.\"",
+            "Share something real about yourself first — she matches honesty with honesty.",
+            "\"I love how deeply you think about things. Most people don't.\""
+          ],
+          "avoid": "Shallow small talk loops, bragging, player-style banter, avoiding anything real",
+          "origin": "derived"
+        },
+        {
+          "channel": "Deep Talk",
+          "optimization": "Welcome and cherished — this is her native language",
+          "details": "Unlike the other types, depth is not a risk with her — it's the reward. She daydreams of a partner who can meet her in deep water. Be emotionally available, name your feelings honestly, and receive hers with care. This is where she decides you might be \"the one.\"",
+          "examples": [
+            "\"I want you to know you can tell me anything. I mean that.\"",
+            "\"When you said [vulnerable thing], I felt really trusted. Thank you.\"",
+            "Name your own feelings: \"I felt nervous telling you that, but I wanted to be honest.\"",
+            "Sit with her emotions without rushing to fix: \"That sounds really hard. I'm here.\"",
+            "\"I've never talked about this with anyone before...\" — and meaning it."
+          ],
+          "avoid": "Emotional unavailability, deflecting with humor when she's serious, \"you're overthinking it\"",
+          "origin": "derived"
+        },
+        {
+          "channel": "Sexual Talk",
+          "optimization": "Slow, romantic, and rooted in emotional safety — never rushed",
+          "details": "Physical escalation only lands inside emotional safety with her. Anything early or graphic reads as \"player\" and triggers her core fear of being used. Let romance lead: tenderness, slowness, and explicit care. And always: any hesitation means a full, graceful stop — her trust is worth infinitely more than any moment.",
+          "examples": [
+            "\"I want to take this slow — you're worth doing right.\"",
+            "\"Being close to you like this feels really special.\"",
+            "More eye contact, slower pace, verbal tenderness over graphic talk.",
+            "Ask, don't assume: \"Is this okay?\" — and mean it as a real question.",
+            "If she hesitates: stop warmly, hold her, change the subject with love. No disappointment face, ever."
+          ],
+          "avoid": "Rushing physicality, graphic talk early, any pressure after hesitation, player-style escalation",
+          "origin": "derived"
+        },
+        {
+          "channel": "Future Talk",
+          "optimization": "Welcome — she daydreams of a shared future",
+          "details": "This is the one type where future talk BUILDS attraction instead of killing it. She fantasizes about the perfect partner and a meaningful life together. Share your vision honestly — just make sure it's real, because she will hold you to it. Fantasy is fine; fantasy you don't mean is betrayal.",
+          "examples": [
+            "\"I keep imagining what it'd be like to [shared dream] with you.\"",
+            "\"When I think about the future, you're in it. I wanted you to know.\"",
+            "\"What does your dream life look like? I want to understand it.\"",
+            "\"I'm not just enjoying right now — I'm thinking about what we could build.\"",
+            "Mean every word. She remembers promises like scripture."
+          ],
+          "avoid": "Future-faking (promises you won't keep), vague non-commitment, treating the future as a joke",
+          "origin": "derived"
+        },
+        {
+          "channel": "Conflict Style",
+          "optimization": "She fears abandonment — reassure, stay, don't withdraw to punish",
+          "details": "Her core fear is being used and abandoned, so conflict feels existential to her. Withdrawing or going cold confirms her worst fear. Stay present, reassure clearly, and resolve with warmth. She doesn't need you to be perfect — she needs you to not leave.",
+          "examples": [
+            "\"I'm not going anywhere. We'll figure this out.\"",
+            "If she gets emotional: stay calm, listen fully, then: \"I hear you. You matter more to me than being right.\"",
+            "Don't go silent to \"teach a lesson\" — silence reads as abandonment to her.",
+            "After a fight: reconnect physically and verbally. \"We're okay. You're stuck with me.\"",
+            "Apologize specifically when you're wrong: \"I was wrong to [specific thing]. I'm sorry.\""
+          ],
+          "avoid": "Stonewalling, threatening to leave, using silence as punishment, dismissing her feelings",
+          "origin": "derived"
+        }
+      ],
+      "escalationLadder": [
+        {
+          "level": 0,
+          "name": "SINCERE_APPROACH",
+          "behaviors": "Relaxed body, authentic energy, strong eye contact; no party-boy vibe",
+          "timing": "First meeting",
+          "resistance": "Sizing up long-term potential; Denier guard up"
+        },
+        {
+          "level": 1,
+          "name": "PROTECTIVE_TOUCH",
+          "behaviors": "Move her out of the way, brush hair from face, hold hand when walking",
+          "timing": "Once comfort established",
+          "resistance": "Too touchy-feely signals he just wants sex"
+        },
+        {
+          "level": 2,
+          "name": "AROUSAL_FRACTIONATION",
+          "behaviors": "Tell her how sexy she is, then shift to deep conversation; build comfort",
+          "timing": "After intrigue peaks",
+          "resistance": "Pressure triggers Denier shutdown"
+        },
+        {
+          "level": 3,
+          "name": "DEVOTED_BOND",
+          "behaviors": "She responds powerfully when taken; warm haven of embrace and support",
+          "timing": "When she believes in the future together",
+          "resistance": "Requires genuine devotion framing, not pressure"
+        }
+      ],
+      "triggers": [
+        {
+          "trigger": "Insincerity or player-ish vibe",
+          "response": "Loses all hope of a future",
+          "intensity": 0.9,
+          "recovery": "Honesty about intentions",
+          "resolution": "Rebuild trust through consistent honesty"
+        },
+        {
+          "trigger": "Lying about seeing other women",
+          "response": "Perceives everything as dishonest and manipulative",
+          "intensity": 0.95,
+          "recovery": "Full transparency",
+          "resolution": "Tactful honesty about being a free bird"
+        },
+        {
+          "trigger": "Being pursued purely for sex",
+          "response": "Immediate distrust of all his actions",
+          "intensity": 0.85,
+          "recovery": "Demonstrate genuine interest in her as a person",
+          "resolution": "Patience and authenticity"
+        },
+        {
+          "trigger": "Man becomes fully domesticated",
+          "response": "Challenge hunger returns; seeks new conquest",
+          "intensity": 0.7,
+          "recovery": "Stay a challenge, keep edge",
+          "resolution": "Maintain independence and direction"
+        },
+        {
+          "trigger": "Being told she is needed for his vision",
+          "response": "Deep devotion and motivation to support",
+          "intensity": 0.8,
+          "recovery": "N/A",
+          "resolution": "Keep including her in plans"
+        }
+      ],
+      "emotionalSequence": [
+        {
+          "order": 1,
+          "emotion": "Arousal",
+          "condition": "Light, direct, specific compliment with strong eye contact; she confuses arousal with love",
+          "threshold": 0.7,
+          "manifestation": "Falls fast; passionate right away but Denier resists her own feelings"
+        },
+        {
+          "order": 2,
+          "emotion": "Intrigue",
+          "condition": "Reveal little about yourself; focus totally on her; let her Idealist mind build a fantasy",
+          "threshold": 0.75,
+          "manifestation": "She wonders about your long-term potential"
+        },
+        {
+          "order": 3,
+          "emotion": "Comfort",
+          "condition": "Never pressure sexually; fractionate between sexual topics and deep conversation",
+          "threshold": 0.8,
+          "manifestation": "Relaxed, open; shares guilty pleasures and dreams"
+        },
+        {
+          "order": 4,
+          "emotion": "Devotion",
+          "condition": "Show you are going somewhere and she can help your vision",
+          "threshold": 0.85,
+          "manifestation": "Totally devoted; stays by your side"
+        }
+      ],
+      "resistance": [
+        {
+          "type": "Hope Collapse",
+          "trigger": "Dishonesty or cover-ups about other women",
+          "manifestation": "Loses all hope of a future; shuts down emotionally",
+          "strategy": "Be tactfully honest from the start; never lie about intentions",
+          "timeToResolve": "Long — trust rebuilds slowly"
+        },
+        {
+          "type": "Pursuit Alarm",
+          "trigger": "Sensing he only wants sex",
+          "manifestation": "Perceives all his actions as manipulative, even genuine ones",
+          "strategy": "Demonstrate authentic interest in her mind and heart first",
+          "timeToResolve": "2-4 genuine interactions"
+        },
+        {
+          "type": "Challenge Death",
+          "trigger": "Man becomes subdued and domesticated",
+          "manifestation": "Hunger for a new challenge; emotional drift",
+          "strategy": "Stay a bit out of reach; keep your edge and direction",
+          "timeToResolve": "Ongoing dynamic"
+        },
+        {
+          "type": "Intensity Overload",
+          "trigger": "Too intense too fast; in her face",
+          "manifestation": "Withdraws; Denier guard goes up",
+          "strategy": "Relax body and face; respect personal space; comfortable silences",
+          "timeToResolve": "1-2 relaxed interactions"
+        }
+      ],
+      "maintenance": [
+        {
+          "requirement": "Honesty as foundation",
+          "frequency": "Always",
+          "indicator": "She shares hopes and dreams freely",
+          "failureMode": "Hope collapse; emotional shutdown"
+        },
+        {
+          "requirement": "Emotional strength and cool",
+          "frequency": "Daily",
+          "indicator": "She leans on you in confrontation",
+          "failureMode": "She seeks the challenge elsewhere"
+        },
+        {
+          "requirement": "Stay a challenge",
+          "frequency": "Ongoing",
+          "indicator": "She stays warm and devoted",
+          "failureMode": "Domestication boredom; new conquest hunger"
+        },
+        {
+          "requirement": "Include her in your vision",
+          "frequency": "Weekly",
+          "indicator": "She motivates and supports your goals",
+          "failureMode": "Devotion fades; feels unnecessary"
+        }
+      ],
       "pendingSections": [
         "3.3",
         "3.4",
@@ -1224,9 +1615,39 @@
         "3.9"
       ],
       "expandedContent": {
-        "frameworkNote": "NDI stands for Investor–Denier–Idealist, one of three profiled types on the Idealist (I) branch of the Relational Worldview axis. Its three coordinates mean: N — single-threaded mate evaluation (she focuses on one person at a time instead of keeping multiple options); D — suppression-based coping (she gates emotional and physical intensity until trust is verified); I — romantic projection (she relates through idealized, storybook-style romantic narratives). NDI is the only profiled type with the N+D combination, which is why she differs so sharply from TDI (multi-threaded, intrigue-based testing) and TJI (fast, novelty-driven).",
-        "inSimpleTerms": "The Hopeful Romantic is an old-fashioned dreamer who believes in one great love. She dates one person at a time, takes things slow, and watches for honesty before she lets her guard down. She dreams of a deep, storybook romance — but that dream makes her vulnerable to seeing potential instead of reality. When she meets someone who is struggling, her \"savior\" instinct kicks in and she wants to help him heal. Her biggest fear is being used and then abandoned, so she quietly tests for authenticity and pulls back when she senses game-playing. Once trust is earned, she invests deeply, loyally, and for the long term.",
-        "howToRecognize": [
+        "simpleSummary": "The Hopeful Romantic is an old-fashioned dreamer who believes in one great love. She dates one person at a time, takes things slow, and watches for honesty before she lets her guard down. She dreams of a deep, storybook romance — but that dream makes her vulnerable to seeing potential instead of reality. When she meets someone who is struggling, her \"savior\" instinct kicks in and she wants to help him heal. Her biggest fear is being used and then abandoned, so she quietly tests for authenticity and pulls back when she senses game-playing. Once trust is earned, she invests deeply, loyally, and for the long term.",
+        "examples": [
+          {
+            "title": "The slow-burn first month",
+            "scenario": "",
+            "whatItShows": ""
+          },
+          {
+            "title": "The rescue instinct",
+            "scenario": "",
+            "whatItShows": ""
+          },
+          {
+            "title": "The quiet withdrawal",
+            "scenario": "",
+            "whatItShows": ""
+          }
+        ],
+        "strengths": [
+          "Deeply loyal once trust is earned — she invests for the long term (Cautious Investment).",
+          "An emotionally supportive, nurturing partner, especially in hard times (Core Desire).",
+          "Values honesty and depth over surface charm; authenticity is her love language filter.",
+          "Committed and focused — one person at a time, no divided attention (single-threaded).",
+          "Sees the best in people and can inspire genuine growth (Emotional Idealism)."
+        ],
+        "challenges": [
+          "She may overlook real flaws because she falls for potential, not reality (Emotional Idealism).",
+          "The \"fix him\" urge can create one-sided, exhausting dynamics (Attracted to Emotional Challenges).",
+          "Fear of abandonment can show up as a need for frequent reassurance (Anxious-Preoccupied attachment).",
+          "Being slow to trust can frustrate partners who are genuine but impatient.",
+          "Savior Mode can accelerate her investment before the other person has earned it."
+        ],
+        "recognitionGuide": [
           "She focuses on one person at a time and does not juggle multiple suitors (single-threaded evaluation).",
           "Early on she is warm but cautious — she asks deep, honest questions before opening up.",
           "She talks about romance, \"the one,\" and long-term potential, framing dating as a love story.",
@@ -1236,56 +1657,2294 @@
           "She withdraws quietly when she senses dishonesty or \"player\" signals, rather than confronting loudly.",
           "She is drawn to \"helping him become his best self\" — the emotional-challenge attraction."
         ],
-        "realWorldExamples": [
+        "identityExplained": "This profile is a descriptive analytical model of dating-behavior patterns — it explains tendencies, not rules for how anyone should behave. Sections marked \"Coming Soon\" were absent from the source document and have not been invented here. Healthy relating always centers on mutual respect, honesty, and clear communication."
+      },
+      "communicationNote": "Communication playbook derived from NDI's documented identity traits, states (ROMANTIC_SCANNING, SAVIOR_MODE), and core fear/desire — source sections 3.3–3.9 are still pending and will refine or replace these entries."
+    },
+    {
+      "archetype": "The Cinderella — beautiful romantic waiting to be swept into lasting love",
+      "code": "NJI",
+      "communication": [
+        {
+          "avoid": "Generic 'you look hot', player-ish lines, cocky or aggressive openers",
+          "channel": "Openers",
+          "details": "Be direct and honest, even self-effacing — telling her she is so captivating you cannot think straight is exactly the right mix. A genuine, specific compliment beats a generic 'you look hot' every time. Never come off player-ish; make her feel you picked her specifically out of the crowd.",
+          "examples": [
+            "\"You're so cute I can't even think straight when I look at you.\"",
+            "\"I don't usually do this, but I had to come say hi to you specifically.\"",
+            "\"There's something about you — I couldn't just walk past.\"",
+            "\"Okay, honest answer: you stood out from everyone here.\"",
+            "\"I'm a little nervous saying this, but you're stunning.\""
+          ],
+          "optimization": "Direct, honest, self-effacing"
+        },
+        {
+          "avoid": "Logical debates, fact-heavy talk, interview-style question lists",
+          "channel": "Momentum",
+          "details": "Immediately after breaking the ice, ask her questions about her life and relate with your own experiences. Keep a nice balance of give and take, focused on how she thinks and feels about things — not logical facts, which bore her Idealist side. Show her what makes you tick.",
+          "examples": [
+            "\"So what excites you? What are you passionate about?\"",
+            "\"What does a perfect Saturday look like for you?\"",
+            "\"I love how you talk about that — tell me more.\"",
+            "\"That reminds me of something that happened to me... what about you?\"",
+            "\"What makes you tick? I want to know the real you.\""
+          ],
+          "optimization": "Emotional give-and-take, feeling-focused"
+        },
+        {
+          "avoid": "Crude or aggressive sexual talk, pressuring past comfort, anything that makes her feel like a conquest",
+          "channel": "Connection",
+          "details": "She gets turned on by talking about passion and loves a man who can match her intensity. Weave sensuality into conversation early — charged compliments, magnetic attention — while showing genuine interest in who she is as a person. Keep everything within clear mutual comfort; any cooling means you ease off warmly.",
+          "examples": [
+            "\"You have no idea what you do to me just standing there.\"",
+            "\"Careful — the way you look right now is dangerously distracting.\"",
+            "\"There's something magnetic about you I can't quite name.\"",
+            "\"I could get lost in those eyes and I wouldn't even mind.\"",
+            "\"Being this close to you... I don't want this moment to end.\""
+          ],
+          "optimization": "Passionate, sensual, emotionally open"
+        },
+        {
+          "avoid": "Out-needing her emotionally, trauma-dumping, insecurity spirals",
+          "channel": "Deep Talk",
+          "details": "She responds powerfully when you reveal your hopes, fears, dreams, and insecurities — she will not take it for granted. But never get more emotional or insecure than she is: she needs to feel a deeper strength underneath your vulnerabilities.",
+          "examples": [
+            "\"Can I be honest? My biggest fear is... what about you?\"",
+            "\"I don't tell many people this, but I dream about...\"",
+            "\"There's something I want to build in my life — a real home, a real love.\"",
+            "\"I respect how openly you love. That's rare.\"",
+            "\"Tell me what you dream about when no one's watching.\""
+          ],
+          "optimization": "Vulnerable but strong — never needier than her"
+        },
+        {
+          "avoid": "Pushing past any deflection or hesitation, crude talk, making her feel like a conquest",
+          "channel": "Sexual Talk",
+          "details": "She is comfortable with desire expressed openly — but only when mutual comfort is unmistakable. Compliment her femininity and tell her how she makes you feel. The instant she deflects, cools, hesitates, or changes the subject: stop completely and warmly, with zero awkwardness. Enthusiasm is the only green light.",
+          "examples": [
+            "\"You're sexy and you drive me crazy.\"",
+            "\"I can't get enough of you.\"",
+            "\"Everything about you turns me on.\"",
+            "\"You make me feel things I don't feel with anyone else.\"",
+            "\"If you're feeling what I'm feeling... tell me.\""
+          ],
+          "optimization": "Passionate and desiring — only with unmistakable mutual comfort"
+        },
+        {
+          "avoid": "Empty promises, love-bombing to get sex, vague non-commitment",
+          "channel": "Future Talk",
+          "details": "Unlike types who fear commitment talk, she NEEDS passion and hope for the future — it is her fuel. Talk about lasting love, building a life, the future she imagines. But it must be genuine: empty promises or love-bombing to get her into bed will trigger her conquest alarm and end everything.",
+          "examples": [
+            "\"I can actually picture a real future — a home, us, the whole thing.\"",
+            "\"You're the kind of woman a man builds his life around.\"",
+            "\"I don't just want tonight. I want to see where this goes.\"",
+            "\"One day I want slow mornings with someone I actually love. Like you.\"",
+            "\"This feels like the start of something real.\""
+          ],
+          "optimization": "Hope-filled — paint the lasting love she dreams of, genuinely"
+        },
+        {
+          "avoid": "Going cold, getting defensive, dismissing her feelings, proving her 'conquest' fear right",
+          "channel": "Conflict Style",
+          "details": "Her conflict trigger is feeling used — like she was just a conquest. When hurt, she cuts her losses fast rather than fighting. Reassure her genuinely that she matters as a person, not just physically. Defensiveness, coldness, or dismissal confirms her worst fear and she will be gone.",
+          "examples": [
+            "\"You're not just anyone to me. I need you to know that.\"",
+            "\"I'm here because of YOU — who you are, not just this.\"",
+            "\"Talk to me. I'd rather hear it than lose you over silence.\"",
+            "\"I care about how wonderful you are — that's why I'm here.\"",
+            "\"Whatever it is, we'll figure it out. You're worth that.\""
+          ],
+          "optimization": "Reassure her worth; never confirm her fear of being used"
+        }
+      ],
+      "emotionalSequence": [
+        {
+          "condition": "Direct honest compliment; feeling picked specifically",
+          "emotion": "Intrigue",
+          "manifestation": "Attention captured, warm smile, engaged",
+          "order": 1,
+          "threshold": 0.7
+        },
+        {
+          "condition": "Long-term potential demonstrated; genuine interest in who she is",
+          "emotion": "Hope",
+          "manifestation": "Opens emotionally, shares dreams, invests",
+          "order": 2,
+          "threshold": 0.75
+        },
+        {
+          "condition": "Security plus sexual arousal",
+          "emotion": "Passion",
+          "manifestation": "Heats up fast, physically expressive, adventurous",
+          "order": 3,
+          "threshold": 0.8
+        },
+        {
+          "condition": "Genuine care confirmed vs conquest treatment",
+          "emotion": "Devotion or Heartbreak",
+          "manifestation": "Nurturing devoted girlfriend — or cold cut-off",
+          "order": 4,
+          "threshold": 0.9
+        }
+      ],
+      "escalationLadder": [
+        {
+          "behaviors": "Direct honest approach, specific genuine compliment, self-effacing warmth; make her feel picked specifically",
+          "level": 0,
+          "name": "IGNITION",
+          "resistance": "Player vibe detected, generic compliment — instant dismissal",
+          "timing": "First contact"
+        },
+        {
+          "behaviors": "Questions about her life, shared experiences, feeling-focused give and take",
+          "level": 1,
+          "name": "EMOTIONAL_MOMENTUM",
+          "resistance": "Boredom from logical/factual talk — re-engage emotionally or lose her",
+          "timing": "Minutes after ignition"
+        },
+        {
+          "behaviors": "Innuendo, charged compliments, magnetic eye contact — only with clear mutual comfort",
+          "level": 2,
+          "name": "SENSUAL_CONNECTION",
+          "resistance": "Any deflection or cooling — ease off warmly immediately",
+          "timing": "Within the first conversation"
+        },
+        {
+          "behaviors": "Close the space, create a focused bubble, light touch on arm or lower back — only if she leans in",
+          "level": 3,
+          "name": "PHYSICAL_CLOSENESS",
+          "resistance": "Stepping back, closed body language — stop and give space, no retry",
+          "timing": "When interest is clearly mutual"
+        },
+        {
+          "behaviors": "Slow dancing at half-speed, hair strokes, gentle hand-holding face to face — every step needs her enthusiasm",
+          "level": 4,
+          "name": "TENDER_SENSUALITY",
+          "resistance": "Hesitation, freezing, or withdrawal — stop immediately, no retry in the same interaction",
+          "timing": "When she is clearly inviting more"
+        },
+        {
+          "behaviors": "Deeper physicality only with explicit mutual enthusiasm; her limits and comfort respected absolutely at every step",
+          "level": 5,
+          "name": "PASSIONATE_INTIMACY",
+          "resistance": "Any verbal no, hesitation, or withdrawal — stop immediately, no retry in the same interaction",
+          "timing": "Only with clear, ongoing consent"
+        }
+      ],
+      "expandedContent": {
+        "challenges": [
+          "Prone to sweet talk — emotions can cloud her judgment in picking partners",
+          "Pattern of repeated heartbreak from moving fast when feeling secure",
+          "May overlook red flags while hope is running high",
+          "Needs constant reassurance she is valued beyond the physical",
+          "Can mistake intense passion for genuine long-term compatibility",
+          "Vulnerability to men who perform long-term potential without meaning it"
+        ],
+        "examples": [
           {
-            "title": "The slow-burn first month",
-            "context": "She has been seeing someone for a few weeks and enjoys his company.",
-            "whatSheDoes": "She keeps the pace comfortable, asks about his values and honesty, and does not rush exclusivity or intensity. She is observing whether his words and actions line up.",
-            "whatItMeans": "She is in ROMANTIC_SCANNING: testing authenticity before investing. Slowness is caution, not disinterest."
+            "scenario": "It is Saturday night and she walks in dressed sexy but classy — every guy in the room looks at her, but nobody dares approach. She knows exactly what she is doing: attracting as many options as possible so she can weed through and find the one with the most boyfriend-potential.",
+            "title": "The Girl in the Club Everyone Is Scared to Approach",
+            "whatItShows": "Her SPOTLIGHT_MAGNET state: beauty as strategy, and the irony that being stunning makes genuine men assume she is taken."
           },
           {
-            "title": "The rescue instinct",
-            "context": "Her partner mentions he is going through a rough patch at work and feels lost.",
-            "whatSheDoes": "She becomes his biggest supporter — patient, nurturing, offering emotional support and extra time. Her investment speeds up noticeably.",
-            "whatItMeans": "SAVIOR_MODE has activated: her core desire \"to save and be saved by love\" is engaged. This is when she is most likely to overlook red flags, so honesty from the partner matters most here."
+            "scenario": "The next weekend she is home alone, reflective, replaying her last heartbreak and daydreaming about the prince who will finally stay. She is not partying — she is recharging her hope.",
+            "title": "The Saturday Night In",
+            "whatItShows": "Her cyclical strategy (QUIET_NIGHT_IN): the Cinderella alternates between radiant hunter and reflective dreamer depending on her emotional season."
           },
           {
-            "title": "The quiet withdrawal",
-            "context": "She notices inconsistencies — stories that do not add up, evasive answers about simple things.",
-            "whatSheDoes": "Instead of a dramatic confrontation, she cools off: shorter replies, less availability, guarded warmth. She is watching to see whether the pattern continues.",
-            "whatItMeans": "Her core fear of being used has been triggered (exit toward CAUTIOUS_WITHDRAWAL). Consistent honesty is the only way to re-engage her; pressure or charm offensives backfire."
+            "scenario": "She meets a strong, silent type who seems genuine. She feels secure, heats up fast, and gives him everything — then realizes he was only after one thing. She goes cold overnight and never looks back.",
+            "title": "The Fast Burn",
+            "whatItShows": "Her passion-conquest cycle: fast investment when secure, instant cut-off when the conquest alarm fires, and the repeated heartbreak pattern she is prone to."
           }
         ],
-        "keyStrengths": [
-          "Deeply loyal once trust is earned — she invests for the long term (Cautious Investment).",
-          "An emotionally supportive, nurturing partner, especially in hard times (Core Desire).",
-          "Values honesty and depth over surface charm; authenticity is her love language filter.",
-          "Committed and focused — one person at a time, no divided attention (single-threaded).",
-          "Sees the best in people and can inspire genuine growth (Emotional Idealism)."
-        ],
-        "potentialChallenges": [
-          "She may overlook real flaws because she falls for potential, not reality (Emotional Idealism).",
-          "The \"fix him\" urge can create one-sided, exhausting dynamics (Attracted to Emotional Challenges).",
-          "Fear of abandonment can show up as a need for frequent reassurance (Anxious-Preoccupied attachment).",
-          "Being slow to trust can frustrate partners who are genuine but impatient.",
-          "Savior Mode can accelerate her investment before the other person has earned it."
-        ],
-        "availableVsComingSoon": {
-          "available": [
-            "3.1 Core Identity Matrix — 9 parameters (type code, archetype, defenses, core fear/desire, hidden trait, attachment style, love language).",
-            "3.2 Behavioral State Machine — ROMANTIC_SCANNING fully described; SAVIOR_MODE partially described (source truncated mid-section)."
+        "identityExplained": "NJI's identity is built around hopeful romantic investment. As an Investor, she puts her whole heart in the moment she senses long-term potential — she does not hedge. As a Justifier, she rationalizes fast-moving passion as natural and healthy when she feels secure, framing physical intimacy as simply the conversation that keeps love going. As an Idealist, she lives inside hopes and dreams of lasting love, old-fashioned roles, and a strong, sensitive prince who truly sees her. Her beauty is both her magnet and her curse: it draws every eye in the room, yet makes sincere men assume she is taken — leaving her oddly single, oddly hopeful, and dangerously open to a sweet talker who feels like fate.",
+        "recognitionGuide": "You can recognize an NJI by her striking, sexy-but-classy presentation — she turns heads and knows it. She is warm and emotionally open, talks about hopes and dreams easily, and lights up at sincere, specific compliments while going cold at generic lines. She will ask what excites you and share her own passions freely. Watch for the cycle: radiant in public, reflective at home. If she senses you are only after one thing, she will cut you off fast — that is her conquest alarm, and there is no snooze button.",
+        "simpleSummary": "NJI stands for Investor-Justifier-Idealist, and her archetype is 'The Cinderella' — the beautiful romantic who dresses to turn heads and dreams of being swept into lasting love. She invests deeply and fast once she feels secure, justifies her passion as proof of connection ('sex is like the conversation that keeps the relationship going'), and views everything through hopeful romantic ideals. She wants a strong, sensitive man with real long-term potential — and she can spot a player a mile away, cutting her losses the moment she feels like a conquest.",
+        "strengths": [
+          "Extraordinarily passionate and devoted lover once committed",
+          "Natural nurturer — contributes emotional support and love generously",
+          "Old-fashioned loyalty; takes relationships seriously",
+          "Decisive — cuts losses fast instead of lingering in bad situations",
+          "Genuine and open — wears her heart on her sleeve, no games about feelings",
+          "Sexually confident and adventurous within a trusting bond"
+        ]
+      },
+      "identity": [
+        {
+          "manifestation": "Investor-Justifier-Idealist",
+          "parameter": "Type Code",
+          "value": "NJI",
+          "weight": null
+        },
+        {
+          "manifestation": "—",
+          "parameter": "Archetype",
+          "value": "The Cinderella — beautiful romantic waiting to be swept into lasting love",
+          "weight": null
+        },
+        {
+          "manifestation": "No walls when she feels secure; rationalizes fast passion as proof of connection",
+          "parameter": "Primary Defense",
+          "value": "Justified Surrender",
+          "weight": 0.8
+        },
+        {
+          "manifestation": "Cuts losses fast when she senses dishonesty or player behavior",
+          "parameter": "Core Fear",
+          "value": "Being Treated as a Conquest",
+          "weight": 0.95
+        },
+        {
+          "manifestation": "Seeks boyfriend-potential; strength plus sensitivity; imagines homemaker future",
+          "parameter": "Core Desire",
+          "value": "Lasting Love with a Strong, Sensitive Man",
+          "weight": 0.9
+        },
+        {
+          "manifestation": "Sexy-but-classy presentation; heats up fast and is almost always up for it once secure",
+          "parameter": "Hidden Trait",
+          "value": "Extreme Sexuality Beneath Class",
+          "weight": 0.9
+        },
+        {
+          "manifestation": "Clings to the perception things could become serious; overlooks red flags when passion runs high",
+          "parameter": "Secondary Defense",
+          "value": "Hope Maintenance",
+          "weight": 0.7
+        },
+        {
+          "manifestation": "Wears heart on sleeve; needs ongoing proof she is wanted as a person, not just physically",
+          "parameter": "Attachment Style",
+          "value": "Anxious-Preoccupied",
+          "weight": 0.8
+        },
+        {
+          "manifestation": "Passionate physicality plus verbal devotion to her femininity and the connection",
+          "parameter": "Love Language",
+          "value": "Physical Touch + Words of Affirmation",
+          "weight": 0.85
+        }
+      ],
+      "maintenance": [
+        {
+          "failureMode": "She feels like a placeholder; passion fades",
+          "frequency": "Ongoing",
+          "indicator": "She talks about 'us' and future plans",
+          "requirement": "Hope for the future, regularly renewed"
+        },
+        {
+          "failureMode": "Conquest alarm; tests and accusations rise",
+          "frequency": "Daily",
+          "indicator": "Relaxed, non-clingy affection",
+          "requirement": "Affirmation she is valued beyond sex"
+        },
+        {
+          "failureMode": "She loses respect; looks elsewhere",
+          "frequency": "Ongoing",
+          "indicator": "She leans on you in hard moments",
+          "requirement": "Strength beneath vulnerability"
+        },
+        {
+          "failureMode": "Boredom; she seeks excitement elsewhere",
+          "frequency": "Weekly",
+          "indicator": "She initiates playfully",
+          "requirement": "Passion kept alive"
+        }
+      ],
+      "name": "The Cinderella",
+      "resistance": [
+        {
+          "manifestation": "Sudden coldness, cutting losses",
+          "strategy": "Reassure her personhood genuinely; never argue or guilt. If she withdraws, respect it fully.",
+          "timeToResolve": "1-7 days, or never",
+          "trigger": "Feels desired only physically",
+          "type": "Conquest Alarm"
+        },
+        {
+          "manifestation": "Instant dismissal",
+          "strategy": "Do not chase. One sincere correction at most, then leave her alone.",
+          "timeToResolve": "Unlikely within the same interaction",
+          "trigger": "Generic lines, dishonest vibe",
+          "type": "Player Detection"
+        },
+        {
+          "manifestation": "Freezing, pulling back, going quiet",
+          "strategy": "STOP IMMEDIATELY. No retry in the same interaction. Warm, zero-pressure step back.",
+          "timeToResolve": "Only on her re-initiation",
+          "trigger": "Any touch she did not invite",
+          "type": "Physical Hesitation"
+        },
+        {
+          "manifestation": "Clear boundary stated",
+          "strategy": "STOP IMMEDIATELY. Respect fully, no persuasion, no retry. Continue only if she later reinitiates freely.",
+          "timeToResolve": "Her timeline only",
+          "trigger": "She says no, not yet, or stop — in any words",
+          "type": "Verbal No"
+        }
+      ],
+      "states": [
+        {
+          "behaviors": [
+            "Dresses sexy but always classy and mature",
+            "Head-turner — every guy looks but most are scared to approach",
+            "Extreme feminine energy, knows what she is doing",
+            "Weeding through attention for most boyfriend-potential"
           ],
-          "comingSoon": [
-            "3.3 Communication Protocol Matrix",
-            "3.4 Physical Escalation Ladder",
-            "3.5 Trigger-Response Database",
-            "3.6 AI Agent Decision Tree Logic",
-            "3.7 Emotional Trigger Sequence Activation",
-            "3.8 Resistance Pattern Matrix",
-            "3.9 Long-Term Devotion Maintenance Protocol"
+          "exits": [
+            {
+              "condition": "Genuine, specific interest shown",
+              "target": "WARMING_INVESTMENT"
+            },
+            {
+              "condition": "Only player vibes / superficial attention",
+              "target": "QUIET_NIGHT_IN"
+            },
+            {
+              "condition": "Emotional exhaustion",
+              "target": "QUIET_NIGHT_IN"
+            }
+          ],
+          "internalProcess": [
+            "\"Who here has real boyfriend potential?\"",
+            "\"Does he see ME or just my body?\"",
+            "\"Show them the best version of me tonight\""
+          ],
+          "name": "SPOTLIGHT_MAGNET",
+          "trigger": "Social setting / night out in proactive mood"
+        },
+        {
+          "behaviors": [
+            "Home on Saturday night, reflective",
+            "Old-fashioned daydreams of prince and homemaker future",
+            "Replays past heartbreaks, guards hope carefully"
+          ],
+          "exits": [
+            {
+              "condition": "Hope rekindled",
+              "target": "SPOTLIGHT_MAGNET"
+            },
+            {
+              "condition": "Someone shows genuine long-term interest",
+              "target": "WARMING_INVESTMENT"
+            }
+          ],
+          "internalProcess": [
+            "\"Where is my prince?\"",
+            "\"Was I too open last time?\"",
+            "\"Next time I'll pick better\""
+          ],
+          "name": "QUIET_NIGHT_IN",
+          "trigger": "Low proactive phase / recovering from heartbreak"
+        },
+        {
+          "behaviors": [
+            "Opens up emotionally, shares hopes and dreams",
+            "Passion rises quickly once security is felt",
+            "Tests for honesty — watching whether he likes her as a person first"
+          ],
+          "exits": [
+            {
+              "condition": "Security and devotion confirmed",
+              "target": "PASSIONATE_SURRENDER"
+            },
+            {
+              "condition": "Dishonesty or player behavior detected",
+              "target": "CUT_LOSSES"
+            },
+            {
+              "condition": "Feels desired only physically",
+              "target": "CUT_LOSSES"
+            }
+          ],
+          "internalProcess": [
+            "\"Could this become something serious?\"",
+            "\"He feels safe — he won't run off\"",
+            "\"Is he strong underneath his vulnerability?\""
+          ],
+          "name": "WARMING_INVESTMENT",
+          "trigger": "Man demonstrates long-term potential and genuine interest in who she is"
+        },
+        {
+          "behaviors": [
+            "Extremely sexual and adventurous — tries new things as shared adventure",
+            "Nurturer mode: emotional support, love, feminine devotion",
+            "Sees sex as the conversation that keeps the relationship going"
+          ],
+          "exits": [
+            {
+              "condition": "Treated like a conquest",
+              "target": "CUT_LOSSES"
+            },
+            {
+              "condition": "Continued devotion and hope",
+              "target": "LONG_TERM_BOND"
+            }
+          ],
+          "internalProcess": [
+            "\"This feels like love\"",
+            "\"I'll go further with him — it's our adventure\"",
+            "\"He's mine and I'm his\""
+          ],
+          "name": "PASSIONATE_SURRENDER",
+          "trigger": "Secure, aroused, and hopeful about the future"
+        }
+      ],
+      "status": "complete",
+      "triggers": [
+        {
+          "intensity": 0.9,
+          "recovery": "N/A",
+          "resolution": "Start over with genuine specificity (rarely works twice)",
+          "response": "Instant dismissal",
+          "trigger": "Generic 'you look hot' or player-ish approach"
+        },
+        {
+          "intensity": 0.95,
+          "recovery": "Days",
+          "resolution": "Consistent honest actions over time",
+          "response": "Cuts losses fast",
+          "trigger": "Senses dishonesty about liking her as a person first"
+        },
+        {
+          "intensity": 1.0,
+          "recovery": "Weeks",
+          "resolution": "Proof of genuine care beyond the physical",
+          "response": "Heartbreak and withdrawal",
+          "trigger": "Feels treated like a conquest"
+        },
+        {
+          "intensity": 0.85,
+          "recovery": "N/A",
+          "resolution": "Deepened emotional bond",
+          "response": "Powerful attraction; she opens up in return",
+          "trigger": "Man reveals hopes, fears, dreams, insecurities"
+        },
+        {
+          "intensity": 0.8,
+          "recovery": "N/A",
+          "resolution": "Continued hope maintenance",
+          "response": "Relaxed, passionate, non-clingy",
+          "trigger": "Perception the connection could become something serious"
+        },
+        {
+          "intensity": 0.7,
+          "recovery": "N/A",
+          "resolution": "Often leads to heartbreak; she needs grounding, not more sweet talk",
+          "response": "Clouded judgment, fast-moving intimacy",
+          "trigger": "Sweet talk without substance"
+        }
+      ]
+    },
+    {
+      "code": "TDR",
+      "name": "The Private Dancer",
+      "archetype": "The Mysterious Giver",
+      "status": "complete",
+      "identity": [
+        {
+          "parameter": "Type Code",
+          "value": "TDR",
+          "weight": null,
+          "manifestation": "Tester-Denier-Realist"
+        },
+        {
+          "parameter": "Archetype",
+          "value": "The Mysterious Giver — mysterious-yet-innocent exterior, passionate giver inside",
+          "weight": null,
+          "manifestation": "Only a select few ever see the hidden part of her"
+        },
+        {
+          "parameter": "Primary Defense",
+          "value": "Selectivity and testing",
+          "weight": 0.9,
+          "manifestation": "An extreme investor underneath, so she tests the waters and dabbles to protect herself from over-attachment"
+        },
+        {
+          "parameter": "Core Fear",
+          "value": "Over-attachment to an undeserving man",
+          "weight": 0.9,
+          "manifestation": "Consciously or subconsciously scared of her tendency to get extremely attached once her guard drops; won't give her gifts to a guy who doesn't deserve them"
+        },
+        {
+          "parameter": "Core Desire",
+          "value": "To nurture and contribute to her man's life",
+          "weight": 0.85,
+          "manifestation": "Needs the giving role to feel fulfilled; wants to spoil her man — not to be spoiled"
+        },
+        {
+          "parameter": "Hidden Trait",
+          "value": "Repressed sensuality beneath a practical exterior",
+          "weight": 0.85,
+          "manifestation": "Passionate and sensitive inside, but low sexual self-confidence — doesn't see herself as a sexual person except with one special guy"
+        },
+        {
+          "parameter": "Secondary Defense",
+          "value": "Cool, aloof demeanor",
+          "weight": 0.8,
+          "manifestation": "Keeps a lid on emotions, not overly sentimental; hates drama"
+        },
+        {
+          "parameter": "Social Style",
+          "value": "One of the guys",
+          "weight": 0.75,
+          "manifestation": "Many male friends; relates to the masculine way of thinking; watches football; finds most female social games catty"
+        },
+        {
+          "parameter": "Independence",
+          "value": "Career-oriented self-sufficiency",
+          "weight": 0.8,
+          "manifestation": "Own life and hobbies; independent until ready for family, typically mid-to-late 30s"
+        }
+      ],
+      "states": [
+        {
+          "name": "MYSTERIOUS_EXTERIOR",
+          "trigger": "Initial encounter",
+          "behaviors": [
+            "Mysterious-yet-innocent presentation",
+            "Cool, aloof demeanor",
+            "'One of the guys' social ease",
+            "Guards the passionate interior; reveals little"
+          ],
+          "internalProcess": [
+            "Is he worth dropping my guard for?",
+            "Will he appreciate my giving or take it for granted?",
+            "Can I stay in control of my attachment?"
+          ],
+          "exits": [
+            {
+              "condition": "Team dynamic established",
+              "target": "TEAMMATE_ENGAGED"
+            },
+            {
+              "condition": "Sexual pressure detected",
+              "target": "COOL_WITHDRAWAL"
+            },
+            {
+              "condition": "Feels taken for granted",
+              "target": "COOL_WITHDRAWAL"
+            }
           ]
         },
-        "analyticalNote": "This profile is a descriptive analytical model of dating-behavior patterns — it explains tendencies, not rules for how anyone should behave. Sections marked \"Coming Soon\" were absent from the source document and have not been invented here. Healthy relating always centers on mutual respect, honesty, and clear communication."
+        {
+          "name": "TEAMMATE_ENGAGED",
+          "trigger": "Us-frame / shared activity success",
+          "behaviors": [
+            "Upbeat participation in joint activities",
+            "High-fives and light, non-sexual physicality",
+            "Accepts protective touch (guided through a crowd)",
+            "Treats interaction as partnership"
+          ],
+          "internalProcess": [
+            "We're a good team",
+            "He treats me like a person first",
+            "This is fun and easy"
+          ],
+          "exits": [
+            {
+              "condition": "Trust and appreciation shown",
+              "target": "NURTURING_GIVER"
+            },
+            {
+              "condition": "Boredom / no momentum",
+              "target": "DISMISSAL"
+            }
+          ]
+        },
+        {
+          "name": "NURTURING_GIVER",
+          "trigger": "Trust established; feels appreciated",
+          "behaviors": [
+            "Cooks for him, helps pick clothes, contributes concretely",
+            "Affectionate after giving (warmth follows care)",
+            "Softens; hidden passionate side emerges"
+          ],
+          "internalProcess": [
+            "He deserves my care",
+            "Giving to him fulfills me",
+            "I feel safe being soft with him"
+          ],
+          "exits": [
+            {
+              "condition": "Taken for granted",
+              "target": "COOL_WITHDRAWAL"
+            },
+            {
+              "condition": "Deep mutual comfort over time",
+              "target": "DEEP_ATTACHMENT"
+            }
+          ]
+        },
+        {
+          "name": "COOL_WITHDRAWAL",
+          "trigger": "Intensity too soon / sexual pushiness / feeling unappreciated",
+          "behaviors": [
+            "Goes cool and aloof",
+            "Short responses; emotional lid on",
+            "Disengages without drama",
+            "Mentally reviews other options"
+          ],
+          "internalProcess": [
+            "He's moving too fast",
+            "He doesn't appreciate what I give",
+            "I have other options"
+          ],
+          "exits": [
+            {
+              "condition": "Pressure removed and appreciation shown",
+              "target": "TEAMMATE_ENGAGED"
+            },
+            {
+              "condition": "Repeated violation",
+              "target": "DISMISSAL"
+            }
+          ]
+        }
+      ],
+      "communication": [
+        {
+          "channel": "Openers",
+          "optimization": "Environmental, non-sexual, team-framed",
+          "details": "The best way to approach a Tester is a comment on something in the environment. Compliments must be non-sexual and non-body — she doesn't see herself as a sexual person in general, only with one special guy. 'I like your style' plus a high-five works. Don't buy her drinks to impress; instead create a team dynamic — invite her to play pool on the same team against another couple, or have her grab the bartender's attention while you trade rounds (make sure she buys the next round).",
+          "examples": [
+            "I like your style. (about something cool she's wearing — with a high-five, nothing body-focused)",
+            "You and me versus them — pool, right now. We're taking that table.",
+            "Quick — grab the bartender's attention for us. I'll get this round, you get the next.",
+            "This place has the most chaotic playlist — what's your verdict?",
+            "You look like someone who actually knows the game. Settle a debate for us?"
+          ],
+          "avoid": "Body compliments ('love how that dress fits'), buying her drinks to impress, teasing designed to provoke"
+        },
+        {
+          "channel": "Momentum",
+          "optimization": "Upbeat, concrete, non-sexual topics",
+          "details": "She's cool talking about anything — like one of your guy friends, any random topic is valid. Just don't get too psychological: to a Realist, concrete subjects are more interesting — travel, work, school, sports, her dog. The main momentum builder is zero sexual intent — she respects you more when you treat her like a person and teammate first. Keep things upbeat, in motion, and do something physical if possible.",
+          "examples": [
+            "What's the best trip you've ever taken?",
+            "Okay, settle it: your team or mine this weekend?",
+            "Tell me about your dog — what's the most trouble they've caused?",
+            "What do you get up to when you're not being mysterious?",
+            "We're doing something active this weekend — hiking, pool, your pick. You in?"
+          ],
+          "avoid": "Psychological deep-dives, sexual innuendo, heavy emotional topics, long static couch talk"
+        },
+        {
+          "channel": "Connection",
+          "optimization": "Us-frame: succeed together in the real world",
+          "details": "She responds powerfully to the Us-frame — create the dynamic where you two are a team and be successful at whatever you're doing. Roleplaying falls flat because it's fantasy; actually DOING something together is far more powerful for a Realist. Build a few shared 'episodes' so it feels like you've been through a lot. A Tester wants breadth (doing things together), not depth (sitting and sharing deepest passions).",
+          "examples": [
+            "Operation: we're winning this pool game. You break.",
+            "New rule — we're a team tonight. You handle the playlist, I handle the snacks.",
+            "We've survived that terrible karaoke bar together — that's basically shared history now.",
+            "Let's cook something ridiculous this weekend — you chop, I supervise.",
+            "Admit it — we're dangerously good at this."
+          ],
+          "avoid": "Fantasy roleplay, quiet-couch deep-passion sharing, trying to manufacture intimacy through talk alone"
+        },
+        {
+          "channel": "Deep Talk",
+          "optimization": "Situational and brief — never forced",
+          "details": "She's uncomfortable with too much intensity and romance at first, and prefers situational topics over personal ones. Don't get psychological. If she volunteers something real, receive it warmly and briefly, then return to lightness — never drag her into an emotional excavation she didn't ask for.",
+          "examples": [
+            "Work's been crazy lately? (listen briefly — then move on, don't analyze)",
+            "If she shares something real: 'That makes sense.' — then back to something fun.",
+            "What's something you're looking forward to?",
+            "How'd you get into your line of work? (concrete, not emotional)",
+            "One honest line beats a therapy session — keep deep moments short."
+          ],
+          "avoid": "Pushing for deep personal disclosure early, psychological analysis, heavy romance framing"
+        },
+        {
+          "channel": "Sexual Talk",
+          "optimization": "None early — she finds it off-putting",
+          "details": "She's not a prude, but sexual talk, innuendos, or questions about her sex life can turn her off and make her shut down — that's the part she keeps bottled up. Keep early interaction entirely non-sexual. Any sensuality must emerge only from her own clear, comfortable lead much later, and any deflection or cooling means dropping it completely.",
+          "examples": [
+            "Early on, the move is what you DON'T say — keep it clean and fun.",
+            "You're really fun to be around. (warm, non-sexual)",
+            "You're dangerously good at pool. (competence compliment, not body)",
+            "I like how easy this is. (about the vibe, never her body)",
+            "If she ever gets flirty first: match her energy lightly — never escalate past her."
+          ],
+          "avoid": "Sexual innuendos, questions about her sex life, body-focused compliments, any sexual pressure"
+        },
+        {
+          "channel": "Future Talk",
+          "optimization": "Practical present, not serious-commitment pressure",
+          "details": "She can frustrate men who want something serious and long-term fast — she's independent, career-oriented, and thinks in practical terms rather than romantic projections. Don't press for commitment timelines or labels; let the relationship prove itself through shared experience.",
+          "examples": [
+            "We've got a good thing going — let's keep it rolling.",
+            "Next adventure: your pick this time.",
+            "I like how we do things — no drama, just good.",
+            "That food festival next month — we're going. (plans as experiences)",
+            "No 'where is this going' talks — let it unfold."
+          ],
+          "avoid": "Demanding serious long-term labels early, romantic intensity, commitment ultimatums"
+        },
+        {
+          "channel": "Conflict Style",
+          "optimization": "Stay even-keeled; never chase with drama",
+          "details": "She hates drama and goes cool and aloof under pressure. If she cools off, don't get sexual, pushy, or dramatic — keep an even keel and show normalcy. Taking her for granted is the fastest way to lose her, because she has many other options. Genuine appreciation — not pursuit — is what brings her back.",
+          "examples": [
+            "She goes quiet: give space, stay normal — 'No worries. Pool rematch Thursday?'",
+            "'Hey — I appreciate everything you do. Just wanted you to know that.'",
+            "Never guilt-trip: skip the 'after everything I've done' speeches.",
+            "If you messed up: own it briefly and concretely, then move on — no drama spiral.",
+            "'I get it. I'm here, no pressure.' (and actually mean it)"
+          ],
+          "avoid": "Drama, guilt-tripping, sexual pressure to 'fix' things, taking her for granted"
+        }
+      ],
+      "escalationLadder": [
+        {
+          "level": 0,
+          "name": "TEAMMATE",
+          "behaviors": "Shared activities, high-fives, side-by-side fun; zero sexual intent",
+          "timing": "First meetings",
+          "resistance": "Cool/aloof signals — back off to friendly neutrality immediately"
+        },
+        {
+          "level": 1,
+          "name": "LIGHT_PHYSICALITY",
+          "behaviors": "Brief protective touch (guiding through a crowd), dancing with comfortable space, spins",
+          "timing": "Once team rapport is established",
+          "resistance": "Any stiffening, stepping back, or cooling — stop immediately, no retry that interaction"
+        },
+        {
+          "level": 2,
+          "name": "WARM_AFFECTION",
+          "behaviors": "Affection only where she clearly leads and is comfortable",
+          "timing": "Only after sustained trust and her unambiguous signals",
+          "resistance": "Any hesitation, deflection, or 'not yet' — full stop, no retry in the same interaction"
+        },
+        {
+          "level": 3,
+          "name": "INTIMACY",
+          "behaviors": "No mechanics prescribed — governed entirely by clear, enthusiastic, ongoing mutual consent",
+          "timing": "Only with sustained mutual comfort and her active participation",
+          "resistance": "Any verbal no, hesitation, freezing, or withdrawal at any point — stop immediately, no persistence, no retry"
+        }
+      ],
+      "triggers": [
+        {
+          "trigger": "Body or sexual compliment early on",
+          "response": "Discomfort and withdrawal behind Denier walls",
+          "intensity": 0.7,
+          "recovery": "Return to non-sexual footing; show you see the person",
+          "resolution": "Genuine non-sexual appreciation earned later"
+        },
+        {
+          "trigger": "Sexual innuendo or questions about her sex life",
+          "response": "Turned off; shuts the topic down",
+          "intensity": 0.75,
+          "recovery": "Drop the topic entirely and permanently for the interaction",
+          "resolution": "Rebuild ease through shared activity, not words"
+        },
+        {
+          "trigger": "Man tries to spoil her / buy drinks to impress",
+          "response": "Unimpressed and unsatisfied — that's HER role",
+          "intensity": 0.6,
+          "recovery": "Let her take the giving role; trade rounds instead",
+          "resolution": "She spoils you; you show appreciation"
+        },
+        {
+          "trigger": "Being taken for granted",
+          "response": "Cools off; mentally reviews her many other options",
+          "intensity": 0.9,
+          "recovery": "Sincere appreciation — never pursuit or drama",
+          "resolution": "Consistent, concrete reciprocation"
+        },
+        {
+          "trigger": "Drama or emotional pressure",
+          "response": "Goes aloof and disengages",
+          "intensity": 0.8,
+          "recovery": "Even keel; normal, drama-free interaction",
+          "resolution": "She re-engages when pressure is gone"
+        }
+      ],
+      "emotionalSequence": [
+        {
+          "order": 1,
+          "emotion": "Intrigue",
+          "condition": "Mysterious exterior noticed; she begins testing",
+          "threshold": 0.6,
+          "manifestation": "Curiosity on both sides; light testing behavior from her"
+        },
+        {
+          "order": 2,
+          "emotion": "Ease",
+          "condition": "Non-sexual team dynamic established",
+          "threshold": 0.65,
+          "manifestation": "Upbeat, participatory, relaxed — treats you as teammate"
+        },
+        {
+          "order": 3,
+          "emotion": "Appreciation",
+          "condition": "Her giving is noticed and reciprocated",
+          "threshold": 0.7,
+          "manifestation": "Nurturing behaviors emerge — cooking, helping, contributing concretely"
+        },
+        {
+          "order": 4,
+          "emotion": "Trust",
+          "condition": "Guard lowers after sustained good treatment",
+          "threshold": 0.8,
+          "manifestation": "Affectionate and softer; hidden warmth becomes visible"
+        },
+        {
+          "order": 5,
+          "emotion": "Attachment",
+          "condition": "Deep bond formed; her fear of over-attachment surfaces",
+          "threshold": 0.9,
+          "manifestation": "Extremely giving; needs reassurance she chose well — handle gently"
+        }
+      ],
+      "resistance": [
+        {
+          "type": "Cool withdrawal",
+          "trigger": "Too much intensity or romance too soon",
+          "manifestation": "Aloof, short responses, emotional lid on",
+          "strategy": "Back off immediately; return to light, situational interaction. Any verbal no, hesitation, or withdrawal = stop, no retry in the same interaction.",
+          "timeToResolve": "1-3 interactions of zero pressure"
+        },
+        {
+          "type": "Sexual shutdown",
+          "trigger": "Sexual innuendo, pushiness, or premature escalation",
+          "manifestation": "Turned off; topic dies; she disengages",
+          "strategy": "Drop the topic completely for the interaction; return to non-sexual teamwork. Never push past a deflection — any no or cooling = full stop.",
+          "timeToResolve": "Until she reopens it herself (may be never — accept that)"
+        },
+        {
+          "type": "Physical turn-away",
+          "trigger": "Unwanted or premature physical advance",
+          "manifestation": "Turns away, stiffens, steps back, or says no",
+          "strategy": "STOP IMMEDIATELY. Do not follow, persist, or 'convey you won't give up.' No retry in the same interaction; continue only if she clearly reinitiates later.",
+          "timeToResolve": "N/A — respect the boundary as final for that interaction"
+        }
+      ],
+      "maintenance": [
+        {
+          "requirement": "Reciprocate her care with genuine appreciation",
+          "frequency": "Ongoing",
+          "indicator": "She keeps nurturing and giving freely",
+          "failureMode": "Feels taken for granted; withdraws toward her other options"
+        },
+        {
+          "requirement": "Keep doing things together — breadth of shared activity",
+          "frequency": "Weekly",
+          "indicator": "Upbeat, engaged, suggests activities herself",
+          "failureMode": "Tester boredom sets in; coolness returns"
+        },
+        {
+          "requirement": "Let her be the giver; don't flip the spoiling dynamic",
+          "frequency": "Ongoing",
+          "indicator": "She feels fulfilled in her role",
+          "failureMode": "Unsatisfied; feels her role has been taken from her"
+        }
+      ],
+      "expandedContent": {
+        "simpleSummary": "TDR stands for Tester-Denier-Realist, nicknamed 'The Private Dancer.' She presents a mysterious, innocent exterior — often 'one of the guys' with lots of male friends — while inside she's a deeply passionate, nurturing woman who gives her all to a man she deems worthy. Because she attaches extremely hard once her guard drops, she protects herself by testing the waters and staying selective. She's practical, not sentimental: she shows love by cooking, helping, and contributing in concrete ways, and she expects the same appreciation back. She shuts down at sexual pressure or drama — and notably, she wants to spoil HER man, not be spoiled.",
+        "examples": [
+          {
+            "title": "The Pool Hall Team-Up",
+            "scenario": "Instead of buying her a drink, you invite her to join your team for pool against another pair. She breaks, you cheer, she high-fives you. Between games you ask her to grab the bartender's attention while you rack the balls — and she buys the next round.",
+            "whatItShows": "The Us-frame in action: succeeding together beats impressing her. Non-sexual teamwork is her fastest comfort-builder, and trading rounds respects her giving nature."
+          },
+          {
+            "title": "Dinner Before Anything Else",
+            "scenario": "She's cooking at her place and you come up behind her playfully. She shoos you away with a laugh so she can finish dinner — and afterward, she's warm, affectionate, and fully present with you.",
+            "whatItShows": "Her Realist nurturing: care comes in concrete form (a finished dinner), and affection follows giving — on her terms and timeline, never rushed."
+          },
+          {
+            "title": "The Compliment That Landed",
+            "scenario": "You tell her 'I like your style' about her vintage jacket and give her a high-five, instead of commenting on her body. She lights up and the conversation flows easily for the next hour.",
+            "whatItShows": "Non-sexual appreciation opens her; body-focused compliments trigger her Denier walls. Treat the person first, always."
+          }
+        ],
+        "strengths": [
+          "Extraordinary giver — nurtures in concrete, practical ways",
+          "Drama-free and level-headed; easy 'one of the guys' energy",
+          "Independent and career-driven; brings her own full life",
+          "Fiercely loyal and deeply attached once trust is genuinely earned",
+          "Attentive to what actually pleases her partner"
+        ],
+        "challenges": [
+          "Hard to read — cool, aloof exterior masks deep feelings",
+          "Slow to trust; tests extensively before dropping her guard",
+          "Shuts down at sexual pressure, innuendo, or premature escalation",
+          "Frustrates partners who want fast serious commitment",
+          "Low tolerance for being taken for granted — keeps other options"
+        ],
+        "recognitionGuide": "Look for the woman who's mysteriously quiet yet completely at ease around men — the one with lots of guy friends who treat her like a buddy. She dresses without trying to provoke, keeps her emotions level, and expresses care by DOING things: cooking, helping, fixing. She deflects body compliments and sexual jokes, but lights up when appreciated as a teammate. Career-focused, hates drama, and dismisses most female social games as catty.",
+        "identityExplained": "Tester: she evaluates men through real-world interaction before investing, because she knows she attaches extremely hard once she lets go — so she tests the waters first. Denier: she suppresses and compartmentalizes her sensual side, presenting a non-sexual exterior until one special man earns the hidden part. Realist: she experiences and expresses love practically — through actions, contribution, and concrete care — not through romantic fantasy or emotional display."
+      }
+    },
+    {
+      "code": "TJR",
+      "name": "The Seductress",
+      "archetype": "The Diva",
+      "status": "complete",
+      "safetyFlag": "Source 'Sex' section (Pandora's Box pp.153-154) contains explicit consensual-escalation detail; reproduced here only in summarized form. All resistance/strategy entries follow the consent-safety rule: any verbal no, hesitation, freezing, withdrawal, or 'not yet' means stop immediately with no retry in the same interaction.",
+      "identity": [
+        {
+          "parameter": "Type Code",
+          "value": "TJR",
+          "weight": null,
+          "manifestation": "Tester-Justifier-Realist"
+        },
+        {
+          "parameter": "Archetype",
+          "value": "The Diva - strong, sexy, level-headed presence that intimidates most men",
+          "weight": null,
+          "manifestation": "Not dramatic-diva; a commanding, self-possessed woman"
+        },
+        {
+          "parameter": "Primary Defense",
+          "value": "Composure Screening",
+          "weight": 0.9,
+          "manifestation": "Her attitude screens out the weak; only calm, non-needy men pass her tests"
+        },
+        {
+          "parameter": "Core Fear",
+          "value": "Being tied to a weak, needy man",
+          "weight": 0.85,
+          "manifestation": "Spots weakness instantly and leaves permanently; never sees him the same way again"
+        },
+        {
+          "parameter": "Core Desire",
+          "value": "To feel powerful through seduction",
+          "weight": 0.95,
+          "manifestation": "Wants the ongoing experience of seducing; gets high knowing a man is hungry for her because of what she did to excite him"
+        },
+        {
+          "parameter": "Hidden Trait",
+          "value": "Practical nurturer beneath the seductress",
+          "weight": 0.8,
+          "manifestation": "Helps her man in practical Realist ways - professional connections, influence in her field"
+        },
+        {
+          "parameter": "Secondary Defense",
+          "value": "Time scarcity as filter",
+          "weight": 0.75,
+          "manifestation": "Career-focused and too busy for dating games; limited availability screens out the unserious"
+        },
+        {
+          "parameter": "Attachment Style",
+          "value": "Independent, low-demand",
+          "weight": 0.8,
+          "manifestation": "Won't demand much of your time; mutual respect for each other's goals is the foundation"
+        },
+        {
+          "parameter": "Love Language",
+          "value": "Practical acts plus physical giving",
+          "weight": 0.85,
+          "manifestation": "Values career help and connections; needs a lover who ravishes her because she deserves it"
+        }
+      ],
+      "states": [
+        {
+          "name": "SCREENING",
+          "trigger": "Meeting new men / initial contact",
+          "behaviors": [
+            "Observes composure under pressure",
+            "Notes neediness versus calm within minutes",
+            "Withholds warmth from men who fawn like the others"
+          ],
+          "internalProcess": [
+            "Is he fawning like every other guy?",
+            "Can he keep his cool around me?",
+            "Challenge or clown - which is he?"
+          ],
+          "exits": [
+            {
+              "condition": "Calm confidence shown",
+              "target": "SEDUCTION_CHASE"
+            },
+            {
+              "condition": "Neediness or nervousness detected",
+              "target": "PERMANENT_EXIT"
+            }
+          ]
+        },
+        {
+          "name": "SEDUCTION_CHASE",
+          "trigger": "A man passes screening - calm, not groveling",
+          "behaviors": [
+            "Takes the lead when she wants him",
+            "Uses beauty, energy, and skill to turn him on",
+            "Perpetual chase - powerful, not schoolgirl-style"
+          ],
+          "internalProcess": [
+            "I want to conquer him",
+            "Why isn't he making a move?",
+            "I will have to work for this one"
+          ],
+          "exits": [
+            {
+              "condition": "He stays composed and passionate",
+              "target": "POWER_SURGE"
+            },
+            {
+              "condition": "He gets needy or upset about her schedule",
+              "target": "PERMANENT_EXIT"
+            }
+          ]
+        },
+        {
+          "name": "POWER_SURGE",
+          "trigger": "She feels she is successfully seducing him",
+          "behaviors": [
+            "Seeks ego boost through the week",
+            "Needs to feel sexy on an ongoing basis",
+            "Gets high on his hunger for her"
+          ],
+          "internalProcess": [
+            "He wants me because of what I did",
+            "I feel powerful",
+            "I need to feel sexy this week"
+          ],
+          "exits": [
+            {
+              "condition": "Mutual respect for goals maintained",
+              "target": "DEVOTED_BOND"
+            },
+            {
+              "condition": "Weakness spotted",
+              "target": "PERMANENT_EXIT"
+            }
+          ]
+        },
+        {
+          "name": "DEVOTED_BOND",
+          "trigger": "Long-term mutual respect between two goal-driven people",
+          "behaviors": [
+            "Nurtures practically - connections, career help",
+            "Low time demands; independent togetherness",
+            "Wild devotion to the man who earned it"
+          ],
+          "internalProcess": [
+            "He respects my path",
+            "We build separately, together",
+            "He is one of the all-time greats"
+          ],
+          "exits": [
+            {
+              "condition": "Neediness or weakness appears",
+              "target": "PERMANENT_EXIT"
+            }
+          ]
+        },
+        {
+          "name": "PERMANENT_EXIT",
+          "trigger": "Weakness, neediness, or upset about her availability",
+          "behaviors": [
+            "Moves on without looking back",
+            "Never sees him the same way again",
+            "Cannot be won back by any means"
+          ],
+          "internalProcess": [
+            "He showed weakness",
+            "I am done",
+            "Not worth my time"
+          ],
+          "exits": []
+        }
+      ],
+      "communication": [
+        {
+          "channel": "Openers",
+          "optimization": "Confident, casual, non-fawning",
+          "details": "An aggressive approach will not work, but a confident one will. She has seen it all and knows the difference between a macho act and real emotional stability, between cockiness and self-assuredness. Be down to earth and casual - no lines, no smooth talk, no buying drinks. Give a genuine compliment in a way that says you are used to beauty and it is no big deal; she will wonder why you aren't fawning like every other guy.",
+          "examples": [
+            "Lock eyes and say in a nonchalant tone: 'You look nice tonight.' Hold eye contact one extra beat, then look away.",
+            "Skip the pickup lines entirely - talk to her like a normal person and let the contrast do the work.",
+            "Compliment her energy or style specifically, then move on as if it is no big deal.",
+            "Open by asking what she is passionate about - she notices when a man admires intelligence and talent.",
+            "Admit a flaw or share an embarrassing moment early - comfortable self-assuredness beats any macho act."
+          ],
+          "avoid": "Fawning over her, buying drinks to impress, macho posturing, rehearsed smooth-talk lines"
+        },
+        {
+          "channel": "Momentum",
+          "optimization": "Calm contrast plus self-deprecating humor",
+          "details": "She loves to chase and seduce - it is how she gets her power fix - and every other guy is groveling, so simply not doing that makes you the challenge she wants to conquer. She interprets a man's dominance by how comfortable he is making fun of himself. Talk openly about goals, failures, interests, and silly childhood memories. At key moments, pull your attention away instead of making a move: look away, relax your body, let the tension build.",
+          "examples": [
+            "Tell your most recent embarrassing moment before she asks - own it and laugh at yourself.",
+            "Talk openly about your goals and the failures that made you human.",
+            "When the average guy would try something smooth, look away and relax instead - let her wonder.",
+            "Ask about her passions and her own embarrassing stories; keep it human, never performative.",
+            "Tease yourself first and her lightly second - dominance through ease, not dominance through force."
+          ],
+          "avoid": "Groveling for attention, smooth-talk moves, trying to impress, performing instead of conversing"
+        },
+        {
+          "channel": "Connection",
+          "optimization": "Passionate, unembarrassed, giving",
+          "details": "The absolute best topic with the Seductress is sex - and this is where you show your true colors. Keep your cool: discuss it the way you would your favorite sports team, with enthusiasm and zero giggling. Laugh at yourself (boasting reads as overcompensation, which implies insecurity about what you offer). She needs to know you are passionate, not just horny - that once she turns you on you will be an animal - and that you are a giver who will ravish her because she is sexy and deserves it.",
+          "examples": [
+            "Discuss physical passion the way you would a favorite sports team - enthusiastic, unembarrassed, no giggling.",
+            "Talk about what you love giving a lover - frame it as passion for her pleasure, not a performance resume.",
+            "Laugh at yourself about the bedroom - security implies confidence in what you can offer her.",
+            "Describe desire with real feeling but give no indication you plan it with her tonight - let her want to earn it.",
+            "Ask what specifically drives her crazy - explore her responses and adapt, never bring a list of moves."
+          ],
+          "avoid": "Boasting about the bedroom, cockiness, giggly over-excitement, rehearsed lists of moves"
+        },
+        {
+          "channel": "Deep Talk",
+          "optimization": "Goals, respect, practical partnership",
+          "details": "She is career-focused and time-poor; most of the relationship is about sex because she has no time for much else. Depth for her is not emotional marathons - it is mutual respect for each other's goals. She nurtures in a Realist way: professional connections, practical help, influence in her field. Meet her there: talk ambitions, trade practical support, and let her help you too.",
+          "examples": [
+            "Ask what she is building right now - and actually listen to the answer.",
+            "Share your own path and goals; she respects a man on his own mission.",
+            "Offer something practical - an introduction, a skill, a connection. That is her love language.",
+            "Let her help you in practical ways - accepting her Realist nurturing strengthens the bond.",
+            "Keep it efficient: depth through shared ambition, not hours of feelings-talk."
+          ],
+          "avoid": "Emotional neediness, demanding lots of her time, coddling-egos talk, guilt about her priorities"
+        },
+        {
+          "channel": "Sexual Talk",
+          "optimization": "Mysterious tension, light teasing touch - always mutual",
+          "details": "One word: mysterious. Hold eye contact one beat past polite, then look away with a calm, slightly mischievous look - as if you know something no one else does. Find the mid-zone between up-close-personal and distant-uninterested; that is where the electricity happens. Keep touch light and teasing: a graze of the hand, a brief press in a crowd, breath felt on her neck. Never leer, never linger - and any hesitation, cooling, or withdrawal from her means stop immediately with zero awkwardness and no retry that interaction.",
+          "examples": [
+            "Hold her gaze one beat longer than polite, then look away with a slight secret smile.",
+            "Let her catch you glancing at her lips or neckline - appreciative, never leering, never lingering.",
+            "Graze her hand in passing; keep every touch brief, light, and incidental.",
+            "Stand close enough that she feels your presence - then let her close the final inch herself.",
+            "If she leans in, match her energy; if she cools, steps back, or changes the subject, give space cheerfully - no pressure, ever."
+          ],
+          "avoid": "Leering or getting caught staring, lingering touch, pressuring, ignoring any cool-down signal"
+        },
+        {
+          "channel": "Future Talk",
+          "optimization": "No pressure; long-term arrives through independence",
+          "details": "She probably is not looking for anything serious and thinks dating is silly. Pushing labels or 'where is this going' talks kills it. Ironically, the route to a serious relationship with her is being a guy on his own path with career and life goals while respecting hers - mutual respect for each other's goals is the foundation. She may want a family someday, but on her timeline, after her career. Let the future arrive; never negotiate it.",
+          "examples": [
+            "Talk about where you are headed - let her picture herself alongside, unforced.",
+            "Respect her timeline openly: career first, family maybe later, never rushed.",
+            "'I like that we are both building something' - partnership framing, not labels.",
+            "Make plans around shared ambitions and experiences, not relationship milestones.",
+            "If she brings up the future herself, match her calmly - do not oversell it."
+          ],
+          "avoid": "Label pressure, 'where is this going' talks, demanding exclusivity early, guilt about her independence"
+        },
+        {
+          "channel": "Conflict Style",
+          "optimization": "Never show upset over her schedule; keep cool or lose her",
+          "details": "Her conflict trigger is neediness. Get upset when she is too busy to see you, or appear nervous talking with her, and she moves on - she is not the kind of woman you can win back. Once she spots weakness she is gone and will never see you the same way again. This does not mean she is cold-hearted; it means composure is the entire game. Address issues once, calmly, with no emotional scenes.",
+          "examples": [
+            "She cancels: 'No worries - catch you when you are free.' Mean it, and stay on your own path.",
+            "Never guilt-trip her about being busy; her time scarcity is non-negotiable.",
+            "If something bothers you, say it once, calmly and briefly - no emotional scenes, ever.",
+            "Keep a full life outside her; a man on his own mission is the opposite of needy.",
+            "If she goes cold after a slip, do not chase - chasing confirms the weakness she spotted."
+          ],
+          "avoid": "Getting upset about her schedule, emotional scenes, guilt-tripping, chasing after she has decided"
+        }
+      ],
+      "escalationLadder": [
+        {
+          "level": 0,
+          "name": "CASUAL CONTACT",
+          "behaviors": "Down-to-earth approach; one genuine low-key compliment; no lines, no smooth talk, no buying drinks",
+          "timing": "Opening minutes",
+          "resistance": "Polite disinterest if you fawn like the others - recalibrate to calm, not louder"
+        },
+        {
+          "level": 1,
+          "name": "COMPOSED BANTER",
+          "behaviors": "Self-deprecating humor; open talk of goals, failures, embarrassing moments; pull attention away at key moments instead of making moves",
+          "timing": "First conversation",
+          "resistance": "She tests composure constantly; any neediness shown here ends the interaction"
+        },
+        {
+          "level": 2,
+          "name": "PASSIONATE EXCHANGE",
+          "behaviors": "Enthusiastic sex talk delivered like sports-team chat; demonstrate giver mentality; explore what drives her crazy and adapt",
+          "timing": "When mutual interest is clear",
+          "resistance": "Any cooling, deflection, or withdrawal - stop immediately, no retry that interaction"
+        },
+        {
+          "level": 3,
+          "name": "TENSION BUILDING",
+          "behaviors": "Mysterious extended eye contact; mid-zone proximity; light teasing touch only - graze, brief press, never linger",
+          "timing": "When chemistry is mutual and sustained",
+          "resistance": "Any hesitation, stepping back, or subject change - stop immediately with zero awkwardness"
+        },
+        {
+          "level": 4,
+          "name": "PHYSICAL INTIMACY",
+          "behaviors": "Only with clear, enthusiastic mutual consent; slow, attentive, responsive to her signals throughout",
+          "timing": "Private, mutually chosen moment",
+          "resistance": "Any verbal no, hesitation, freezing, or withdrawal means full stop immediately - no retry in the same interaction, ever"
+        }
+      ],
+      "triggers": [
+        {
+          "trigger": "Neediness about her time or availability",
+          "response": "Permanent exit - moves on, never sees him the same way again",
+          "intensity": 1.0,
+          "recovery": "None - she cannot be won back",
+          "resolution": "Never show upset about her schedule; 'no worries' and mean it"
+        },
+        {
+          "trigger": "Fawning or groveling like other admirers",
+          "response": "Boredom and dismissal - he becomes one of the clowns",
+          "intensity": 0.7,
+          "recovery": "Be the calm contrast",
+          "resolution": "Talk to her like a normal person; no lines, no drink-buying"
+        },
+        {
+          "trigger": "Macho posturing or cockiness",
+          "response": "Sees through it instantly as insecurity",
+          "intensity": 0.8,
+          "recovery": "Admit flaws comfortably",
+          "resolution": "Self-assuredness over insecurity - comfortable with flaws is sexier"
+        },
+        {
+          "trigger": "Bedroom boasting or performance resume",
+          "response": "Reads as overcompensation",
+          "intensity": 0.75,
+          "recovery": "Laugh at yourself",
+          "resolution": "Explore her responses; never bring a list of moves"
+        },
+        {
+          "trigger": "Feeling powerfully seductive",
+          "response": "Chase intensifies - she pursues harder",
+          "intensity": 0.9,
+          "recovery": "N/A - positive state",
+          "resolution": "Let her feel she is the one seducing you"
+        },
+        {
+          "trigger": "Disrespect for her time or goals",
+          "response": "Withdrawal and deprioritization",
+          "intensity": 0.85,
+          "recovery": "Difficult - respect must be re-earned",
+          "resolution": "Mutual respect for ambitions is the foundation"
+        },
+        {
+          "trigger": "A calm, passionate, giving man",
+          "response": "Wild devotion - 'one of the all-time greats'",
+          "intensity": 0.95,
+          "recovery": "N/A - positive state",
+          "resolution": "Keep cool, stay giving, remain on your own path"
+        }
+      ],
+      "maintenance": [
+        {
+          "requirement": "Ongoing seduction dynamic",
+          "frequency": "Weekly",
+          "indicator": "She initiates the chase; seeks ego boosts and feels sexy",
+          "failureMode": "She seeks the power fix elsewhere"
+        },
+        {
+          "requirement": "Composure under all circumstances",
+          "frequency": "Always",
+          "indicator": "Calm when she is busy, testing, or distant",
+          "failureMode": "A single needy episode means permanent exit"
+        },
+        {
+          "requirement": "Sexual generosity",
+          "frequency": "Every encounter",
+          "indicator": "She feels ravished because she deserves it, not serviced",
+          "failureMode": "Selfishness kills the wild woman"
+        },
+        {
+          "requirement": "Mutual goal respect",
+          "frequency": "Ongoing",
+          "indicator": "Both partners on their own paths",
+          "failureMode": "Time demands breed resentment"
+        },
+        {
+          "requirement": "Novelty in seduction",
+          "frequency": "Ongoing",
+          "indicator": "She still feels she is conquering you",
+          "failureMode": "Predictability bores her into wandering"
+        }
+      ],
+      "expandedContent": {
+        "simpleSummary": "The Seductress (TJR) is a confident, sexual, independent woman - a level-headed Diva whose strong, sexy presence intimidates most men. She is a Tester (she screens men by whether they keep their cool - her attitude filters out the weak), a Justifier (she owns her sexuality on her own terms: a Seductress sleeps with men because she enjoys it, she is not used), and a Realist (career-focused, independent, pays her own bills, and nurtures through practical help rather than sentiment). She has no time for dating games and thinks dating is silly; she wants a calm friend-homeboy who respects her time, admires her intelligence and talent, and satisfies her in bed. Keep your cool and be giving, and she will be wild - one of the all-time greats. Show neediness or weakness once, and she is gone forever; she cannot be won back.",
+        "examples": [
+          {
+            "title": "The Bar Approach",
+            "scenario": "A beautiful, commanding woman is surrounded by men buying her drinks and reciting rehearsed lines. One man locks eyes with her, says casually 'you look nice tonight,' holds the gaze one beat longer than polite, then looks away and rejoins his friends. She spends the rest of the night wondering who he is.",
+            "whatItShows": "Calm contrast beats groveling every time - her screening rewards the man who does not fawn."
+          },
+          {
+            "title": "The Busy Week",
+            "scenario": "She cancels twice in a row because of work. Instead of getting upset, he replies 'no worries - catch you when you are free' and stays focused on his own goals. The following week she texts him first, more eager than before.",
+            "whatItShows": "Neediness about her schedule is fatal; composure under her time scarcity is the entire game."
+          },
+          {
+            "title": "The Seduction Reversal",
+            "scenario": "Over dinner he discusses physical passion the way he would a favorite sports team - enthusiastic, unembarrassed, with zero indication he plans anything with her that night. She spends the evening trying to make him want her.",
+            "whatItShows": "Passion without pursuit lets her feel powerful doing the seducing - which is what she craves."
+          }
+        ],
+        "strengths": [
+          "Unshakeable sexual confidence - no fear of appearing easy",
+          "Level-headed independence - strong and sexy without drama",
+          "Practical nurturing (Realist) - career help, connections, influence",
+          "Deep loyalty to the man who passes her tests",
+          "Low time demands - will not cling or demand constant attention"
+        ],
+        "challenges": [
+          "Zero tolerance for neediness - a single slip means permanent exit",
+          "Cannot be won back once weakness is spotted",
+          "Time-poor - dating always competes with her career focus",
+          "Her tests can feel like coldness to men who do not understand them"
+        ],
+        "recognitionGuide": "A strong, sexy presence that intimidates most men; surrounded by admirers she finds boring; takes the lead without hesitation when she wants a man; discusses sex and ambitions with equal ease; helps practically (introductions, career support) rather than sentimentally; vanishes permanently at the first sign of clinginess.",
+        "identityExplained": "Tester: she screens men by composure - her attitude filters out the weak, and only calm, non-needy men pass. Justifier: she frames her sexuality on her own terms - a Seductress sleeps with men because she enjoys it; a slut gets used, a Seductress never is. Realist: she is career-focused and independent, pays her own bills, may not want to stay home even after kids, and expresses care through practical help rather than romance."
+      },
+      "emotionalSequence": [
+        {
+          "order": 1,
+          "emotion": "Devotion",
+          "condition": "Swagger, confidence, sharp witty banter; let go of needing approval",
+          "threshold": 0.7,
+          "manifestation": "She notices you; intrigue at your composure"
+        },
+        {
+          "order": 2,
+          "emotion": "Comfort",
+          "condition": "Confident-but-humble contrast; do not grovel; pull attention away at key moments",
+          "threshold": 0.75,
+          "manifestation": "She begins to chase; wants to conquer you"
+        },
+        {
+          "order": 3,
+          "emotion": "Intrigue",
+          "condition": "Talk openly about sex with calm frankness; passionate not horny",
+          "threshold": 0.8,
+          "manifestation": "She wants to be on the receiving end of your passion"
+        },
+        {
+          "order": 4,
+          "emotion": "Arousal",
+          "condition": "Keep her aroused; perpetual chase; never chase her",
+          "threshold": 0.85,
+          "manifestation": "Wild devotion; the relationship bond is sustained"
+        }
+      ],
+      "resistance": [
+        {
+          "type": "Weakness Detection",
+          "trigger": "Appearing nervous, needy, or insecure around her",
+          "manifestation": "She moves on; once she spots weakness she never sees you the same way again",
+          "strategy": "Keep your cool at all times; self-assuredness over macho posturing",
+          "timeToResolve": "Permanent — she cannot be won back"
+        },
+        {
+          "type": "Schedule Pressure",
+          "trigger": "Getting upset when she is too busy to see you",
+          "manifestation": "She moves on without a second thought",
+          "strategy": "Respect her time; never guilt her about her schedule",
+          "timeToResolve": "Permanent if repeated"
+        },
+        {
+          "type": "Macho Posturing",
+          "trigger": "Acting macho or hiding flaws",
+          "manifestation": "She spots the insecurity a mile away; attraction drops",
+          "strategy": "Admit flaws comfortably; approach her as a new experience",
+          "timeToResolve": "1-2 interactions of genuine composure"
+        },
+        {
+          "type": "Groveling",
+          "trigger": "Groveling to get in her pants like most men",
+          "manifestation": "She loses interest; her power fix comes from conquering, not being chased",
+          "strategy": "Relax; talk to her like a good friend; let her seduce you",
+          "timeToResolve": "Ongoing dynamic"
+        }
+      ]
+    },
+    {
+      "code": "NDR",
+      "name": "The Connoisseur",
+      "archetype": "The Giver",
+      "status": "complete",
+      "identity": [
+        {
+          "parameter": "Type Code",
+          "value": "NDR",
+          "weight": null,
+          "manifestation": "iNvestor-Denier-Realist"
+        },
+        {
+          "parameter": "Archetype",
+          "value": "The Giver — sees her time as a gift she can't give to just anyone",
+          "weight": null,
+          "manifestation": "—"
+        },
+        {
+          "parameter": "Primary Defense",
+          "value": "Picky Selectivity",
+          "weight": 0.9,
+          "manifestation": "Extremely picky; practical and cautious approach to dating; screens hard for player signals"
+        },
+        {
+          "parameter": "Core Fear",
+          "value": "Devaluation After Intimacy",
+          "weight": 0.9,
+          "manifestation": "Fears sleeping too fast devalues her in his eyes; fears appearing cheap and easy; most likely type to cry after sex"
+        },
+        {
+          "parameter": "Core Desire",
+          "value": "To Be Needed and Appreciated",
+          "weight": 0.95,
+          "manifestation": "Needs a man she can help, nurture, even save; lives for 'You are so good to me' and 'I miss you'"
+        },
+        {
+          "parameter": "Hidden Trait",
+          "value": "Earn-It Sexuality",
+          "weight": 0.85,
+          "manifestation": "Susceptible to seeing sex as a reward for her non-sexual effort; she seduces herself"
+        },
+        {
+          "parameter": "Secondary Defense",
+          "value": "Realist Self-Regulation",
+          "weight": 0.8,
+          "manifestation": "Understands clinginess pushes men away; keeps attachment within reasonable control"
+        }
+      ],
+      "states": [
+        {
+          "name": "SELECTIVE_EVALUATOR",
+          "trigger": "Initial encounter / early dating",
+          "behaviors": [
+            "Extremely picky screening of the man",
+            "Practical, cautious approach — no rushing",
+            "Watches for player signals and cynical about sexual intentions",
+            "Assesses long-term potential, not just chemistry"
+          ],
+          "internalProcess": [
+            "\"Is he interested in me as a person, or just for sex?\"",
+            "\"Will he still be here after we sleep together?\"",
+            "\"Is he worth my investment?\""
+          ],
+          "exits": [
+            {
+              "condition": "Feels specifically chosen and safe",
+              "target": "NURTURING_INVESTOR"
+            },
+            {
+              "condition": "Senses player intent",
+              "target": "WITHDRAWN"
+            }
+          ]
+        },
+        {
+          "name": "NURTURING_INVESTOR",
+          "trigger": "Feels needed and appreciated",
+          "behaviors": [
+            "Cooks, helps, nurtures — practical care rituals",
+            "Contributes emotionally and materially to the relationship",
+            "Invests time she cannot take back",
+            "Initiates thoughtful gestures (back rubs, favorite meals)"
+          ],
+          "internalProcess": [
+            "\"He needs me\"",
+            "\"I can help him\"",
+            "\"Does he appreciate me?\""
+          ],
+          "exits": [
+            {
+              "condition": "Appreciation stops",
+              "target": "QUIETLY_HURT"
+            },
+            {
+              "condition": "Devotion deepens safely",
+              "target": "DEVOTED_PARTNER"
+            }
+          ]
+        },
+        {
+          "name": "QUIETLY_HURT",
+          "trigger": "Effort not reciprocated (e.g., no call the next day)",
+          "behaviors": [
+            "Will not speak up about being upset",
+            "Tells herself he will choose her one day",
+            "Slight withdrawal, still polite"
+          ],
+          "internalProcess": [
+            "\"It hurts, but I won't say it\"",
+            "\"Maybe one day he'll choose only me\""
+          ],
+          "exits": [
+            {
+              "condition": "Reassurance and appreciation return",
+              "target": "NURTURING_INVESTOR"
+            },
+            {
+              "condition": "Pattern of neglect continues",
+              "target": "WITHDRAWN"
+            }
+          ]
+        },
+        {
+          "name": "DEVOTED_PARTNER",
+          "trigger": "Sustained appreciation plus intimacy",
+          "behaviors": [
+            "Devoted, caring, makes real contributions to his life",
+            "Sexual confidence grows; begins to initiate",
+            "Wants to please; thrives on coaching and guidance"
+          ],
+          "internalProcess": [
+            "\"I am his\"",
+            "\"He values me\""
+          ],
+          "exits": [
+            {
+              "condition": "Feels devalued or taken for granted",
+              "target": "QUIETLY_HURT"
+            }
+          ]
+        }
+      ],
+      "communication": [
+        {
+          "channel": "Openers",
+          "optimization": "Direct, sincere, specific — never generic or overly sexual",
+          "details": "A direct, sincere compliment is the best way in. She wants to know you are focused on her and picked her specifically. Get specific — something she is wearing, something she clearly put thought into. If you open too sexual, she will read you as a player (Deniers are cynical about men's sexual intentions). After the opener, move quickly to less romantic conversation before sexual tension makes her uncomfortable.",
+          "examples": [
+            "\"I couldn't take my eyes off you the moment I noticed you.\"",
+            "\"That jacket — you clearly put thought into tonight. I respect that.\"",
+            "\"I don't usually do this, but you stood out. I'm [name].\"",
+            "\"You have this calm, put-together energy. I like that.\"",
+            "\"I saw you from across the cafe and thought: I need to know her story.\""
+          ],
+          "avoid": "Overly sexual openers, generic compliments, player-style lines"
+        },
+        {
+          "channel": "Momentum",
+          "optimization": "Goals, passions, mutual knowing",
+          "details": "She has goals and is proud she can support herself or is studying for a career she cares about. Ask about this and share your own passions. Work and school talk is not boring to a Realist, as long as you focus on how she thinks and share how you think. An iNvestor wants to get to know you and be known — that is how she decides if there is a future.",
+          "examples": [
+            "\"What are you working toward right now? You seem like someone with a plan.\"",
+            "\"What do you do that you're genuinely proud of?\"",
+            "\"Teach me something you know a lot about — I like learning from people who care about their craft.\"",
+            "\"I read something about [topic] that I think you'd actually use. What's your take?\"",
+            "\"What's something you're passionate about that most people don't get?\""
+          ],
+          "avoid": "Empty small talk, bragging, avoiding real topics"
+        },
+        {
+          "channel": "Connection",
+          "optimization": "Do things together; contribute to each other's lives",
+          "details": "Do something physical together where you are on the same team or share a mutual goal — physical without being too sexual (Denier), and it signals long-term potential because you make a good team (iNvestor). Concrete activities fit her Realist worldview. Another strong connector: talk about how you can contribute to each other's lives — share what you learn, have her teach you her expertise. It may feel platonic at first; be patient.",
+          "examples": [
+            "\"Let's cook together this weekend — I'll bring dessert, you bring the skills.\"",
+            "\"Want to try that [hiking trail / market / class] with me on Saturday?\"",
+            "\"You're good at [her skill] — can you teach me sometime?\"",
+            "\"We make a good team. We should do more of this.\"",
+            "\"I learned something about [topic] today and immediately thought of you.\""
+          ],
+          "avoid": "Purely abstract fantasy dates, rushing physical escalation in public"
+        },
+        {
+          "channel": "Deep Talk",
+          "optimization": "Earnest, appreciative, needs-focused",
+          "details": "Her deepest need is to feel needed and appreciated. When she opens up about caring for you, meet it with genuine words — not grand gestures. The phrases that land hardest: 'You are so good to me,' 'I miss you,' 'You are the most caring woman I've ever met.' Never make her feel her nurturing is invisible.",
+          "examples": [
+            "\"You are so good to me. I don't say that lightly.\"",
+            "\"I missed your energy this weekend.\"",
+            "\"You're the most caring woman I've ever met — and I mean that.\"",
+            "\"I notice everything you do. Don't think I don't.\"",
+            "\"Thank you for taking care of me. It means more than you know.\""
+          ],
+          "avoid": "Taking her care for granted, going silent after she gives"
+        },
+        {
+          "channel": "Sexual Talk",
+          "optimization": "Slow, affirming, responsive — enthusiasm is the only green light",
+          "details": "At first, keep it slow, tender, and connected — affirm her sexual identity and give her room to please you (she is more comfortable giving). Guide and coach responsively; nothing kinky at first. Gradual exploration is only ever okay with clear, enthusiastic mutual comfort. Any verbal no, hesitation, freezing, withdrawal, or 'not yet' means stop immediately — no retry in the same interaction.",
+          "examples": [
+            "\"You look beautiful right now. I mean that.\"",
+            "\"Tell me what feels good — I want to get this right for you.\"",
+            "\"I love how you touch me. Show me more.\"",
+            "\"Slow down... I want to savor this with you.\"",
+            "\"You're amazing at that. Don't stop.\""
+          ],
+          "avoid": "Rushing, early kinky pressure, ignoring hesitation — any no, pause, or withdrawal means stop immediately"
+        },
+        {
+          "channel": "Future Talk",
+          "optimization": "Long-term potential, framed practically — no empty labels",
+          "details": "She looks for long-term potential: a man interested in her as a person, not just for sex — someone who will be part of her life after intimacy. As a Realist, labels and obligations don't motivate her; genuine appreciation and being thought of do. Show continuity through actions and words, not titles.",
+          "examples": [
+            "\"I can see us doing this for a long time. I like that.\"",
+            "\"You're someone I want in my life, not just tonight.\"",
+            "\"I don't need labels — I just need you to know I'm not going anywhere.\"",
+            "\"A year from now, still doing [shared thing] together. I like that picture.\"",
+            "\"You're part of my routine now. The best part.\""
+          ],
+          "avoid": "Player signals, implying she is temporary, empty commitment promises"
+        },
+        {
+          "channel": "Conflict Style",
+          "optimization": "Reassure, appreciate, never exploit her silence",
+          "details": "When hurt, she will not speak up — she goes quiet and tells herself it will be fine one day. Do not take advantage of her flexibility. Reassure her without being asked: show you are thinking of her, appreciate her out loud, and never disappear after intimacy. Calling her your girlfriend is not a substitute for daily proof you care.",
+          "examples": [
+            "\"Hey — I've been thinking about you today.\"",
+            "\"I know I was quiet yesterday. You matter to me.\"",
+            "\"If something's wrong, you can tell me. I won't run.\"",
+            "\"Thank you for last night. I don't take it for granted.\"",
+            "\"You're important to me. I need you to know that.\""
+          ],
+          "avoid": "Exploiting her silence, taking her for granted, disappearing after intimacy"
+        }
+      ],
+      "escalationLadder": [
+        {
+          "level": 0,
+          "name": "CONVERSATION",
+          "behaviors": "Direct sincere compliment, then easy non-romantic talk; strong eye contact, relaxed unassuming body language, no pressure",
+          "timing": "First meeting",
+          "resistance": "Cynicism about intentions; screens for player signals"
+        },
+        {
+          "level": 1,
+          "name": "SHARED_ACTIVITY",
+          "behaviors": "Do something physical together as a team; light situational touch only (lint off shirt, coat, hand to move areas); never linger, never look at your hand",
+          "timing": "First few dates",
+          "resistance": "Pulls back if touch lingers or feels sneaky"
+        },
+        {
+          "level": 2,
+          "name": "PRIVATE_TENDERNESS",
+          "behaviors": "Alone together; slow, tender connection; eye contact; affirming words; let her initiate",
+          "timing": "When trust is established",
+          "resistance": "Emotional overwhelm — she needs to feel safe and empowered, not rushed"
+        },
+        {
+          "level": 3,
+          "name": "INTIMACY",
+          "behaviors": "Slow, connected, responsive; coach and guide with appreciation; gradual exploration only with clear enthusiasm",
+          "timing": "When she feels safe and empowered",
+          "resistance": "Any hesitation, no, freezing, or withdrawal — stop immediately, no retry that interaction"
+        }
+      ],
+      "triggers": [
+        {
+          "trigger": "Feeling needed ('I need you', 'I miss your energy')",
+          "response": "Moves toward him; nurtures and invests",
+          "intensity": 0.95,
+          "recovery": "N/A",
+          "resolution": "Sustained nurturing cycle"
+        },
+        {
+          "trigger": "Specific appreciation ('You are so good to me')",
+          "response": "Emotional opening; increased investment",
+          "intensity": 0.9,
+          "recovery": "N/A",
+          "resolution": "Deepens devotion"
+        },
+        {
+          "trigger": "Player signals (overly sexual opener)",
+          "response": "Cynical shutdown; rules him out",
+          "intensity": 0.85,
+          "recovery": "Very slow",
+          "resolution": "Rarely recovers — authenticity required"
+        },
+        {
+          "trigger": "Effort not reciprocated (no call after she gives)",
+          "response": "Quiet hurt; will not speak up",
+          "intensity": 0.8,
+          "recovery": "Reassurance and appreciation",
+          "resolution": "Returns when she feels thought of"
+        },
+        {
+          "trigger": "Lingering or sneaky touch",
+          "response": "Trust drops; sees him as trying to sneak a touch",
+          "intensity": 0.7,
+          "recovery": "Respectful distance",
+          "resolution": "Rebuild through sincerity"
+        }
+      ],
+      "emotionalSequence": [
+        {
+          "order": 1,
+          "emotion": "Evaluation",
+          "condition": "New man appears",
+          "threshold": 0.6,
+          "manifestation": "Picky screening; watches for player signals"
+        },
+        {
+          "order": 2,
+          "emotion": "Cautious interest",
+          "condition": "Feels specifically chosen; approach is sincere",
+          "threshold": 0.7,
+          "manifestation": "Opens conversation; shares goals and passions"
+        },
+        {
+          "order": 3,
+          "emotion": "Nurturing drive",
+          "condition": "Feels needed",
+          "threshold": 0.8,
+          "manifestation": "Cooks, helps, invests practically and emotionally"
+        },
+        {
+          "order": 4,
+          "emotion": "Attachment",
+          "condition": "Intimacy plus sustained appreciation",
+          "threshold": 0.85,
+          "manifestation": "Devotion; wants to please; self-regulates clinginess"
+        },
+        {
+          "order": 5,
+          "emotion": "Quiet hurt",
+          "condition": "Effort goes unreciprocated",
+          "threshold": 0.75,
+          "manifestation": "Silent withdrawal; tells herself he will choose her one day"
+        }
+      ],
+      "resistance": [
+        {
+          "type": "Devaluation fear",
+          "trigger": "Intimacy framed as something taken from her",
+          "manifestation": "Crying after sex; feeling cheap and powerless",
+          "strategy": "Frame intimacy as given because she earned it; build her sexual confidence; any no/hesitation/withdrawal = stop immediately, no retry same interaction",
+          "timeToResolve": "Ongoing reassurance"
+        },
+        {
+          "type": "Player cynicism",
+          "trigger": "Overly sexual approach",
+          "manifestation": "Cold shutdown; ruled out",
+          "strategy": "Be direct and sincere; drop any persona",
+          "timeToResolve": "May not resolve"
+        },
+        {
+          "type": "Sneak-touch alarm",
+          "trigger": "Lingering touch or looking at hand while touching",
+          "manifestation": "Trust drop",
+          "strategy": "Keep touch light, situational, and practical",
+          "timeToResolve": "1-2 interactions"
+        },
+        {
+          "type": "Sexual overwhelm",
+          "trigger": "Too fast or too kinky too early",
+          "manifestation": "Freezing, withdrawal, tears",
+          "strategy": "Slow down immediately; stop at any hesitation; never push past a no",
+          "timeToResolve": "Only with rebuilt safety"
+        }
+      ],
+      "maintenance": [
+        {
+          "requirement": "Verbal appreciation",
+          "frequency": "Daily",
+          "indicator": "She keeps nurturing joyfully",
+          "failureMode": "Quiet hurt; silent withdrawal"
+        },
+        {
+          "requirement": "Feeling thought-of (calls, texts)",
+          "frequency": "Daily",
+          "indicator": "Secure; no clinginess spiral",
+          "failureMode": "Anxiety; self-soothing stories about the future"
+        },
+        {
+          "requirement": "Not taken for granted",
+          "frequency": "Ongoing",
+          "indicator": "Generous and warm",
+          "failureMode": "Resentment builds silently"
+        },
+        {
+          "requirement": "Sexual confidence building",
+          "frequency": "Ongoing",
+          "indicator": "Initiates; feels empowered",
+          "failureMode": "Feels like a victim; withdraws"
+        }
+      ],
+      "expandedContent": {
+        "simpleSummary": "NDR stands for iNvestor-Denier-Realist, and she is called The Connoisseur because she is extremely picky about who earns her time — and once someone does, she invests completely. She is a nurturer who needs to feel needed and appreciated; to her, sex is sacred and emotional, a reward she gives herself through her own effort rather than something to be taken. Practical, capable, often career-driven and financially independent, she balances deep emotional investment with a realistic understanding that clinginess pushes men away — so she self-regulates, stays silent when hurt, and hopes her devotion will be recognized.",
+        "examples": [
+          {
+            "title": "The Home-Cooked Reward",
+            "scenario": "She cooks you a great meal. You clean your plate, tell her how good the food was, and kiss her neck. Intimacy follows — your closeness is her reward for being a good woman.",
+            "whatItShows": "Her earn-it dynamic: non-sexual effort converted into emotional and physical reward."
+          },
+          {
+            "title": "The 'I Need You' Call",
+            "scenario": "You call from a business trip and say you had a long weekend and need her energy. She sits behind you, rubs your back, and intimacy follows naturally. She earned it.",
+            "whatItShows": "The phrase 'need her' motivates her more than any seduction technique ever could."
+          },
+          {
+            "title": "The Quiet Evening After",
+            "scenario": "She spends the whole evening making you feel good. You don't call the next day. She is hurt but says nothing, telling herself that one day you will choose only her.",
+            "whatItShows": "Her silent vulnerability: she will not confront, but unreciprocated effort wounds her deeply."
+          }
+        ],
+        "strengths": [
+          "Deeply devoted and caring partner",
+          "Capable and competent in practical life",
+          "Financially independent — doesn't need rescuing",
+          "Generous nurturer who invests fully once she chooses",
+          "Realistic about relationships; self-regulates clinginess"
+        ],
+        "challenges": [
+          "Gets very attached once intimate",
+          "Will not speak up when hurt — suffers silently",
+          "Vulnerable to being taken advantage of",
+          "High emotional stakes around intimacy; may cry after sex",
+          "Picky selectiveness can read as coldness early on"
+        ],
+        "recognitionGuide": "Look for the woman who is quietly competent — good at her job, good in the kitchen, warm but selective. She watches for player signals early, opens up through practical care (cooking, helping, back rubs), and lights up most at the words 'I need you' and 'you are so good to me.' She is laid-back, not a party girl, possibly artistic, and may feel like a bit of an outsider.",
+        "identityExplained": "iNvestor means she dives in and contributes heavily — emotionally, practically, and physically — once she chooses someone (unlike a Tester, who holds back). Denier means sex is sacred to her and carries emotional weight, unlike a Justifier, for whom sex is fun. Realist means she sees relationships pragmatically: labels and obligations don't motivate her, casual is fine, but she must feel genuinely appreciated and thought-of every day — or she quietly withdraws."
+      }
+    },
+    {
+      "code": "NJR",
+      "name": "The Modern Woman",
+      "archetype": "The Cool Chick",
+      "status": "complete",
+      "identity": [
+        {
+          "parameter": "Type Code",
+          "value": "NJR",
+          "weight": null,
+          "manifestation": "iNvestor-Justifier-Realist"
+        },
+        {
+          "parameter": "Archetype",
+          "value": "The Cool Chick",
+          "weight": null,
+          "manifestation": "Independent, level-headed, sexually confident woman"
+        },
+        {
+          "parameter": "Primary Strength",
+          "value": "Healthy Real-World Approach",
+          "weight": 0.9,
+          "manifestation": "Takes dating with a grain of salt; rational, not cynical; enjoys men without over-seriousness"
+        },
+        {
+          "parameter": "Core Fear",
+          "value": "Being Used or Disrespected",
+          "weight": 0.9,
+          "manifestation": "Low tolerance for selfishness; not cool with being used; dishonesty kills attraction"
+        },
+        {
+          "parameter": "Core Desire",
+          "value": "A Good Man Going Somewhere",
+          "weight": 0.85,
+          "manifestation": "Wants a man with goals, a strong sex drive, who likes her as a person first and foremost"
+        },
+        {
+          "parameter": "Hidden Trait",
+          "value": "Wants to Be Cherished",
+          "weight": 0.85,
+          "manifestation": "Confident and independent, but needs to feel safe and cherished in a man's presence"
+        },
+        {
+          "parameter": "Secondary Trait",
+          "value": "Sexual Openness",
+          "weight": 0.8,
+          "manifestation": "Comfortable with casual fun; no qualms about moving quickly when chemistry is there"
+        },
+        {
+          "parameter": "Turn-offs",
+          "value": "Selfishness, Aimlessness, Neediness",
+          "weight": 0.9,
+          "manifestation": "Won't babysit grown-ups; has goals, a job or degree, and no time for clinginess"
+        },
+        {
+          "parameter": "Long-term Hope",
+          "value": "The Right Guy Eventually",
+          "weight": 0.7,
+          "manifestation": "Hopes for a long-term relationship someday; may think about it more near or past 30, but feels good about herself regardless"
+        }
+      ],
+      "states": [
+        {
+          "name": "CASUAL_FUN",
+          "trigger": "Single, attracted, no commitment pressure",
+          "behaviors": [
+            "Puts herself out there",
+            "Dresses sexy, goes out with friends",
+            "Keeps one or two 'friends' she sleeps with regularly"
+          ],
+          "internalProcess": [
+            "Evaluates chemistry without pressure",
+            "Enjoys herself without overthinking"
+          ],
+          "exits": [
+            "Chemistry plus aligned life-paths",
+            "Selfishness or dishonesty detected"
+          ]
+        },
+        {
+          "name": "EVALUATING",
+          "trigger": "A new man shows genuine interest",
+          "behaviors": [
+            "Tests his confidence and sexual potential",
+            "Watches for selfishness",
+            "Checks whether he has direction in life"
+          ],
+          "internalProcess": [
+            "Weighs chemistry against her current situation",
+            "Asks herself if there is a reason to get serious"
+          ],
+          "exits": [
+            "Genuine interest and respect confirmed",
+            "Red flag found"
+          ]
+        },
+        {
+          "name": "INVESTED_FOCUS",
+          "trigger": "She likes him (iNvestor shift)",
+          "behaviors": [
+            "Focuses on him and develops the relationship",
+            "Wants to please and be pleased",
+            "Gives freedom while staying loyal"
+          ],
+          "internalProcess": [
+            "Shifts from casual to committed mindset",
+            "Deepens emotional investment"
+          ],
+          "exits": [
+            "Life-paths diverge too sharply",
+            "Feels used or disrespected"
+          ]
+        },
+        {
+          "name": "WITHDRAWN",
+          "trigger": "Selfishness, dishonesty, or feeling used",
+          "behaviors": [
+            "Cools off quickly",
+            "Stops investing",
+            "Moves on without drama"
+          ],
+          "internalProcess": [
+            "Trust broken",
+            "Self-respect outweighs attachment"
+          ],
+          "exits": [
+            "Sincere repair with changed behavior",
+            "A better option appears"
+          ]
+        }
+      ],
+      "communication": [
+        {
+          "channel": "Openers",
+          "optimization": "Direct, honest, confident — specific compliment with eye contact",
+          "details": "As a Justifier she is interested in your sexual potential and your confidence; convey both by being direct and honest. She likes knowing you chose her — to an iNvestor, your interest is exciting. A specific compliment works (gorgeous, cute, breathtaking — never 'hot', too generic and high-school). A comment, joke, or question works too — lock eyes as you say it. If she is in a bad mood or simply not interested, cut your losses and stay positive.",
+          "examples": [
+            "I saw you from across the room and had to say hi — you're gorgeous.",
+            "You have this confident energy. I like that. What are you celebrating tonight?",
+            "Be honest with me — what's the most fun thing you've done this month?",
+            "You look like trouble in the best way. I'm [name].",
+            "I don't do generic lines, so: that smile got my attention. What's your story?"
+          ],
+          "avoid": "Generic 'hot' compliments, timid indirect hovering, taking rejection personally"
+        },
+        {
+          "channel": "Momentum",
+          "optimization": "Curious, flirty, real — ask how she thinks",
+          "details": "The iNvestor-Justifier combination makes her fun to talk to. She likes talking about sex and responds well to flirting, and she can hold her own with deeper conversation. Engage her by asking how she thinks about things — if she says she's a nurse, ask why she chose that field. If she's out with friends, ask what they're celebrating and how they all met. Keep interesting questions ready: something fun she did recently, what she's looking forward to, music (a big part of her life — workout playlists, relaxing favorites).",
+          "examples": [
+            "You're a nurse? What made you choose that — I bet there's a story.",
+            "What are you and your friends celebrating tonight?",
+            "What's the most fun thing you've done recently?",
+            "What do you listen to when you work out versus when you're relaxing?",
+            "I like how direct you are. Most people aren't — what made you that way?"
+          ],
+          "avoid": "Bragging without curiosity, hiding from sexual topics, boring small talk"
+        },
+        {
+          "channel": "Connection",
+          "optimization": "Mutual realness — curious about her, open about you",
+          "details": "Connection happens naturally as long as you are curious about her and balance it by showing who you are. Chemistry occurs when two people are being real — most guys are not real with attractive women, so you score huge points by contrast. Tell stories from your life, your goals, what you like in women and people in general, and don't hide from sexual topics.",
+          "examples": [
+            "I'll be honest — I came over because you're stunning, but I stayed because you're interesting.",
+            "Here's something real about me: [your goal]. What are you working toward?",
+            "I like women who know what they want. You seem like that.",
+            "Tell me something most people get wrong about you.",
+            "I'm having more fun than I expected tonight. That's your fault."
+          ],
+          "avoid": "Dishonesty or manipulation, performing instead of being real, hiding your intentions"
+        },
+        {
+          "channel": "Deep Talk",
+          "optimization": "She can go deep — meet her there honestly",
+          "details": "She can hold her own with deeper conversation, so don't shy away from substance — ask how she thinks about things that matter: her work, her goals, what she wants from dating. Be honest about who you are and what you want; dishonesty kills attraction, insults her intelligence, and looks weak. She'll be cool with any relationship terms as long as she's respected and gets her fun too.",
+          "examples": [
+            "What do you actually want out of dating right now? I'll tell you mine.",
+            "You seem like you've got your life together — what drives you?",
+            "I'm looking for something real but unforced. What about you?",
+            "What's something you're proud of that most people don't know?",
+            "I respect that you know what you want. A lot of people don't."
+          ],
+          "avoid": "Games, hidden agendas, pretending to want what you don't"
+        },
+        {
+          "channel": "Sexual Talk",
+          "optimization": "Open and playful — she's already comfortable; consent leads",
+          "details": "She likes talking about sex and responds well to flirting, so don't hide from sexual topics — keep it confident and fun, never crude or pressuring. Physically: be a giver, stay curious about her responses, and let her guide you; she likes feeling she can let go while feeling safe and cherished. Enthusiasm and mutual comfort are the only green lights. The moment she cools, deflects, or withdraws — stop immediately and cheerfully, no retry in the same interaction.",
+          "examples": [
+            "I like a woman who's comfortable with herself. It's attractive.",
+            "You're fun to flirt with — you give as good as you get.",
+            "I want to make sure you're enjoying this as much as I am.",
+            "Tell me what you like — I want to get it right.",
+            "You're gorgeous when you let go like that."
+          ],
+          "avoid": "Crudeness, pressure, ignoring a cool-down, treating her as only physical"
+        },
+        {
+          "channel": "Future Talk",
+          "optimization": "Honest and grounded — she's a realist",
+          "details": "Unlike fantasy-driven types, she's a realist: frame the future honestly. She hopes for a long-term relationship someday and may think about it more as she nears or passes 30. Be upfront about what you want — she'll accept any honest terms. Talk about where you're going in life; she wants a man with direction, not vague promises.",
+          "examples": [
+            "I'm going somewhere in life — where are you headed?",
+            "I could see this turning into something real. No rush, though.",
+            "What does your ideal relationship look like down the line?",
+            "I like where this is going. Let's see where it takes us.",
+            "Honestly: I'm not looking to lock anything down tomorrow, but I'm not playing games either."
+          ],
+          "avoid": "Love-bombing, vague non-answers about intentions, promising what you won't deliver"
+        },
+        {
+          "channel": "Conflict Style",
+          "optimization": "She walks from disrespect — don't give her a reason to",
+          "details": "Her conflict move is quiet withdrawal: selfishness, dishonesty, or feeling used makes her cool off and move on — no drama, just done. She won't babysit a grown-up. Prevention beats repair: be honest, be giving, value her as a person. If you mess up, own it directly without groveling; neediness repels her. If she's simply not interested, cut your losses gracefully.",
+          "examples": [
+            "You're right, that was selfish of me. It won't happen again.",
+            "I hear you. What do you need from me?",
+            "I'd rather you tell me straight than go quiet — I can handle it.",
+            "No hard feelings at all. Take care of yourself.",
+            "I value you — not just this, you. I mean that."
+          ],
+          "avoid": "Neediness, guilt-tripping, dishonest excuses, chasing after she's decided"
+        }
+      ],
+      "escalationLadder": [
+        {
+          "level": 0,
+          "name": "APPROACH",
+          "behaviors": "Direct honest opener, specific compliment (gorgeous/cute/breathtaking, never 'hot'), eye contact",
+          "timing": "Initial meeting",
+          "resistance": "Bad mood or not interested — cut losses gracefully"
+        },
+        {
+          "level": 1,
+          "name": "CONVERSATION",
+          "behaviors": "Curious, flirty, real talk; ask how she thinks; music and fun questions",
+          "timing": "First 10-30 minutes",
+          "resistance": "Boredom — inject novelty, not depth"
+        },
+        {
+          "level": 2,
+          "name": "TOUCH",
+          "behaviors": "Touch as a reward for her personality — arm or back when she's funny/impressive; soft appreciative energy; let her touch you too",
+          "timing": "When she's laughing and impressed",
+          "resistance": "Stiffening — lighten up immediately, never grabby"
+        },
+        {
+          "level": 3,
+          "name": "INTIMACY",
+          "behaviors": "Be a giver; stay curious about her responses; let her guide you; she likes letting go while feeling safe",
+          "timing": "Mutual comfort clearly established",
+          "resistance": "Hesitation — slow down, check in, zero pressure; any no stops everything"
+        },
+        {
+          "level": 4,
+          "name": "AFTERCARE",
+          "behaviors": "Value her as a person, not just physically; tell her you appreciate her",
+          "timing": "After intimacy",
+          "resistance": "Feeling used — reassure with genuine appreciation, not flattery"
+        },
+        {
+          "level": 5,
+          "name": "RELATIONSHIP",
+          "behaviors": "Casual friendship deepens if chemistry holds and life-paths align; stay honest about terms",
+          "timing": "Days to weeks",
+          "resistance": "Diverging paths — accept honestly, don't force"
+        }
+      ],
+      "triggers": [
+        {
+          "trigger": "Selfishness",
+          "response": "Immediate cool-off and withdrawal",
+          "intensity": 0.9,
+          "recovery": "Rarely",
+          "resolution": "Genuine sustained behavior change only"
+        },
+        {
+          "trigger": "Dishonesty",
+          "response": "Attraction killed, trust broken",
+          "intensity": 0.95,
+          "recovery": "Almost never fully",
+          "resolution": "Radical honesty going forward"
+        },
+        {
+          "trigger": "Neediness",
+          "response": "Turn-off, loss of respect",
+          "intensity": 0.8,
+          "recovery": "Quickly if corrected",
+          "resolution": "Regain independence and direction"
+        },
+        {
+          "trigger": "Being genuinely valued as a person",
+          "response": "Loyalty, warmth, gives you freedom",
+          "intensity": 0.85,
+          "recovery": "N/A",
+          "resolution": "Continued appreciation"
+        },
+        {
+          "trigger": "Attentive, giving first intimate experience",
+          "response": "Wants to repeat, invests more",
+          "intensity": 0.8,
+          "recovery": "N/A",
+          "resolution": "Consistency"
+        },
+        {
+          "trigger": "Feeling used",
+          "response": "Shuts down, moves on",
+          "intensity": 0.9,
+          "recovery": "Rarely",
+          "resolution": "Proof of genuine care over time"
+        },
+        {
+          "trigger": "Direct honest interest",
+          "response": "Excitement — the iNvestor responds to being chosen",
+          "intensity": 0.7,
+          "recovery": "N/A",
+          "resolution": "Follow through with realness"
+        },
+        {
+          "trigger": "Man with no direction",
+          "response": "Dismissal",
+          "intensity": 0.75,
+          "recovery": "Only if he finds direction",
+          "resolution": "Show ambition and momentum"
+        }
+      ],
+      "emotionalSequence": [
+        {
+          "order": 1,
+          "emotion": "Curiosity",
+          "condition": "Direct confident approach, specific compliment",
+          "threshold": 0.6,
+          "manifestation": "Engaged conversation, held eye contact"
+        },
+        {
+          "order": 2,
+          "emotion": "Comfort",
+          "condition": "Realness, humor, mutual flirting",
+          "threshold": 0.7,
+          "manifestation": "Relaxed body language, touch welcome"
+        },
+        {
+          "order": 3,
+          "emotion": "Chemistry",
+          "condition": "Sexual tension plus attentiveness",
+          "threshold": 0.75,
+          "manifestation": "Escalation accepted with enthusiasm"
+        },
+        {
+          "order": 4,
+          "emotion": "Investment",
+          "condition": "Chemistry plus aligned life-paths",
+          "threshold": 0.8,
+          "manifestation": "Focuses on him, casual friendship deepens toward relationship"
+        }
+      ],
+      "resistance": [
+        {
+          "type": "Disinterest",
+          "trigger": "She's in a bad mood or simply not feeling it",
+          "manifestation": "Short answers, no eye contact, closed body language",
+          "strategy": "Cut losses gracefully and stay positive — any no, hesitation, or disinterest means stop immediately, no retry",
+          "timeToResolve": "N/A — move on"
+        },
+        {
+          "type": "Selfishness Detected",
+          "trigger": "You take without giving",
+          "manifestation": "Cools off, withdraws warmth",
+          "strategy": "Stop immediately, own it honestly, change behavior — excuses make it worse",
+          "timeToResolve": "Days, if ever"
+        },
+        {
+          "type": "Feeling Used",
+          "trigger": "She senses she's wanted only physically",
+          "manifestation": "Walls up, emotional distance",
+          "strategy": "Show genuine appreciation of her as a person; pressure or pursuit deepens the wall",
+          "timeToResolve": "1-2 weeks of consistent respect, if at all"
+        },
+        {
+          "type": "Dishonesty Caught",
+          "trigger": "A lie or manipulation is discovered",
+          "manifestation": "Trust broken, attraction killed",
+          "strategy": "Radical honesty from here on; groveling and neediness backfire",
+          "timeToResolve": "Rarely fully resolves"
+        }
+      ],
+      "maintenance": [
+        {
+          "requirement": "Value her as a person, not just physically",
+          "frequency": "Ongoing",
+          "indicator": "She stays warm and loyal",
+          "failureMode": "Feels used — withdraws"
+        },
+        {
+          "requirement": "Honesty about who you are and what you want",
+          "frequency": "Always",
+          "indicator": "Trust deepens over time",
+          "failureMode": "Dishonesty kills attraction permanently"
+        },
+        {
+          "requirement": "Have direction in life",
+          "frequency": "Ongoing",
+          "indicator": "She respects your path",
+          "failureMode": "Aimlessness leads to dismissal"
+        },
+        {
+          "requirement": "Be giving — attention, pleasure, energy",
+          "frequency": "Daily",
+          "indicator": "She reciprocates generously",
+          "failureMode": "Selfishness causes cool-off"
+        },
+        {
+          "requirement": "Give her freedom; never be needy",
+          "frequency": "Ongoing",
+          "indicator": "She stays by choice, not obligation",
+          "failureMode": "Clinginess repels her"
+        }
+      ],
+      "expandedContent": {
+        "simpleSummary": "The Modern Woman is the cool, independent woman in her mid-to-late twenties who's lived a little: she enjoys men and isn't shy about casual fun, but she's rational about dating and won't get serious without a real reason. She wants a man with goals and a sex drive who treats her with respect — be honest, be giving, don't be needy, and she'll meet you halfway on anything.",
+        "examples": [
+          {
+            "title": "The Direct Approach",
+            "scenario": "You walk up to her at a charity mixer, lock eyes, tell her she's gorgeous, and ask what brought her there.",
+            "whatItShows": "Direct honest interest excites the iNvestor; a specific compliment beats a generic one every time."
+          },
+          {
+            "title": "The Nurse Question",
+            "scenario": "She mentions she's a nurse. Instead of small talk, you ask why she chose that field — and actually listen to the answer.",
+            "whatItShows": "Curiosity about how she thinks engages her far more than bragging about yourself."
+          },
+          {
+            "title": "Cutting Losses",
+            "scenario": "She's in a bad mood and gives one-word answers. You smile, wish her a good night, and move on without a second thought.",
+            "whatItShows": "No means no — graceful exits keep you confident, and confidence is what she wanted to see."
+          }
+        ],
+        "strengths": [
+          "Emotionally healthy, rational approach to dating",
+          "Sexually confident and open",
+          "Honest about what she wants",
+          "Independent with her own life and goals",
+          "Loyal and giving when she feels valued",
+          "Low drama — walks away instead of playing games"
+        ],
+        "challenges": [
+          "Won't commit without genuine chemistry and aligned paths",
+          "Zero tolerance for selfishness or dishonesty",
+          "May already have a boyfriend or a regular friend",
+          "Needs to feel cherished despite her independence",
+          "Can seem 'too good to be true' — verify she's real"
+        ],
+        "recognitionGuide": "Look for the woman in her mid-to-late twenties who's out with friends, dressed well, laughing easily, and clearly comfortable around men. She's the one who holds eye contact, answers directly, flirts back without games, and asks you real questions too. She won't chase and won't play hard to get — she'll simply decide whether you're worth her time.",
+        "identityExplained": "NJR breaks down as iNvestor (she invests deeply once she likes a guy, focusing on him and developing the relationship), Justifier (she's already comfortable with her sexuality and justifies it to herself — no shame, no games), Realist (she sees dating clearly: fun is fun, commitment needs a reason, honesty beats fantasy). Together they form a grounded, sexual, honest woman who wants a good man — not a perfect one."
       }
     }
   ],
